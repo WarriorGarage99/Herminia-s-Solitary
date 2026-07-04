@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
         body {
             background: #0a0c10;
@@ -25,7 +24,7 @@
             margin: 0;
         }
         #app {
-            max-width: 700px;
+            max-width: 720px;
             width: 100%;
             background: radial-gradient(ellipse at 20% 30%, #1a1f2e, #0b0e16);
             border-radius: 28px;
@@ -34,33 +33,24 @@
             border: 1px solid rgba(212, 163, 66, 0.2);
             position: relative;
         }
-        /* Fondo con cruz tenue */
-        #app::before {
-            content: '✟';
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 80px;
-            color: rgba(212, 163, 66, 0.04);
-            pointer-events: none;
-            font-weight: 100;
-        }
 
         /* ===== CABECERA ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             padding: 0 4px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         .logo {
             font-size: 17px;
             font-weight: 700;
             color: #e8ecf4;
             display: flex;
-            align-items: baseline;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .logo .cross { color: #f7d875; font-size: 22px; }
@@ -76,7 +66,7 @@
             font-weight: 600;
             color: #f7d875;
             background: rgba(247,216,117,0.1);
-            padding: 0 10px;
+            padding: 0 12px;
             border-radius: 30px;
             border: 1px solid rgba(247,216,117,0.2);
         }
@@ -94,39 +84,43 @@
             color: #b0b8c8;
             font-size: 11px;
             font-weight: 600;
+            flex-wrap: wrap;
+            gap: 4px;
         }
         .info-panel .moves { color: #f7d875; }
         .info-panel .score span { color: #6fcf97; }
         .info-panel .time { color: #b0b8c8; }
 
-        /* ===== MESA DE SOLITARIO ===== */
+        /* ===== MESA ===== */
         .table {
             background: radial-gradient(ellipse at center, #1d6b3c, #0e321e);
             border-radius: 40px 40px 30px 30px;
-            padding: 10px 6px 8px;
+            padding: 12px 8px 10px;
             border: 4px solid #3d2e1a;
             box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 8px 0 #1e2a1c;
-            min-height: 420px;
+            min-height: 400px;
             position: relative;
         }
 
-        /* ===== FUNDACIONES Y BARAJA ===== */
+        /* ===== FILA SUPERIOR: FUNDACIONES + BARAJA ===== */
         .top-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 0 4px;
+            align-items: stretch;
+            margin-bottom: 12px;
+            gap: 8px;
         }
         .foundations {
             display: flex;
             gap: 6px;
+            flex: 1;
         }
         .foundation-slot {
-            width: 56px;
-            height: 76px;
+            flex: 1;
+            min-width: 44px;
+            aspect-ratio: 3/4;
             background: rgba(0,0,0,0.2);
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px dashed rgba(255,215,0,0.15);
             display: flex;
             align-items: center;
@@ -136,15 +130,9 @@
             font-weight: 600;
             text-align: center;
             line-height: 1.2;
-            transition: all 0.2s;
             position: relative;
-        }
-        .foundation-slot .card {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            transition: border-color 0.2s;
+            flex-shrink: 0;
         }
         .foundation-slot .label {
             font-size: 8px;
@@ -152,18 +140,36 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             pointer-events: none;
+            position: absolute;
+            bottom: 4px;
+            width: 100%;
+            text-align: center;
+        }
+        .foundation-slot .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        .foundation-slot .empty-icon {
+            font-size: 24px;
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         .stock-pile {
             display: flex;
             gap: 6px;
-            align-items: center;
+            align-items: stretch;
+            flex-shrink: 0;
         }
         .stock-btn {
-            width: 56px;
-            height: 76px;
+            min-width: 44px;
+            aspect-ratio: 3/4;
             background: #1a2535;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid #3d5068;
             display: flex;
             align-items: center;
@@ -172,11 +178,10 @@
             color: #f7d875;
             cursor: pointer;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
-            transition: all 0.1s;
+            transition: all 0.15s;
+            font-weight: 700;
         }
-        .stock-btn:active {
-            transform: scale(0.95);
-        }
+        .stock-btn:active { transform: scale(0.95); }
         .stock-btn:disabled {
             opacity: 0.3;
             pointer-events: none;
@@ -186,22 +191,24 @@
             color: #b0b8c8;
             font-weight: 600;
             min-width: 24px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* ===== COLUMNAS ===== */
         .columns {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             justify-content: center;
             margin-top: 6px;
         }
         .column {
             flex: 1;
-            min-width: 44px;
+            min-width: 36px;
             min-height: 120px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 6px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 8px;
             border: 1px dashed rgba(255,255,255,0.04);
             padding: 2px;
             display: flex;
@@ -211,14 +218,15 @@
         }
         .column .card {
             position: relative;
-            margin-top: -28px;
             width: 100%;
+            margin-top: -24px;
+            border-radius: 6px;
         }
         .column .card:first-child {
             margin-top: 0;
         }
         .column .card.face-down {
-            margin-top: -20px;
+            margin-top: -18px;
         }
         .column .card:first-child.face-down {
             margin-top: 0;
@@ -228,34 +236,37 @@
         .card {
             width: 100%;
             aspect-ratio: 3/4;
-            max-width: 68px;
+            max-width: 72px;
             background: #f5f7fc;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid #b0b8c8;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            padding: 4px 2px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             transition: all 0.15s ease;
             cursor: pointer;
             font-size: 10px;
             font-weight: 700;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.1;
             color: #1a1a1a;
             position: relative;
-            min-height: 60px;
+            min-height: 56px;
+            user-select: none;
         }
         .card .saint-icon {
-            font-size: 22px;
+            font-size: 28px;
+            line-height: 1;
             margin-bottom: 2px;
         }
         .card .saint-name {
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.2px;
+            max-width: 90%;
         }
         .card .saint-title {
             font-size: 7px;
@@ -266,6 +277,7 @@
             font-size: 8px;
             font-weight: 600;
             color: #b0b8c8;
+            margin-top: 1px;
         }
         .card.red-suit .saint-name { color: #c33; }
         .card.black-suit .saint-name { color: #111; }
@@ -274,6 +286,7 @@
             border-color: #0f1f33;
             color: transparent;
             cursor: default;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
@@ -283,51 +296,58 @@
         }
         .card.face-down::after {
             content: '✟';
-            font-size: 24px;
-            color: rgba(255,255,255,0.1);
+            font-size: 28px;
+            color: rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100%;
         }
-        .card.dragging {
-            opacity: 0.5;
-            transform: scale(0.95);
+        .card.selected {
+            border-color: #f7d875;
+            box-shadow: 0 0 20px rgba(247,216,117,0.5);
+            transform: scale(1.02);
+            z-index: 10;
         }
         .card.valid-drop {
             border-color: #6fcf97;
-            box-shadow: 0 0 15px rgba(111,207,151,0.3);
+            box-shadow: 0 0 20px rgba(111,207,151,0.3);
         }
         .card.invalid-drop {
             border-color: #eb5757;
-            box-shadow: 0 0 15px rgba(235,87,87,0.3);
+            box-shadow: 0 0 20px rgba(235,87,87,0.3);
+        }
+        .card.dragging {
+            opacity: 0.4;
+            transform: scale(0.95);
         }
 
         /* ===== CARTAS DE LA BARAJA (stock) ===== */
         .stock-card {
-            width: 56px;
-            height: 76px;
+            min-width: 44px;
+            aspect-ratio: 3/4;
             background: #f5f7fc;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid #b0b8c8;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            padding: 4px 2px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             font-size: 10px;
             font-weight: 700;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.1;
             color: #1a1a1a;
             cursor: pointer;
             transition: all 0.15s;
             flex-shrink: 0;
         }
-        .stock-card .saint-icon { font-size: 22px; margin-bottom: 2px; }
+        .stock-card .saint-icon { font-size: 24px; margin-bottom: 2px; }
         .stock-card .saint-name { font-size: 9px; font-weight: 700; }
         .stock-card .saint-title { font-size: 7px; font-weight: 400; color: #6a7280; }
+        .stock-card .saint-suit { font-size: 7px; color: #b0b8c8; }
         .stock-card.red-suit .saint-name { color: #c33; }
         .stock-card.black-suit .saint-name { color: #111; }
         .stock-card:active { transform: scale(0.95); }
@@ -335,15 +355,15 @@
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
             text-align: center;
-            margin-top: 8px;
-            font-size: 12px;
+            margin-top: 10px;
+            font-size: 13px;
             font-weight: 600;
             color: #e8ecf4;
             background: rgba(0,0,0,0.4);
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 30px;
             border: 1px solid rgba(255,215,0,0.05);
-            min-height: 24px;
+            min-height: 28px;
             letter-spacing: 0.2px;
         }
 
@@ -352,6 +372,7 @@
             display: flex;
             gap: 8px;
             margin: 10px 0 6px;
+            flex-wrap: wrap;
         }
         .controls button {
             flex: 1;
@@ -369,6 +390,7 @@
             transition: all 0.08s;
             cursor: pointer;
             touch-action: manipulation;
+            min-width: 60px;
         }
         .controls button:active {
             transform: translateY(3px);
@@ -394,15 +416,14 @@
             transform: translateY(2px);
             box-shadow: 0 1px 0 #1e2129;
             pointer-events: none;
-            filter: grayscale(0.5);
         }
 
         /* ===== HISTORIAL ===== */
         .history {
             background: #121720;
             border-radius: 16px;
-            padding: 4px 10px;
-            max-height: 36px;
+            padding: 4px 12px;
+            max-height: 40px;
             overflow-y: auto;
             border: 1px solid #2f3648;
             font-size: 10px;
@@ -410,7 +431,7 @@
             margin-top: 6px;
         }
         .history p {
-            padding: 1px 0;
+            padding: 2px 0;
             border-bottom: 1px solid #222837;
             margin: 0;
             line-height: 1.3;
@@ -443,8 +464,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
-            border-radius: 24px;
+            background: rgba(0,0,0,0.88);
+            border-radius: 28px;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -453,13 +474,8 @@
             padding: 30px 20px;
             text-align: center;
         }
-        .win-overlay.active {
-            display: flex;
-        }
-        .win-overlay .icon {
-            font-size: 72px;
-            margin-bottom: 10px;
-        }
+        .win-overlay.active { display: flex; }
+        .win-overlay .icon { font-size: 72px; margin-bottom: 10px; }
         .win-overlay h2 {
             font-size: 28px;
             color: #f7d875;
@@ -477,7 +493,7 @@
             font-weight: 700;
         }
         .win-overlay .blessing {
-            font-size: 20px;
+            font-size: 22px;
             color: #6fcf97;
             margin-top: 12px;
             font-style: italic;
@@ -496,38 +512,37 @@
             font-family: inherit;
             transition: 0.2s;
         }
-        .win-overlay .btn-restart:active {
-            transform: scale(0.95);
-        }
+        .win-overlay .btn-restart:active { transform: scale(0.95); }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 550px) {
-            .foundation-slot { width: 42px; height: 58px; }
-            .stock-btn { width: 42px; height: 58px; font-size: 18px; }
-            .stock-card { width: 42px; height: 58px; }
-            .card .saint-icon { font-size: 18px; }
+        @media (max-width: 600px) {
+            .card .saint-icon { font-size: 22px; }
             .card .saint-name { font-size: 8px; }
             .card .saint-title { font-size: 6px; }
-            .card { font-size: 8px; min-height: 48px; }
-            .column { min-width: 34px; min-height: 80px; }
+            .card { min-height: 44px; }
+            .foundation-slot { min-width: 34px; }
+            .stock-btn { min-width: 34px; font-size: 18px; }
+            .stock-card { min-width: 34px; }
+            .column { min-width: 28px; min-height: 80px; }
+            .column .card { margin-top: -18px; }
+            .column .card.face-down { margin-top: -14px; }
+            .top-row { gap: 4px; }
+            .foundations { gap: 4px; }
             .logo { font-size: 14px; }
-            .logo .for-herminia { font-size: 11px; padding: 0 6px; }
+            .logo .for-herminia { font-size: 11px; padding: 0 8px; }
             .controls button { font-size: 10px; padding: 8px 0; }
-            .win-overlay h2 { font-size: 22px; }
-            .win-overlay .message { font-size: 15px; }
         }
         @media (max-width: 420px) {
-            .foundation-slot { width: 34px; height: 46px; }
-            .stock-btn { width: 34px; height: 46px; font-size: 14px; }
-            .stock-card { width: 34px; height: 46px; }
-            .card .saint-icon { font-size: 14px; }
+            .card .saint-icon { font-size: 18px; }
             .card .saint-name { font-size: 7px; }
-            .card .saint-title { font-size: 5px; }
-            .card { min-height: 38px; }
-            .column { min-width: 28px; min-height: 60px; }
-            .column .card { margin-top: -20px; }
-            .column .card.face-down { margin-top: -14px; }
-            .hand-message { font-size: 10px; }
+            .card { min-height: 36px; }
+            .foundation-slot { min-width: 28px; }
+            .stock-btn { min-width: 28px; font-size: 14px; }
+            .stock-card { min-width: 28px; }
+            .column { min-width: 22px; min-height: 60px; }
+            .column .card { margin-top: -14px; }
+            .column .card.face-down { margin-top: -10px; }
+            .hand-message { font-size: 11px; }
         }
     </style>
 </head>
@@ -553,7 +568,7 @@
 
     <!-- Mesa -->
     <div class="table" id="tableArea">
-        <!-- Fila superior: fundaciones + baraja -->
+        <!-- Fila superior -->
         <div class="top-row">
             <div class="foundations" id="foundations">
                 <div class="foundation-slot" data-suit="0"><span class="label">Apóstoles</span></div>
@@ -578,7 +593,7 @@
             <div class="column" data-col="6"></div>
         </div>
 
-        <div class="hand-message" id="handMessage">Haz clic en las cartas para moverlas. ¡Que Dios te guíe!</div>
+        <div class="hand-message" id="handMessage">Haz clic en una carta boca arriba para seleccionarla, luego en el destino.</div>
 
         <!-- Overlay de victoria -->
         <div class="win-overlay" id="winOverlay">
@@ -621,7 +636,7 @@
         ];
 
         const SAINTS = [
-            // Apóstoles
+            // Apóstoles (rank 1-13)
             { rank: 1, name: 'San Pedro', title: 'Apóstol', icon: '🔑' },
             { rank: 2, name: 'San Andrés', title: 'Apóstol', icon: '✝' },
             { rank: 3, name: 'Santiago el Mayor', title: 'Apóstol', icon: '🐚' },
@@ -692,10 +707,8 @@
             timerInterval: null,
             isRunning: false,
             cardsPlaced: 0,
-            history: [],
-            selected: null, // { card, from, index, fromCol? }
+            selected: null,   // { card, col, idx, isFoundation, suitId }
             undoStack: [],
-            isAnimating: false,
             gameOver: false,
         };
 
@@ -774,64 +787,7 @@
         }
 
         // ============================================================
-        // INICIALIZAR JUEGO
-        // ============================================================
-        function initGame() {
-            // Detener timer
-            if (game.timerInterval) {
-                clearInterval(game.timerInterval);
-                game.timerInterval = null;
-            }
-            game.isRunning = false;
-            game.timer = 0;
-            game.moves = 0;
-            game.cardsPlaced = 0;
-            game.undoStack = [];
-            game.selected = null;
-            game.gameOver = false;
-            game.isAnimating = false;
-            winOverlay.classList.remove('active');
-
-            // Crear baraja
-            const deck = createDeck();
-
-            // Repartir columnas
-            game.columns = [[], [], [], [], [], [], []];
-            let idx = 0;
-            for (let col = 0; col < 7; col++) {
-                for (let row = 0; row <= col; row++) {
-                    const card = deck[idx++];
-                    card.faceUp = (row === col);
-                    game.columns[col].push(card);
-                }
-            }
-
-            // Resto a la baraja (stock)
-            game.stock = deck.slice(idx);
-            game.waste = [];
-
-            // Fundaciones vacías
-            game.foundations = [[], [], [], []];
-
-            // Resetear UI
-            game.moves = 0;
-            game.cardsPlaced = 0;
-            updateUI();
-            updateTimer();
-            handMessage.textContent = 'Haz clic en las cartas para moverlas. ¡Que Dios te guíe!';
-            addHistory('✟ Nueva partida. ¡Ánimo, Herminia!');
-            // Guardar estado inicial para deshacer
-            saveState();
-            // Iniciar timer
-            game.isRunning = true;
-            game.timerInterval = setInterval(() => {
-                game.timer++;
-                updateTimer();
-            }, 1000);
-        }
-
-        // ============================================================
-        // GUARDAR ESTADO (para deshacer)
+        // GUARDAR / RESTAURAR ESTADO (para deshacer)
         // ============================================================
         function saveState() {
             const state = {
@@ -843,36 +799,76 @@
                 cardsPlaced: game.cardsPlaced,
             };
             game.undoStack.push(state);
-            if (game.undoStack.length > 30) game.undoStack.shift();
+            if (game.undoStack.length > 40) game.undoStack.shift();
         }
 
-        function undo() {
-            if (game.undoStack.length <= 1) {
-                addHistory('No hay nada que deshacer.', true);
-                return;
-            }
-            if (game.gameOver) return;
-            const state = game.undoStack[game.undoStack.length - 2];
-            game.undoStack.pop();
+        function restoreState(state) {
             game.columns = state.columns.map(col => col.map(c => ({ ...c })));
             game.foundations = state.foundations.map(f => f.map(c => ({ ...c })));
             game.stock = state.stock.map(c => ({ ...c }));
             game.waste = state.waste.map(c => ({ ...c }));
             game.moves = state.moves;
             game.cardsPlaced = state.cardsPlaced;
-            game.selected = null;
-            updateUI();
-            addHistory('↩️ Deshecho');
-            soundClick();
         }
 
         // ============================================================
-        // ACTUALIZAR UI
+        // INICIALIZAR JUEGO
         // ============================================================
-        function updateUI() {
+        function initGame() {
+            if (game.timerInterval) {
+                clearInterval(game.timerInterval);
+                game.timerInterval = null;
+            }
+            game.isRunning = false;
+            game.timer = 0;
+            game.moves = 0;
+            game.cardsPlaced = 0;
+            game.undoStack = [];
+            game.selected = null;
+            game.gameOver = false;
+            winOverlay.classList.remove('active');
+
+            // Crear baraja
+            const deck = createDeck();
+            let idx = 0;
+            game.columns = [[], [], [], [], [], [], []];
+            for (let col = 0; col < 7; col++) {
+                for (let row = 0; row <= col; row++) {
+                    const card = deck[idx++];
+                    card.faceUp = (row === col);
+                    game.columns[col].push(card);
+                }
+            }
+            game.stock = deck.slice(idx);
+            game.waste = [];
+            game.foundations = [[], [], [], []];
+
+            // Guardar estado inicial
+            saveState();
+
+            // UI
+            renderAll();
+            updateInfo();
+            updateTimer();
+            handMessage.textContent = 'Haz clic en una carta boca arriba para seleccionarla, luego en el destino.';
+            addHistory('✟ Nueva partida. ¡Ánimo, Herminia!');
+
+            // Iniciar timer
+            game.isRunning = true;
+            game.timerInterval = setInterval(() => {
+                game.timer++;
+                updateTimer();
+            }, 1000);
+        }
+
+        // ============================================================
+        // RENDERIZADO COMPLETO
+        // ============================================================
+        function renderAll() {
             renderColumns();
             renderFoundations();
             renderStock();
+            renderWaste();
             updateInfo();
         }
 
@@ -896,7 +892,6 @@
 
         function renderFoundations() {
             foundationsEl.forEach((slot, suitId) => {
-                // Limpiar solo el contenido (mantener el label)
                 const label = slot.querySelector('.label');
                 slot.innerHTML = '';
                 if (label) slot.appendChild(label);
@@ -907,11 +902,12 @@
                     cardEl.style.position = 'absolute';
                     cardEl.style.top = '0';
                     cardEl.style.left = '0';
+                    cardEl.style.width = '100%';
+                    cardEl.style.height = '100%';
                     slot.appendChild(cardEl);
                 } else {
-                    // Mostrar el suit
                     const span = document.createElement('span');
-                    span.style.cssText = 'font-size:18px;color:rgba(255,255,255,0.05);pointer-events:none;';
+                    span.className = 'empty-icon';
                     span.textContent = SUITS[suitId].icon;
                     slot.appendChild(span);
                 }
@@ -920,6 +916,21 @@
 
         function renderStock() {
             stockCount.textContent = game.stock.length;
+            if (game.stock.length === 0 && game.waste.length === 0) {
+                stockBtn.textContent = '🔄';
+            } else {
+                stockBtn.textContent = '♠';
+            }
+        }
+
+        function renderWaste() {
+            // La baraja (waste) se muestra en el botón de stock, no en un slot separado
+            // Solo mostramos el contenido en el botón si hay carta visible
+            if (game.waste.length > 0) {
+                const last = game.waste[game.waste.length - 1];
+                // El botón ya muestra ♠ por defecto, pero podemos mostrar un tooltip
+                // No es necesario renderizar más.
+            }
         }
 
         function createCardElement(card, colIdx, cardIdx, isFoundation = false) {
@@ -936,137 +947,112 @@
                     <div class="saint-suit">${SUITS[card.suitId].icon} ${SUITS[card.suitId].name}</div>
                 `;
             }
-            // Datos para drag/click
             div.dataset.cardId = card.id;
             div.dataset.col = colIdx !== null ? colIdx : 'foundation';
             div.dataset.idx = cardIdx !== null ? cardIdx : -1;
+            div.dataset.suit = card.suitId;
 
-            // Eventos
             div.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (game.isAnimating || game.gameOver) return;
-                handleCardClick(card, colIdx, cardIdx, isFoundation);
+                if (game.gameOver) return;
+                // Si la carta está boca abajo, no hacer nada
+                if (!card.faceUp) {
+                    handMessage.textContent = 'Esta carta está boca abajo. No se puede mover.';
+                    return;
+                }
+                // Si la carta está en una fundación, solo la última se puede mover
+                if (isFoundation) {
+                    const f = game.foundations[card.suitId];
+                    if (f.length > 0 && f[f.length - 1].id === card.id) {
+                        handleCardClick(card, 'foundation', card.suitId, true);
+                    } else {
+                        handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
+                    }
+                    return;
+                }
+                // Si está en una columna, manejar
+                if (colIdx !== null && colIdx !== 'foundation') {
+                    handleCardClick(card, colIdx, cardIdx, false);
+                }
             });
 
             return div;
         }
 
-        function updateInfo() {
-            movesEl.textContent = game.moves;
-            cardsPlacedEl.textContent = game.cardsPlaced;
-        }
-
-        function updateTimer() {
-            const mins = String(Math.floor(game.timer / 60)).padStart(2, '0');
-            const secs = String(game.timer % 60).padStart(2, '0');
-            timerEl.textContent = `${mins}:${secs}`;
-        }
-
-        function addHistory(text, isError = false) {
-            const p = document.createElement('p');
-            p.innerHTML = text;
-            if (isError) p.style.color = '#eb5757';
-            historyLog.appendChild(p);
-            historyLog.scrollTop = historyLog.scrollHeight;
-            while (historyLog.children.length > 30) historyLog.removeChild(historyLog.firstChild);
-        }
-
         // ============================================================
-        // LÓGICA DE CLICK / SELECCIÓN
+        // LÓGICA DE SELECCIÓN Y MOVIMIENTO
         // ============================================================
-        function handleCardClick(card, colIdx, cardIdx, isFoundation) {
-            if (game.gameOver) return;
-
-            // Si es una carta boca abajo, no se puede seleccionar
-            if (!card.faceUp) return;
-
-            // Si no hay selección, seleccionar
-            if (!game.selected) {
-                // Solo se puede seleccionar si es la última carta de la columna (o una cadena)
-                if (colIdx !== null && colIdx !== 'foundation') {
-                    // Verificar que sea la última carta o parte de una cadena
-                    const col = game.columns[colIdx];
-                    const isLast = (cardIdx === col.length - 1);
-                    // También puede seleccionar si es parte de una cadena de cartas boca arriba
-                    let isPartOfChain = false;
-                    if (!isLast) {
-                        // Verificar que todas las cartas desde idx hasta el final estén boca arriba
-                        let allUp = true;
-                        for (let i = cardIdx; i < col.length; i++) {
-                            if (!col[i].faceUp) { allUp = false; break; }
-                        }
-                        if (allUp) isPartOfChain = true;
-                    }
-                    if (isLast || isPartOfChain) {
-                        game.selected = { card, col: colIdx, idx: cardIdx, isFoundation: false };
-                        highlightCard(colIdx, cardIdx, true);
-                        soundClick();
-                        handMessage.textContent = `Seleccionaste ${card.saint.name}. ¿A dónde lo mueves?`;
-                    } else {
-                        handMessage.textContent = 'Solo puedes mover la última carta o una cadena descubierta.';
-                    }
-                } else if (isFoundation) {
-                    // Desde fundación (seleccionar última carta)
-                    const suitId = parseInt(colIdx);
-                    const f = game.foundations[suitId];
-                    if (f.length > 0 && f[f.length - 1].id === card.id) {
-                        game.selected = { card, col: 'foundation', idx: suitId, isFoundation: true };
-                        highlightFoundation(suitId, true);
-                        soundClick();
-                        handMessage.textContent = `Moverás ${card.saint.name} desde la fundación.`;
-                    }
-                }
-                return;
-            }
-
-            // Si ya hay selección, intentar mover
-            const from = game.selected;
-
-            // Si se hace clic en la misma carta, deseleccionar
-            if (from.card.id === card.id && from.col === colIdx) {
-                clearSelection();
-                return;
-            }
-
-            // Intentar mover
-            const success = tryMove(from, card, colIdx, cardIdx, isFoundation);
-            if (success) {
-                clearSelection();
-            } else {
-                // Si no se puede mover, cambiar selección a la nueva carta
-                if (colIdx !== null && colIdx !== 'foundation') {
-                    const col = game.columns[colIdx];
-                    const isLast = (cardIdx === col.length - 1);
-                    let isPartOfChain = false;
-                    if (!isLast) {
-                        let allUp = true;
-                        for (let i = cardIdx; i < col.length; i++) {
-                            if (!col[i].faceUp) { allUp = false; break; }
-                        }
-                        if (allUp) isPartOfChain = true;
-                    }
-                    if (isLast || isPartOfChain) {
-                        clearSelection();
-                        game.selected = { card, col: colIdx, idx: cardIdx, isFoundation: false };
-                        highlightCard(colIdx, cardIdx, true);
-                        soundClick();
-                        handMessage.textContent = `Seleccionaste ${card.saint.name}.`;
-                    } else {
-                        handMessage.textContent = 'No puedes mover esa carta.';
-                    }
-                } else {
+        function handleCardClick(card, col, idx, isFoundation) {
+            // Si ya hay una selección, intentar mover
+            if (game.selected) {
+                // Si se hace clic en la misma carta, deseleccionar
+                if (game.selected.card.id === card.id && game.selected.col === col && game.selected.idx === idx) {
                     clearSelection();
+                    return;
+                }
+                // Intentar mover la carta seleccionada al destino actual
+                const moved = tryMove(game.selected, card, col, idx, isFoundation);
+                if (moved) {
+                    clearSelection();
+                    return;
+                } else {
+                    // Si no se puede mover, cambiar selección a la nueva carta
+                    selectCard(card, col, idx, isFoundation);
+                    return;
                 }
             }
+
+            // Si no hay selección, seleccionar la carta
+            selectCard(card, col, idx, isFoundation);
+        }
+
+        function selectCard(card, col, idx, isFoundation) {
+            // Solo se puede seleccionar si es la última carta o parte de una cadena válida
+            if (!isFoundation && col !== 'foundation') {
+                const colCards = game.columns[col];
+                // Verificar si es la última carta o si es parte de una cadena
+                const isLast = (idx === colCards.length - 1);
+                let isChain = false;
+                if (!isLast) {
+                    // Verificar que todas las cartas desde idx hasta el final estén boca arriba
+                    let allUp = true;
+                    for (let i = idx; i < colCards.length; i++) {
+                        if (!colCards[i].faceUp) { allUp = false; break; }
+                    }
+                    if (allUp) isChain = true;
+                }
+                if (!isLast && !isChain) {
+                    handMessage.textContent = 'Solo puedes mover la última carta o una cadena de cartas boca arriba.';
+                    return;
+                }
+            } else if (isFoundation) {
+                // Solo se puede seleccionar la última carta de la fundación
+                const f = game.foundations[col];
+                if (f.length === 0 || f[f.length - 1].id !== card.id) {
+                    handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
+                    return;
+                }
+            }
+
+            // Seleccionar
+            game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
+            highlightCard(col, idx, true);
+            soundClick();
+            handMessage.textContent = `Seleccionaste ${card.saint.name}. Ahora elige un destino.`;
         }
 
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
-            // Mover a columna
-            if (toCol !== null && toCol !== 'foundation') {
+            const srcCard = from.card;
+            const srcCol = from.col;
+            const srcIdx = from.idx;
+            const fromFoundation = from.isFoundation;
+
+            // Destino: columna normal
+            if (toCol !== null && toCol !== 'foundation' && !toIsFoundation) {
                 const destCol = game.columns[toCol];
                 if (destCol.length === 0) {
-                    // Columna vacía: solo se puede mover un Rey
-                    if (from.card.rank === 13) {
+                    // Columna vacía: solo se puede mover un Rey (rank 13)
+                    if (srcCard.rank === 13) {
                         return executeMove(from, toCol, -1, false);
                     } else {
                         handMessage.textContent = 'Solo puedes poner un Rey en una columna vacía.';
@@ -1078,29 +1064,27 @@
                         handMessage.textContent = 'No puedes poner una carta sobre una carta boca abajo.';
                         return false;
                     }
-                    // Debe ser del color opuesto y un rango menor
-                    if (from.card.isRed !== target.isRed && from.card.rank === target.rank - 1) {
+                    // Debe ser de color opuesto y un rango menor
+                    if (srcCard.isRed !== target.isRed && srcCard.rank === target.rank - 1) {
                         return executeMove(from, toCol, destCol.length, false);
                     } else {
-                        handMessage.textContent = `Debe ser del color opuesto y un número menor (${target.rank} → ${from.card.rank}).`;
+                        handMessage.textContent = `Debe ser del color opuesto y un número menor (${target.rank} → ${srcCard.rank}).`;
                         return false;
                     }
                 }
             }
 
-            // Mover a fundación
+            // Destino: fundación
             if (toIsFoundation) {
-                const suitId = parseInt(toCol);
+                const suitId = toCol;
                 const f = game.foundations[suitId];
-                // La carta debe ser del mismo palo
-                if (from.card.suitId !== suitId) {
+                if (srcCard.suitId !== suitId) {
                     handMessage.textContent = `Esta carta no pertenece a ${SUITS[suitId].name}.`;
                     return false;
                 }
-                // Debe estar en orden ascendente desde el As
-                if (f.length === 0 && from.card.rank === 1) {
+                if (f.length === 0 && srcCard.rank === 1) {
                     return executeMove(from, 'foundation', suitId, true);
-                } else if (f.length > 0 && from.card.rank === f[f.length - 1].rank + 1) {
+                } else if (f.length > 0 && srcCard.rank === f[f.length - 1].rank + 1) {
                     return executeMove(from, 'foundation', suitId, true);
                 } else {
                     handMessage.textContent = `Debe ser el siguiente en orden (${f.length + 1}).`;
@@ -1112,18 +1096,20 @@
         }
 
         function executeMove(from, toCol, toIdx, toFoundation) {
-            // Guardar estado para deshacer
+            // Guardar estado antes de mover
             saveState();
 
-            // Determinar qué cartas mover (si es una cadena)
             let cardsToMove = [];
+            let srcCol = from.col;
+            let srcIdx = from.idx;
+
             if (from.isFoundation) {
                 // Mover desde fundación (solo una carta)
-                const f = game.foundations[from.idx];
+                const f = game.foundations[from.suitId];
                 cardsToMove = [f.pop()];
             } else {
-                const col = game.columns[from.col];
-                cardsToMove = col.splice(from.idx);
+                const col = game.columns[srcCol];
+                cardsToMove = col.splice(srcIdx);
             }
 
             // Colocar en destino
@@ -1136,7 +1122,7 @@
                 });
             } else {
                 const destCol = game.columns[toCol];
-                cardsToMove.forEach((c, i) => {
+                cardsToMove.forEach(c => {
                     c.faceUp = true;
                     destCol.push(c);
                 });
@@ -1144,7 +1130,7 @@
 
             // Voltear la nueva carta superior de la columna de origen (si existe)
             if (!from.isFoundation) {
-                const col = game.columns[from.col];
+                const col = game.columns[srcCol];
                 if (col.length > 0 && !col[col.length - 1].faceUp) {
                     col[col.length - 1].faceUp = true;
                 }
@@ -1152,10 +1138,11 @@
 
             game.moves++;
             soundMove();
-            updateUI();
+            renderAll();
+            updateInfo();
             addHistory(`🃏 Moviste ${cardsToMove.length} carta(s)`);
 
-            // Comprobar si se ha ganado
+            // Comprobar victoria
             checkWin();
 
             return true;
@@ -1163,11 +1150,11 @@
 
         function clearSelection() {
             game.selected = null;
-            // Limpiar highlights
-            document.querySelectorAll('.card.valid-drop, .card.invalid-drop').forEach(el => {
-                el.classList.remove('valid-drop', 'invalid-drop');
+            // Limpiar highlights de cartas
+            document.querySelectorAll('.card.selected, .card.valid-drop, .card.invalid-drop').forEach(el => {
+                el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
-            // Quitar borde de las fundaciones
+            // Limpiar highlights de fundaciones
             foundationsEl.forEach(el => {
                 el.style.borderColor = 'rgba(255,215,0,0.15)';
             });
@@ -1176,22 +1163,28 @@
 
         function highlightCard(col, idx, active) {
             // Quitar highlights anteriores
-            document.querySelectorAll('.card.valid-drop, .card.invalid-drop').forEach(el => {
-                el.classList.remove('valid-drop', 'invalid-drop');
+            document.querySelectorAll('.card.selected, .card.valid-drop, .card.invalid-drop').forEach(el => {
+                el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
-            if (active) {
-                const colEl = columnsEl[col];
-                if (colEl) {
-                    const cards = colEl.querySelectorAll('.card');
-                    if (cards[idx]) cards[idx].classList.add('valid-drop');
-                }
+            if (!active) return;
+            if (col === 'foundation') {
+                // Resaltar la fundación
+                foundationsEl.forEach((el, i) => {
+                    if (i === idx) {
+                        el.style.borderColor = '#f7d875';
+                    } else {
+                        el.style.borderColor = 'rgba(255,215,0,0.15)';
+                    }
+                });
+                return;
             }
-        }
-
-        function highlightFoundation(suitId, active) {
-            foundationsEl.forEach((el, idx) => {
-                el.style.borderColor = (idx === suitId && active) ? '#f7d875' : 'rgba(255,215,0,0.15)';
-            });
+            const colEl = columnsEl[col];
+            if (!colEl) return;
+            const cards = colEl.querySelectorAll('.card');
+            if (cards[idx]) {
+                cards[idx].classList.add('selected');
+            }
+            // También podemos resaltar destinos válidos (no lo hacemos para no complicar)
         }
 
         // ============================================================
@@ -1214,95 +1207,122 @@
         }
 
         // ============================================================
+        // ACTUALIZAR UI (info, timer, etc.)
+        // ============================================================
+        function updateInfo() {
+            movesEl.textContent = game.moves;
+            cardsPlacedEl.textContent = game.cardsPlaced;
+        }
+
+        function updateTimer() {
+            const mins = String(Math.floor(game.timer / 60)).padStart(2, '0');
+            const secs = String(game.timer % 60).padStart(2, '0');
+            timerEl.textContent = `${mins}:${secs}`;
+        }
+
+        function addHistory(text, isError = false) {
+            const p = document.createElement('p');
+            p.innerHTML = text;
+            if (isError) p.style.color = '#eb5757';
+            historyLog.appendChild(p);
+            historyLog.scrollTop = historyLog.scrollHeight;
+            while (historyLog.children.length > 30) historyLog.removeChild(historyLog.firstChild);
+        }
+
+        // ============================================================
         // BARAJA (stock)
         // ============================================================
         stockBtn.addEventListener('click', function() {
             if (game.gameOver) return;
-            if (game.isAnimating) return;
             soundClick();
             if (game.stock.length === 0 && game.waste.length === 0) {
                 handMessage.textContent = 'No quedan cartas en la baraja.';
                 return;
             }
-            // Si el stock está vacío, reciclar la basura
+            // Si el stock está vacío, reciclar el waste
             if (game.stock.length === 0) {
                 game.stock = game.waste.reverse();
                 game.waste = [];
-                // Voltear todas las cartas del stock boca abajo
                 game.stock.forEach(c => c.faceUp = false);
+                saveState();
                 addHistory('🔄 Baraja reciclada');
-                updateUI();
+                renderAll();
+                handMessage.textContent = 'Baraja reciclada.';
                 return;
             }
-            // Mover una carta del stock al waste
+            // Robar una carta
             const card = game.stock.pop();
             card.faceUp = true;
             game.waste.push(card);
-            // Guardar estado para deshacer
             saveState();
             game.moves++;
-            updateUI();
+            renderAll();
+            updateInfo();
             addHistory(`♠ Robaste ${card.saint.name}`);
-            handMessage.textContent = `Robaste ${card.saint.name}.`;
+            handMessage.textContent = `Robaste ${card.saint.name}. Puedes moverla si es posible.`;
+            // Permitir seleccionar la carta recién robada
+            // No seleccionamos automáticamente, pero el usuario puede hacer clic en ella en el waste.
+            // Para ello, la carta robada se muestra en el stock-btn? No, está en el waste.
+            // No tenemos representación visual del waste más que en el botón.
+            // Podemos mostrar un tooltip o mensaje.
         });
 
         // ============================================================
-        // PISTA (hint)
+        // PISTA
         // ============================================================
         function getHint() {
             if (game.gameOver) return;
-            // Buscar un movimiento válido simple
-            // 1. Buscar carta que pueda ir a fundación
+            // Buscar movimientos válidos
+            // 1. A fundación
             for (let suitId = 0; suitId < 4; suitId++) {
                 const f = game.foundations[suitId];
                 const nextRank = f.length + 1;
-                // Buscar en las columnas
-                for (let colIdx = 0; colIdx < 7; colIdx++) {
-                    const col = game.columns[colIdx];
-                    for (let i = col.length - 1; i >= 0; i--) {
-                        const card = col[i];
+                // Buscar en columnas
+                for (let col = 0; col < 7; col++) {
+                    const colCards = game.columns[col];
+                    for (let i = colCards.length - 1; i >= 0; i--) {
+                        const card = colCards[i];
                         if (card.faceUp && card.suitId === suitId && card.rank === nextRank) {
-                            handMessage.textContent = `💡 Puedes mover ${card.saint.name} a ${SUITS[suitId].name}.`;
+                            handMessage.textContent = `💡 Mueve ${card.saint.name} a ${SUITS[suitId].name}.`;
                             return;
                         }
                     }
                 }
-                // Buscar en el waste
+                // Buscar en waste
                 if (game.waste.length > 0) {
                     const card = game.waste[game.waste.length - 1];
-                    if (card.suitId === suitId && card.rank === nextRank) {
-                        handMessage.textContent = `💡 Puedes mover ${card.saint.name} desde la baraja a ${SUITS[suitId].name}.`;
+                    if (card.faceUp && card.suitId === suitId && card.rank === nextRank) {
+                        handMessage.textContent = `💡 Mueve ${card.saint.name} desde la baraja a ${SUITS[suitId].name}.`;
                         return;
                     }
                 }
             }
 
-            // 2. Buscar carta que se pueda mover a una columna
-            for (let colIdx = 0; colIdx < 7; colIdx++) {
-                const col = game.columns[colIdx];
-                if (col.length === 0) {
-                    // Buscar un Rey en otra columna o en el waste
+            // 2. Mover entre columnas
+            for (let col = 0; col < 7; col++) {
+                const colCards = game.columns[col];
+                if (colCards.length === 0) {
+                    // Buscar un Rey en otra columna o en waste
                     for (let c = 0; c < 7; c++) {
-                        if (c === colIdx) continue;
+                        if (c === col) continue;
                         const other = game.columns[c];
                         for (let i = other.length - 1; i >= 0; i--) {
                             if (other[i].faceUp && other[i].rank === 13) {
-                                handMessage.textContent = `💡 Mueve ${other[i].saint.name} a la columna ${colIdx + 1}.`;
+                                handMessage.textContent = `💡 Mueve ${other[i].saint.name} a la columna ${col + 1}.`;
                                 return;
                             }
                         }
                     }
                     if (game.waste.length > 0 && game.waste[game.waste.length - 1].rank === 13) {
-                        handMessage.textContent = `💡 Mueve ${game.waste[game.waste.length - 1].saint.name} desde la baraja a la columna ${colIdx + 1}.`;
+                        handMessage.textContent = `💡 Mueve ${game.waste[game.waste.length - 1].saint.name} desde la baraja a la columna ${col + 1}.`;
                         return;
                     }
                     continue;
                 }
-                const last = col[col.length - 1];
+                const last = colCards[colCards.length - 1];
                 if (!last.faceUp) continue;
-                // Buscar carta de color opuesto y un rango menor
                 for (let c = 0; c < 7; c++) {
-                    if (c === colIdx) continue;
+                    if (c === col) continue;
                     const other = game.columns[c];
                     for (let i = other.length - 1; i >= 0; i--) {
                         const card = other[i];
@@ -1312,7 +1332,6 @@
                         }
                     }
                 }
-                // Buscar en el waste
                 if (game.waste.length > 0) {
                     const card = game.waste[game.waste.length - 1];
                     if (card.faceUp && card.isRed !== last.isRed && card.rank === last.rank - 1) {
@@ -1323,6 +1342,26 @@
             }
 
             handMessage.textContent = '💡 No hay movimientos obvios. Prueba a robar cartas.';
+        }
+
+        // ============================================================
+        // DESHACER
+        // ============================================================
+        function undo() {
+            if (game.gameOver) return;
+            if (game.undoStack.length <= 1) {
+                addHistory('No hay nada que deshacer.', true);
+                return;
+            }
+            const state = game.undoStack[game.undoStack.length - 2];
+            game.undoStack.pop();
+            restoreState(state);
+            clearSelection();
+            renderAll();
+            updateInfo();
+            addHistory('↩️ Deshecho');
+            soundClick();
+            handMessage.textContent = 'Movimiento deshecho.';
         }
 
         // ============================================================
@@ -1361,4 +1400,4 @@
     })();
 </script>
 </body>
-  </html>
+</html>
