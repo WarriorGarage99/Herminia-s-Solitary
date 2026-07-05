@@ -983,8 +983,8 @@
 </head>
 <body>
 <div id="app">
-    <!-- ===== BANNER DE INSTALACIÓN ===== -->
-    <div class="install-banner hidden" id="installBanner">
+    <!-- ===== BANNER DE INSTALACIÓN (siempre visible si no instalado) ===== -->
+    <div class="install-banner" id="installBanner">
         <div class="icon">📲</div>
         <div class="content">
             <div class="title">
@@ -1173,7 +1173,7 @@
 
 <script>
     // ================================================================
-    // INSTALACIÓN (PWA) - MEJORADA CON LOGS Y MANEJO ROBUSTO
+    // INSTALACIÓN (PWA) - SOLUCIÓN ROBUSTA
     // ================================================================
     (function() {
         const banner = document.getElementById('installBanner');
@@ -1186,27 +1186,26 @@
         const modalSteps = document.getElementById('modalSteps');
 
         let deferredPrompt = null;
-        let isInstalled = false;
+        let isInstalled = window.matchMedia('(display-mode: standalone)').matches;
 
-        // Detectar si la app ya está instalada
-        isInstalled = window.matchMedia('(display-mode: standalone)').matches;
+        // Si ya está instalada, ocultar el banner
         if (isInstalled) {
             banner.classList.add('hidden');
             console.log('📱 App ya instalada (modo standalone)');
         }
 
-        // Evento beforeinstallprompt (Android)
+        // Capturar evento beforeinstallprompt (Android)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            console.log('✅ Evento beforeinstallprompt capturado');
+            console.log('✅ beforeinstallprompt capturado');
+            // Asegurar que el banner esté visible si no está instalado
             if (!isInstalled) {
                 banner.classList.remove('hidden');
-                console.log('📲 Banner de instalación mostrado');
             }
         });
 
-        // También escuchar el evento 'appinstalled'
+        // Escuchar evento appinstalled
         window.addEventListener('appinstalled', () => {
             console.log('✅ App instalada correctamente');
             banner.classList.add('hidden');
@@ -1214,30 +1213,29 @@
             isInstalled = true;
         });
 
-        // Botón de instalación del banner
+        // Botón "Instalar App"
         installBtn.addEventListener('click', () => {
             console.log('👆 Clic en "Instalar App"');
             if (deferredPrompt) {
-                // Android: mostrar prompt nativo
-                console.log('📲 Mostrando prompt nativo de instalación');
+                // Android: usar prompt nativo
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((result) => {
                     if (result.outcome === 'accepted') {
-                        console.log('✅ Usuario aceptó la instalación');
+                        console.log('✅ Instalación aceptada');
                         banner.classList.add('hidden');
                     } else {
-                        console.log('❌ Usuario canceló la instalación');
+                        console.log('❌ Instalación cancelada');
                     }
                     deferredPrompt = null;
                 });
             } else {
-                console.log('⚠️ No hay deferredPrompt, mostrando modal de instrucciones');
-                // iOS o navegador sin beforeinstallprompt: mostrar modal con instrucciones
+                // Sin beforeinstallprompt: mostrar modal con instrucciones
+                console.log('⚠️ No hay deferredPrompt, mostrando modal');
                 openInstallModal();
             }
         });
 
-        // Función para abrir el modal de instalación
+        // Función para abrir modal de instalación
         function openInstallModal() {
             const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
             let stepsHtml = '';
@@ -1252,7 +1250,6 @@
                     closeModal();
                 };
             } else {
-                // Otros navegadores
                 stepsHtml = `
                     <li><span class="step-num">1</span><span class="step-text">Abre el menú del navegador (tres puntos o líneas).</span></li>
                     <li><span class="step-num">2</span><span class="step-text">Busca la opción <strong>Instalar</strong> o <strong>Añadir a pantalla de inicio</strong>.</span></li>
@@ -1284,13 +1281,6 @@
             if (e.target === modal) closeModal();
         });
 
-        // Si la app se instala, ocultar banner
-        window.addEventListener('appinstalled', () => {
-            banner.classList.add('hidden');
-            modal.classList.remove('active');
-            isInstalled = true;
-        });
-
         // Si el usuario cambia a modo standalone, ocultar banner
         window.matchMedia('(display-mode: standalone)').addEventListener('change', (ev) => {
             if (ev.matches) {
@@ -1301,40 +1291,12 @@
             }
         });
 
-        // Mostrar banner si no está instalado y no se ha cerrado
-        // (el banner se muestra solo si el evento beforeinstallprompt se dispara, pero también podemos
-        // mostrarlo si vemos que la app no está instalada y el navegador es compatible)
-        // Para saber si es compatible, podemos verificar si existe window.navigator.standalone (iOS) o
-        // si el evento beforeinstallprompt se ha disparado (deferredPrompt no es null).
-        // Pero si antes funcionaba, probablemente el evento no se dispara por algún error en manifest/icons.
-        // Mostramos el banner solo si deferredPrompt existe o si es iOS.
-        setTimeout(() => {
-            if (!isInstalled) {
-                // Si deferredPrompt existe, mostrar banner
-                if (deferredPrompt) {
-                    banner.classList.remove('hidden');
-                    console.log('📲 Banner mostrado (deferredPrompt disponible)');
-                } else {
-                    // Si no hay deferredPrompt, verificar si es iOS
-                    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-                    if (isIOS) {
-                        // En iOS, mostramos un banner con instrucciones (pero no el de instalación nativa)
-                        // Para simplificar, no mostramos el banner, solo el modal al hacer clic.
-                        console.log('🍎 iOS detectado, mostrando banner con instrucciones');
-                        banner.classList.remove('hidden');
-                        // Cambiamos el texto del botón para que indique que es para iOS
-                        const installBtnText = document.querySelector('.install-banner .btn-install');
-                        if (installBtnText) installBtnText.textContent = 'Instalar App';
-                    } else {
-                        // En Android sin beforeinstallprompt, mostramos el banner con el modal
-                        console.log('⚠️ No se detectó beforeinstallprompt, mostrando banner con modal');
-                        banner.classList.remove('hidden');
-                    }
-                }
-            }
-        }, 1000);
+        // Mostrar banner siempre que no esté instalado
+        if (!isInstalled) {
+            banner.classList.remove('hidden');
+            console.log('📲 Banner visible (app no instalada)');
+        }
 
-        // Log final para depuración
         console.log('🔍 Estado de instalación:', {
             isInstalled,
             hasDeferredPrompt: !!deferredPrompt,
@@ -2145,7 +2107,7 @@
                 }
             });
             // Registrar el nuevo con un parámetro de versión para evitar caché
-            navigator.serviceWorker.register('sw.js?v=5');
+            navigator.serviceWorker.register('sw.js?v=6');
         }
 
     })();
