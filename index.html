@@ -159,6 +159,7 @@
             pointer-events: none;
         }
 
+        /* ===== STOCK Y WASTE ===== */
         .stock-pile {
             display: flex;
             gap: 6px;
@@ -194,6 +195,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* ===== SLOT DE WASTE (carta robada) ===== */
+        .waste-slot {
+            min-width: 44px;
+            aspect-ratio: 3/4;
+            background: rgba(0,0,0,0.15);
+            border-radius: 8px;
+            border: 2px dashed rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+        .waste-slot .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .waste-slot .empty-text {
+            font-size: 10px;
+            color: #4a5260;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            pointer-events: none;
         }
 
         /* ===== COLUMNAS ===== */
@@ -321,36 +352,6 @@
             opacity: 0.4;
             transform: scale(0.95);
         }
-
-        /* ===== CARTAS DE LA BARAJA (stock) ===== */
-        .stock-card {
-            min-width: 44px;
-            aspect-ratio: 3/4;
-            background: #f5f7fc;
-            border-radius: 8px;
-            border: 2px solid #b0b8c8;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 4px 2px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            font-size: 10px;
-            font-weight: 700;
-            text-align: center;
-            line-height: 1.1;
-            color: #1a1a1a;
-            cursor: pointer;
-            transition: all 0.15s;
-            flex-shrink: 0;
-        }
-        .stock-card .saint-icon { font-size: 24px; margin-bottom: 2px; }
-        .stock-card .saint-name { font-size: 9px; font-weight: 700; }
-        .stock-card .saint-title { font-size: 7px; font-weight: 400; color: #6a7280; }
-        .stock-card .saint-suit { font-size: 7px; color: #b0b8c8; }
-        .stock-card.red-suit .saint-name { color: #c33; }
-        .stock-card.black-suit .saint-name { color: #111; }
-        .stock-card:active { transform: scale(0.95); }
 
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
@@ -522,7 +523,7 @@
             .card { min-height: 44px; }
             .foundation-slot { min-width: 34px; }
             .stock-btn { min-width: 34px; font-size: 18px; }
-            .stock-card { min-width: 34px; }
+            .waste-slot { min-width: 34px; }
             .column { min-width: 28px; min-height: 80px; }
             .column .card { margin-top: -18px; }
             .column .card.face-down { margin-top: -14px; }
@@ -531,6 +532,7 @@
             .logo { font-size: 14px; }
             .logo .for-herminia { font-size: 11px; padding: 0 8px; }
             .controls button { font-size: 10px; padding: 8px 0; }
+            .stock-pile { gap: 4px; }
         }
         @media (max-width: 420px) {
             .card .saint-icon { font-size: 18px; }
@@ -538,7 +540,7 @@
             .card { min-height: 36px; }
             .foundation-slot { min-width: 28px; }
             .stock-btn { min-width: 28px; font-size: 14px; }
-            .stock-card { min-width: 28px; }
+            .waste-slot { min-width: 28px; }
             .column { min-width: 22px; min-height: 60px; }
             .column .card { margin-top: -14px; }
             .column .card.face-down { margin-top: -10px; }
@@ -579,6 +581,9 @@
             <div class="stock-pile">
                 <div class="stock-btn" id="stockBtn">♠</div>
                 <span class="stock-count" id="stockCount">24</span>
+                <div class="waste-slot" id="wasteSlot">
+                    <span class="empty-text">Robar</span>
+                </div>
             </div>
         </div>
 
@@ -707,7 +712,7 @@
             timerInterval: null,
             isRunning: false,
             cardsPlaced: 0,
-            selected: null,   // { card, col, idx, isFoundation, suitId }
+            selected: null,
             undoStack: [],
             gameOver: false,
         };
@@ -719,6 +724,7 @@
         const foundationsEl = document.querySelectorAll('.foundation-slot');
         const stockBtn = document.getElementById('stockBtn');
         const stockCount = document.getElementById('stockCount');
+        const wasteSlot = document.getElementById('wasteSlot');
         const movesEl = document.getElementById('movesCount');
         const timerEl = document.getElementById('timerDisplay');
         const cardsPlacedEl = document.getElementById('cardsPlaced');
@@ -787,7 +793,7 @@
         }
 
         // ============================================================
-        // GUARDAR / RESTAURAR ESTADO (para deshacer)
+        // GUARDAR / RESTAURAR ESTADO
         // ============================================================
         function saveState() {
             const state = {
@@ -828,7 +834,6 @@
             game.gameOver = false;
             winOverlay.classList.remove('active');
 
-            // Crear baraja
             const deck = createDeck();
             let idx = 0;
             game.columns = [[], [], [], [], [], [], []];
@@ -843,17 +848,13 @@
             game.waste = [];
             game.foundations = [[], [], [], []];
 
-            // Guardar estado inicial
             saveState();
-
-            // UI
             renderAll();
             updateInfo();
             updateTimer();
             handMessage.textContent = 'Haz clic en una carta boca arriba para seleccionarla, luego en el destino.';
             addHistory('✟ Nueva partida. ¡Ánimo, Herminia!');
 
-            // Iniciar timer
             game.isRunning = true;
             game.timerInterval = setInterval(() => {
                 game.timer++;
@@ -867,7 +868,7 @@
         function renderAll() {
             renderColumns();
             renderFoundations();
-            renderStock();
+            renderStockAndWaste();
             updateInfo();
         }
 
@@ -879,7 +880,6 @@
                     const cardEl = createCardElement(card, colIdx, idx, false);
                     colEl.appendChild(cardEl);
                 });
-                // Indicador de columna vacía
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
                     empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:24px;padding:10px 0;pointer-events:none;';
@@ -913,12 +913,40 @@
             });
         }
 
-        function renderStock() {
+        function renderStockAndWaste() {
+            // Stock
             stockCount.textContent = game.stock.length;
             if (game.stock.length === 0 && game.waste.length === 0) {
                 stockBtn.textContent = '🔄';
             } else {
                 stockBtn.textContent = '♠';
+            }
+
+            // Waste
+            wasteSlot.innerHTML = '';
+            if (game.waste.length > 0) {
+                const last = game.waste[game.waste.length - 1];
+                const cardEl = createCardElement(last, 'waste', 0, false);
+                cardEl.style.position = 'absolute';
+                cardEl.style.top = '0';
+                cardEl.style.left = '0';
+                cardEl.style.width = '100%';
+                cardEl.style.height = '100%';
+                cardEl.style.borderRadius = '8px';
+                wasteSlot.appendChild(cardEl);
+                // Añadir evento para seleccionar la carta del waste
+                cardEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (game.gameOver) return;
+                    if (!last.faceUp) return;
+                    // Seleccionar la carta del waste
+                    handleCardClick(last, 'waste', 0, false);
+                });
+            } else {
+                const span = document.createElement('span');
+                span.className = 'empty-text';
+                span.textContent = 'Robar';
+                wasteSlot.appendChild(span);
             }
         }
 
@@ -937,34 +965,12 @@
                 `;
             }
             div.dataset.cardId = card.id;
-            div.dataset.col = col !== null && col !== 'foundation' ? col : 'foundation';
-            div.dataset.idx = idx !== null && idx !== -1 ? idx : -1;
+            div.dataset.col = col;
+            div.dataset.idx = idx;
             div.dataset.suit = card.suitId;
             div.dataset.isFoundation = isFoundation;
 
-            div.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (game.gameOver) return;
-                if (!card.faceUp) {
-                    handMessage.textContent = 'Esta carta está boca abajo. No se puede mover.';
-                    return;
-                }
-                // Si está en fundación, solo se puede mover la última
-                if (isFoundation) {
-                    const f = game.foundations[card.suitId];
-                    if (f.length > 0 && f[f.length - 1].id === card.id) {
-                        handleCardClick(card, 'foundation', card.suitId, true);
-                    } else {
-                        handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
-                    }
-                    return;
-                }
-                // Si está en columna
-                if (col !== null && col !== 'foundation') {
-                    handleCardClick(card, col, idx, false);
-                }
-            });
-
+            // No añadir evento aquí porque se maneja en los renders
             return div;
         }
 
@@ -974,30 +980,27 @@
         function handleCardClick(card, col, idx, isFoundation) {
             // Si ya hay selección
             if (game.selected) {
-                // Si se hace clic en la misma carta, deseleccionar
                 const sel = game.selected;
                 if (sel.card.id === card.id && sel.col === col && sel.idx === idx) {
                     clearSelection();
                     return;
                 }
-                // Intentar mover la carta seleccionada al destino actual
                 const moved = tryMove(game.selected, card, col, idx, isFoundation);
                 if (moved) {
                     clearSelection();
                     return;
                 } else {
-                    // Si no se puede mover, cambiar selección a la nueva carta
                     selectCard(card, col, idx, isFoundation);
                     return;
                 }
             }
 
-            // Si no hay selección, seleccionar
             selectCard(card, col, idx, isFoundation);
         }
 
         function selectCard(card, col, idx, isFoundation) {
-            if (!isFoundation && col !== 'foundation') {
+            // Verificar si se puede seleccionar
+            if (!isFoundation && col !== 'foundation' && col !== 'waste') {
                 const colCards = game.columns[col];
                 const isLast = (idx === colCards.length - 1);
                 let isChain = false;
@@ -1018,9 +1021,10 @@
                     handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
                     return;
                 }
+            } else if (col === 'waste') {
+                // La carta del waste siempre es seleccionable
             }
 
-            // Seleccionar
             game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
             highlightCard(col, idx, true);
             soundClick();
@@ -1030,11 +1034,10 @@
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
             const srcCard = from.card;
             const srcCol = from.col;
-            const srcIdx = from.idx;
             const fromFoundation = from.isFoundation;
 
             // Destino: columna normal
-            if (toCol !== null && toCol !== 'foundation' && !toIsFoundation) {
+            if (toCol !== null && toCol !== 'foundation' && toCol !== 'waste' && !toIsFoundation) {
                 const destCol = game.columns[toCol];
                 if (destCol.length === 0) {
                     if (srcCard.rank === 13) {
@@ -1090,6 +1093,9 @@
                 const f = game.foundations[from.suitId];
                 cardsToMove = [f.pop()];
                 game.cardsPlaced--;
+            } else if (srcCol === 'waste') {
+                // Mover desde el waste
+                cardsToMove = [game.waste.pop()];
             } else {
                 const col = game.columns[srcCol];
                 cardsToMove = col.splice(srcIdx);
@@ -1110,8 +1116,8 @@
                 });
             }
 
-            // Voltear carta superior de la columna de origen
-            if (!from.isFoundation) {
+            // Voltear carta superior de la columna de origen (si no es waste)
+            if (srcCol !== 'waste' && !from.isFoundation) {
                 const col = game.columns[srcCol];
                 if (col.length > 0 && !col[col.length - 1].faceUp) {
                     col[col.length - 1].faceUp = true;
@@ -1135,6 +1141,7 @@
             foundationsEl.forEach(el => {
                 el.style.borderColor = 'rgba(255,215,0,0.15)';
             });
+            wasteSlot.style.borderColor = 'rgba(255,255,255,0.06)';
             handMessage.textContent = 'Selecciona una carta para mover.';
         }
 
@@ -1147,6 +1154,10 @@
                 foundationsEl.forEach((el, i) => {
                     el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.15)';
                 });
+                return;
+            }
+            if (col === 'waste') {
+                wasteSlot.style.borderColor = '#f7d875';
                 return;
             }
             const colEl = columnsEl[col];
@@ -1208,15 +1219,17 @@
                 return;
             }
             if (game.stock.length === 0) {
+                // Reciclar
                 game.stock = game.waste.reverse();
                 game.waste = [];
                 game.stock.forEach(c => c.faceUp = false);
                 saveState();
-                addHistory('🔄 Baraja reciclada');
                 renderAll();
+                addHistory('🔄 Baraja reciclada');
                 handMessage.textContent = 'Baraja reciclada.';
                 return;
             }
+            // Robar
             const card = game.stock.pop();
             card.faceUp = true;
             game.waste.push(card);
