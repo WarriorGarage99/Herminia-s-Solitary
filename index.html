@@ -6,7 +6,7 @@
     <title>Solitario de Santos · Herminia</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        /* ===== ESTILOS GENERALES ===== */
+        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -868,7 +868,6 @@
             renderColumns();
             renderFoundations();
             renderStock();
-            renderWaste();
             updateInfo();
         }
 
@@ -877,7 +876,7 @@
                 colEl.innerHTML = '';
                 const cards = game.columns[colIdx];
                 cards.forEach((card, idx) => {
-                    const cardEl = createCardElement(card, colIdx, idx);
+                    const cardEl = createCardElement(card, colIdx, idx, false);
                     colEl.appendChild(cardEl);
                 });
                 // Indicador de columna vacía
@@ -898,7 +897,7 @@
                 const cards = game.foundations[suitId];
                 if (cards.length > 0) {
                     const last = cards[cards.length - 1];
-                    const cardEl = createCardElement(last, null, null, true);
+                    const cardEl = createCardElement(last, 'foundation', suitId, true);
                     cardEl.style.position = 'absolute';
                     cardEl.style.top = '0';
                     cardEl.style.left = '0';
@@ -923,17 +922,7 @@
             }
         }
 
-        function renderWaste() {
-            // La baraja (waste) se muestra en el botón de stock, no en un slot separado
-            // Solo mostramos el contenido en el botón si hay carta visible
-            if (game.waste.length > 0) {
-                const last = game.waste[game.waste.length - 1];
-                // El botón ya muestra ♠ por defecto, pero podemos mostrar un tooltip
-                // No es necesario renderizar más.
-            }
-        }
-
-        function createCardElement(card, colIdx, cardIdx, isFoundation = false) {
+        function createCardElement(card, col, idx, isFoundation = false) {
             const div = document.createElement('div');
             div.className = 'card';
             if (!card.faceUp) {
@@ -948,19 +937,19 @@
                 `;
             }
             div.dataset.cardId = card.id;
-            div.dataset.col = colIdx !== null ? colIdx : 'foundation';
-            div.dataset.idx = cardIdx !== null ? cardIdx : -1;
+            div.dataset.col = col !== null && col !== 'foundation' ? col : 'foundation';
+            div.dataset.idx = idx !== null && idx !== -1 ? idx : -1;
             div.dataset.suit = card.suitId;
+            div.dataset.isFoundation = isFoundation;
 
             div.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (game.gameOver) return;
-                // Si la carta está boca abajo, no hacer nada
                 if (!card.faceUp) {
                     handMessage.textContent = 'Esta carta está boca abajo. No se puede mover.';
                     return;
                 }
-                // Si la carta está en una fundación, solo la última se puede mover
+                // Si está en fundación, solo se puede mover la última
                 if (isFoundation) {
                     const f = game.foundations[card.suitId];
                     if (f.length > 0 && f[f.length - 1].id === card.id) {
@@ -970,9 +959,9 @@
                     }
                     return;
                 }
-                // Si está en una columna, manejar
-                if (colIdx !== null && colIdx !== 'foundation') {
-                    handleCardClick(card, colIdx, cardIdx, false);
+                // Si está en columna
+                if (col !== null && col !== 'foundation') {
+                    handleCardClick(card, col, idx, false);
                 }
             });
 
@@ -983,10 +972,11 @@
         // LÓGICA DE SELECCIÓN Y MOVIMIENTO
         // ============================================================
         function handleCardClick(card, col, idx, isFoundation) {
-            // Si ya hay una selección, intentar mover
+            // Si ya hay selección
             if (game.selected) {
                 // Si se hace clic en la misma carta, deseleccionar
-                if (game.selected.card.id === card.id && game.selected.col === col && game.selected.idx === idx) {
+                const sel = game.selected;
+                if (sel.card.id === card.id && sel.col === col && sel.idx === idx) {
                     clearSelection();
                     return;
                 }
@@ -1002,19 +992,16 @@
                 }
             }
 
-            // Si no hay selección, seleccionar la carta
+            // Si no hay selección, seleccionar
             selectCard(card, col, idx, isFoundation);
         }
 
         function selectCard(card, col, idx, isFoundation) {
-            // Solo se puede seleccionar si es la última carta o parte de una cadena válida
             if (!isFoundation && col !== 'foundation') {
                 const colCards = game.columns[col];
-                // Verificar si es la última carta o si es parte de una cadena
                 const isLast = (idx === colCards.length - 1);
                 let isChain = false;
                 if (!isLast) {
-                    // Verificar que todas las cartas desde idx hasta el final estén boca arriba
                     let allUp = true;
                     for (let i = idx; i < colCards.length; i++) {
                         if (!colCards[i].faceUp) { allUp = false; break; }
@@ -1026,7 +1013,6 @@
                     return;
                 }
             } else if (isFoundation) {
-                // Solo se puede seleccionar la última carta de la fundación
                 const f = game.foundations[col];
                 if (f.length === 0 || f[f.length - 1].id !== card.id) {
                     handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
@@ -1051,7 +1037,6 @@
             if (toCol !== null && toCol !== 'foundation' && !toIsFoundation) {
                 const destCol = game.columns[toCol];
                 if (destCol.length === 0) {
-                    // Columna vacía: solo se puede mover un Rey (rank 13)
                     if (srcCard.rank === 13) {
                         return executeMove(from, toCol, -1, false);
                     } else {
@@ -1064,7 +1049,6 @@
                         handMessage.textContent = 'No puedes poner una carta sobre una carta boca abajo.';
                         return false;
                     }
-                    // Debe ser de color opuesto y un rango menor
                     if (srcCard.isRed !== target.isRed && srcCard.rank === target.rank - 1) {
                         return executeMove(from, toCol, destCol.length, false);
                     } else {
@@ -1096,7 +1080,6 @@
         }
 
         function executeMove(from, toCol, toIdx, toFoundation) {
-            // Guardar estado antes de mover
             saveState();
 
             let cardsToMove = [];
@@ -1104,15 +1087,14 @@
             let srcIdx = from.idx;
 
             if (from.isFoundation) {
-                // Mover desde fundación (solo una carta)
                 const f = game.foundations[from.suitId];
                 cardsToMove = [f.pop()];
+                game.cardsPlaced--;
             } else {
                 const col = game.columns[srcCol];
                 cardsToMove = col.splice(srcIdx);
             }
 
-            // Colocar en destino
             if (toFoundation) {
                 const f = game.foundations[toIdx];
                 cardsToMove.forEach(c => {
@@ -1128,7 +1110,7 @@
                 });
             }
 
-            // Voltear la nueva carta superior de la columna de origen (si existe)
+            // Voltear carta superior de la columna de origen
             if (!from.isFoundation) {
                 const col = game.columns[srcCol];
                 if (col.length > 0 && !col[col.length - 1].faceUp) {
@@ -1141,20 +1123,15 @@
             renderAll();
             updateInfo();
             addHistory(`🃏 Moviste ${cardsToMove.length} carta(s)`);
-
-            // Comprobar victoria
             checkWin();
-
             return true;
         }
 
         function clearSelection() {
             game.selected = null;
-            // Limpiar highlights de cartas
             document.querySelectorAll('.card.selected, .card.valid-drop, .card.invalid-drop').forEach(el => {
                 el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
-            // Limpiar highlights de fundaciones
             foundationsEl.forEach(el => {
                 el.style.borderColor = 'rgba(255,215,0,0.15)';
             });
@@ -1162,29 +1139,20 @@
         }
 
         function highlightCard(col, idx, active) {
-            // Quitar highlights anteriores
             document.querySelectorAll('.card.selected, .card.valid-drop, .card.invalid-drop').forEach(el => {
                 el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
             if (!active) return;
             if (col === 'foundation') {
-                // Resaltar la fundación
                 foundationsEl.forEach((el, i) => {
-                    if (i === idx) {
-                        el.style.borderColor = '#f7d875';
-                    } else {
-                        el.style.borderColor = 'rgba(255,215,0,0.15)';
-                    }
+                    el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.15)';
                 });
                 return;
             }
             const colEl = columnsEl[col];
             if (!colEl) return;
             const cards = colEl.querySelectorAll('.card');
-            if (cards[idx]) {
-                cards[idx].classList.add('selected');
-            }
-            // También podemos resaltar destinos válidos (no lo hacemos para no complicar)
+            if (cards[idx]) cards[idx].classList.add('selected');
         }
 
         // ============================================================
@@ -1207,7 +1175,7 @@
         }
 
         // ============================================================
-        // ACTUALIZAR UI (info, timer, etc.)
+        // ACTUALIZAR UI
         // ============================================================
         function updateInfo() {
             movesEl.textContent = game.moves;
@@ -1239,7 +1207,6 @@
                 handMessage.textContent = 'No quedan cartas en la baraja.';
                 return;
             }
-            // Si el stock está vacío, reciclar el waste
             if (game.stock.length === 0) {
                 game.stock = game.waste.reverse();
                 game.waste = [];
@@ -1250,7 +1217,6 @@
                 handMessage.textContent = 'Baraja reciclada.';
                 return;
             }
-            // Robar una carta
             const card = game.stock.pop();
             card.faceUp = true;
             game.waste.push(card);
@@ -1260,11 +1226,6 @@
             updateInfo();
             addHistory(`♠ Robaste ${card.saint.name}`);
             handMessage.textContent = `Robaste ${card.saint.name}. Puedes moverla si es posible.`;
-            // Permitir seleccionar la carta recién robada
-            // No seleccionamos automáticamente, pero el usuario puede hacer clic en ella en el waste.
-            // Para ello, la carta robada se muestra en el stock-btn? No, está en el waste.
-            // No tenemos representación visual del waste más que en el botón.
-            // Podemos mostrar un tooltip o mensaje.
         });
 
         // ============================================================
@@ -1272,12 +1233,10 @@
         // ============================================================
         function getHint() {
             if (game.gameOver) return;
-            // Buscar movimientos válidos
             // 1. A fundación
             for (let suitId = 0; suitId < 4; suitId++) {
                 const f = game.foundations[suitId];
                 const nextRank = f.length + 1;
-                // Buscar en columnas
                 for (let col = 0; col < 7; col++) {
                     const colCards = game.columns[col];
                     for (let i = colCards.length - 1; i >= 0; i--) {
@@ -1288,7 +1247,6 @@
                         }
                     }
                 }
-                // Buscar en waste
                 if (game.waste.length > 0) {
                     const card = game.waste[game.waste.length - 1];
                     if (card.faceUp && card.suitId === suitId && card.rank === nextRank) {
@@ -1302,7 +1260,6 @@
             for (let col = 0; col < 7; col++) {
                 const colCards = game.columns[col];
                 if (colCards.length === 0) {
-                    // Buscar un Rey en otra columna o en waste
                     for (let c = 0; c < 7; c++) {
                         if (c === col) continue;
                         const other = game.columns[c];
