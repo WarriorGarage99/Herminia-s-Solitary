@@ -1,5 +1,5 @@
 // sw.js - Service Worker con gestión de caché avanzada
-const CACHE_NAME = 'pokerlite-v1';
+const CACHE_NAME = 'HerminiaSolitaire-v1';
 const urlsToCache = [
   'index.html',
   'manifest.json',
