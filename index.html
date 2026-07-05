@@ -324,7 +324,7 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS (mejoradas) ===== */
+        /* ===== CARTAS REDISEÑADAS (profesionales) ===== */
         .card {
             width: 100%;
             aspect-ratio: 3/4;
@@ -332,53 +332,55 @@
             background: linear-gradient(145deg, #f5f7fc, #e8ecf4);
             border-radius: 10px;
             border: 2px solid #b8c0cc;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+            transition: all 0.15s ease;
+            cursor: pointer;
+            color: #1a1a1a;
+            position: relative;
+            min-height: 50px;
+            user-select: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 4px 2px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
-            transition: all 0.15s ease;
-            cursor: pointer;
-            font-size: 10px;
-            font-weight: 600;
             text-align: center;
-            line-height: 1.1;
-            color: #1a1a1a;
-            position: relative;
-            min-height: 50px;
-            user-select: none;
         }
-        /* Número de la carta (más grande y visible) */
+        /* Número de la carta (esquina superior izquierda) */
         .card .card-rank {
             position: absolute;
             top: 3px;
             left: 5px;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
-            opacity: 1;
             pointer-events: none;
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
-            font-size: 26px;
+            font-size: 22px;
             line-height: 1;
             margin-bottom: 2px;
+            display: block;
+            text-align: center;
         }
         .card .saint-name {
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: 0.2px;
             max-width: 90%;
             color: #1a1a1a;
             line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .card .saint-title {
             font-size: 7px;
             font-weight: 400;
             color: #6a7280;
+            line-height: 1.1;
         }
         .card .saint-suit {
             font-size: 7px;
@@ -719,10 +721,10 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
-            .card .saint-icon { font-size: 20px; }
-            .card .saint-name { font-size: 10px; }
+            .card .saint-icon { font-size: 18px; }
+            .card .saint-name { font-size: 8px; }
             .card .saint-title { font-size: 6px; }
-            .card .card-rank { font-size: 18px; }
+            .card .card-rank { font-size: 14px; }
             .card { min-height: 42px; }
             .foundation-slot { min-width: 32px; }
             .stock-container { min-width: 32px; }
@@ -743,8 +745,8 @@
         }
         @media (max-width: 420px) {
             .card .saint-icon { font-size: 16px; }
-            .card .saint-name { font-size: 9px; }
-            .card .card-rank { font-size: 16px; }
+            .card .saint-name { font-size: 7px; }
+            .card .card-rank { font-size: 12px; }
             .card { min-height: 34px; }
             .foundation-slot { min-width: 26px; }
             .stock-container { min-width: 26px; }
@@ -918,7 +920,7 @@
 
 <script>
     // ================================================================
-    // CÓDIGO JAVASCRIPT COMPLETO (SIN CAMBIOS, SOLO ESTÉTICA CSS)
+    // CÓDIGO JAVASCRIPT COMPLETO (SIN CAMBIOS EN LA LÓGICA)
     // ================================================================
     (function() {
         'use strict';
@@ -934,58 +936,58 @@
         ];
 
         const SAINTS = [
-            { rank: 1, name: 'San Pedro', title: 'Apóstol', icon: '✝️' },
+            { rank: 1, name: 'San Pedro', title: 'Apóstol', icon: '🔑' },
             { rank: 2, name: 'San Andrés', title: 'Apóstol', icon: '✝️' },
-            { rank: 3, name: 'Santiago el Mayor', title: 'Apóstol', icon: '✝️' },
-            { rank: 4, name: 'San Juan', title: 'Apóstol', icon: '✝️' },
+            { rank: 3, name: 'Santiago el Mayor', title: 'Apóstol', icon: '🐚' },
+            { rank: 4, name: 'San Juan', title: 'Apóstol', icon: '🦅' },
             { rank: 5, name: 'San Felipe', title: 'Apóstol', icon: '✝️' },
-            { rank: 6, name: 'San Bartolomé', title: 'Apóstol', icon: '✝️' },
-            { rank: 7, name: 'Santo Tomás', title: 'Apóstol', icon: '✝️' },
-            { rank: 8, name: 'San Mateo', title: 'Apóstol', icon: '✝️' },
+            { rank: 6, name: 'San Bartolomé', title: 'Apóstol', icon: '🔪' },
+            { rank: 7, name: 'Santo Tomás', title: 'Apóstol', icon: '📏' },
+            { rank: 8, name: 'San Mateo', title: 'Apóstol', icon: '📜' },
             { rank: 9, name: 'Santiago el Menor', title: 'Apóstol', icon: '✝️' },
-            { rank: 10, name: 'San Judas Tadeo', title: 'Apóstol', icon: '✝️' },
-            { rank: 11, name: 'San Simón', title: 'Apóstol', icon: '✝️' },
+            { rank: 10, name: 'San Judas Tadeo', title: 'Apóstol', icon: '⚔️' },
+            { rank: 11, name: 'San Simón', title: 'Apóstol', icon: '🪚' },
             { rank: 12, name: 'San Matías', title: 'Apóstol', icon: '✝️' },
-            { rank: 13, name: 'San Pablo', title: 'Apóstol', icon: '✝️' },
-            { rank: 14, name: 'San Esteban', title: 'Protomártir', icon: '🕊️' },
-            { rank: 15, name: 'San Lorenzo', title: 'Mártir', icon: '🕊️' },
-            { rank: 16, name: 'San Sebastián', title: 'Mártir', icon: '🕊️' },
-            { rank: 17, name: 'Santa Cecilia', title: 'Mártir', icon: '🕊️' },
-            { rank: 18, name: 'Santa Inés', title: 'Mártir', icon: '🕊️' },
-            { rank: 19, name: 'Santa Lucía', title: 'Mártir', icon: '🕊️' },
-            { rank: 20, name: 'San Jorge', title: 'Mártir', icon: '🕊️' },
-            { rank: 21, name: 'San Mauricio', title: 'Mártir', icon: '🕊️' },
-            { rank: 22, name: 'Santa Bárbara', title: 'Mártir', icon: '🕊️' },
-            { rank: 23, name: 'Santa Catalina', title: 'Mártir', icon: '🕊️' },
-            { rank: 24, name: 'San Blas', title: 'Mártir', icon: '🕊️' },
-            { rank: 25, name: 'San Vito', title: 'Mártir', icon: '🕊️' },
-            { rank: 26, name: 'Santa Águeda', title: 'Mártir', icon: '🕊️' },
-            { rank: 27, name: 'Santa María', title: 'Virgen', icon: '🌹' },
+            { rank: 13, name: 'San Pablo', title: 'Apóstol', icon: '⚔️' },
+            { rank: 14, name: 'San Esteban', title: 'Protomártir', icon: '🪨' },
+            { rank: 15, name: 'San Lorenzo', title: 'Mártir', icon: '🔥' },
+            { rank: 16, name: 'San Sebastián', title: 'Mártir', icon: '🏹' },
+            { rank: 17, name: 'Santa Cecilia', title: 'Mártir', icon: '🎵' },
+            { rank: 18, name: 'Santa Inés', title: 'Mártir', icon: '🐑' },
+            { rank: 19, name: 'Santa Lucía', title: 'Mártir', icon: '👁️' },
+            { rank: 20, name: 'San Jorge', title: 'Mártir', icon: '🐉' },
+            { rank: 21, name: 'San Mauricio', title: 'Mártir', icon: '⚔️' },
+            { rank: 22, name: 'Santa Bárbara', title: 'Mártir', icon: '🗼' },
+            { rank: 23, name: 'Santa Catalina', title: 'Mártir', icon: '⚙️' },
+            { rank: 24, name: 'San Blas', title: 'Mártir', icon: '🕯️' },
+            { rank: 25, name: 'San Vito', title: 'Mártir', icon: '🐕' },
+            { rank: 26, name: 'Santa Águeda', title: 'Mártir', icon: '✝️' },
+            { rank: 27, name: 'Santa María', title: 'Virgen', icon: '🌟' },
             { rank: 28, name: 'Santa Isabel', title: 'Virgen', icon: '🌹' },
-            { rank: 29, name: 'Santa Ana', title: 'Virgen', icon: '🌹' },
-            { rank: 30, name: 'Santa Elena', title: 'Virgen', icon: '🌹' },
-            { rank: 31, name: 'Santa Clara', title: 'Virgen', icon: '🌹' },
-            { rank: 32, name: 'Santa Teresa', title: 'Virgen', icon: '🌹' },
+            { rank: 29, name: 'Santa Ana', title: 'Virgen', icon: '📿' },
+            { rank: 30, name: 'Santa Elena', title: 'Virgen', icon: '✝️' },
+            { rank: 31, name: 'Santa Clara', title: 'Virgen', icon: '⚜️' },
+            { rank: 32, name: 'Santa Teresa', title: 'Virgen', icon: '🕊️' },
             { rank: 33, name: 'Santa Rosa', title: 'Virgen', icon: '🌹' },
-            { rank: 34, name: 'Santa Rita', title: 'Virgen', icon: '🌹' },
-            { rank: 35, name: 'Santa Juana', title: 'Virgen', icon: '🌹' },
-            { rank: 36, name: 'Santa Margarita', title: 'Virgen', icon: '🌹' },
-            { rank: 37, name: 'Santa Mónica', title: 'Virgen', icon: '🌹' },
-            { rank: 38, name: 'Santa Filomena', title: 'Virgen', icon: '🌹' },
-            { rank: 39, name: 'Santa Verónica', title: 'Virgen', icon: '🌹' },
+            { rank: 34, name: 'Santa Rita', title: 'Virgen', icon: '🌿' },
+            { rank: 35, name: 'Santa Juana', title: 'Virgen', icon: '⚔️' },
+            { rank: 36, name: 'Santa Margarita', title: 'Virgen', icon: '🐉' },
+            { rank: 37, name: 'Santa Mónica', title: 'Virgen', icon: '📿' },
+            { rank: 38, name: 'Santa Filomena', title: 'Virgen', icon: '🌺' },
+            { rank: 39, name: 'Santa Verónica', title: 'Virgen', icon: '🧣' },
             { rank: 40, name: 'San Agustín', title: 'Doctor', icon: '📖' },
-            { rank: 41, name: 'San Jerónimo', title: 'Doctor', icon: '📖' },
-            { rank: 42, name: 'San Gregorio', title: 'Doctor', icon: '📖' },
-            { rank: 43, name: 'San Ambrosio', title: 'Doctor', icon: '📖' },
-            { rank: 44, name: 'Santo Tomás de Aquino', title: 'Doctor', icon: '📖' },
-            { rank: 45, name: 'San Buenaventura', title: 'Doctor', icon: '📖' },
+            { rank: 41, name: 'San Jerónimo', title: 'Doctor', icon: '📚' },
+            { rank: 42, name: 'San Gregorio', title: 'Doctor', icon: '✝️' },
+            { rank: 43, name: 'San Ambrosio', title: 'Doctor', icon: '🐝' },
+            { rank: 44, name: 'Santo Tomás de Aquino', title: 'Doctor', icon: '📜' },
+            { rank: 45, name: 'San Buenaventura', title: 'Doctor', icon: '🕊️' },
             { rank: 46, name: 'San Anselmo', title: 'Doctor', icon: '📖' },
-            { rank: 47, name: 'San Bernardo', title: 'Doctor', icon: '📖' },
-            { rank: 48, name: 'San Juan de Ávila', title: 'Doctor', icon: '📖' },
-            { rank: 49, name: 'Santa Teresa de Jesús', title: 'Doctora', icon: '📖' },
-            { rank: 50, name: 'San Juan de la Cruz', title: 'Doctor', icon: '📖' },
-            { rank: 51, name: 'San Alfonso', title: 'Doctor', icon: '📖' },
-            { rank: 52, name: 'Santa Catalina de Siena', title: 'Doctora', icon: '📖' }
+            { rank: 47, name: 'San Bernardo', title: 'Doctor', icon: '🍯' },
+            { rank: 48, name: 'San Juan de Ávila', title: 'Doctor', icon: '✝️' },
+            { rank: 49, name: 'Santa Teresa de Jesús', title: 'Doctora', icon: '🕊️' },
+            { rank: 50, name: 'San Juan de la Cruz', title: 'Doctor', icon: '🌙' },
+            { rank: 51, name: 'San Alfonso', title: 'Doctor', icon: '📿' },
+            { rank: 52, name: 'Santa Catalina de Siena', title: 'Doctora', icon: '⚜️' }
         ];
 
         // ============================================================
@@ -1725,4 +1727,4 @@
     })();
 </script>
 </body>
-                </html>
+    </html>
