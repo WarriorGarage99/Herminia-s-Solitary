@@ -934,12 +934,11 @@
                 cardEl.style.height = '100%';
                 cardEl.style.borderRadius = '8px';
                 wasteSlot.appendChild(cardEl);
-                // Añadir evento para seleccionar la carta del waste
-                cardEl.addEventListener('click', (e) => {
+                // Añadir evento directamente
+                cardEl.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (game.gameOver) return;
                     if (!last.faceUp) return;
-                    // Seleccionar la carta del waste
                     handleCardClick(last, 'waste', 0, false);
                 });
             } else {
@@ -970,12 +969,35 @@
             div.dataset.suit = card.suitId;
             div.dataset.isFoundation = isFoundation;
 
-            // No añadir evento aquí porque se maneja en los renders
+            // Evento click solo para cartas que no están en el waste (porque el waste ya tiene su propio evento)
+            if (col !== 'waste') {
+                div.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (game.gameOver) return;
+                    if (!card.faceUp) {
+                        handMessage.textContent = 'Esta carta está boca abajo. No se puede mover.';
+                        return;
+                    }
+                    if (isFoundation) {
+                        const f = game.foundations[card.suitId];
+                        if (f.length > 0 && f[f.length - 1].id === card.id) {
+                            handleCardClick(card, 'foundation', card.suitId, true);
+                        } else {
+                            handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
+                        }
+                        return;
+                    }
+                    if (col !== null && col !== 'foundation') {
+                        handleCardClick(card, col, idx, false);
+                    }
+                });
+            }
+
             return div;
         }
 
         // ============================================================
-        // LÓGICA DE SELECCIÓN Y MOVIMIENTO
+        // LÓGICA DE SELECCIÓN Y MOVIMIENTO (mejorada)
         // ============================================================
         function handleCardClick(card, col, idx, isFoundation) {
             // Si ya hay selección
@@ -990,41 +1012,21 @@
                     clearSelection();
                     return;
                 } else {
+                    // Si no se pudo mover, seleccionar la nueva carta
                     selectCard(card, col, idx, isFoundation);
                     return;
                 }
             }
 
+            // Si no hay selección, seleccionar
             selectCard(card, col, idx, isFoundation);
         }
 
         function selectCard(card, col, idx, isFoundation) {
-            // Verificar si se puede seleccionar
-            if (!isFoundation && col !== 'foundation' && col !== 'waste') {
-                const colCards = game.columns[col];
-                const isLast = (idx === colCards.length - 1);
-                let isChain = false;
-                if (!isLast) {
-                    let allUp = true;
-                    for (let i = idx; i < colCards.length; i++) {
-                        if (!colCards[i].faceUp) { allUp = false; break; }
-                    }
-                    if (allUp) isChain = true;
-                }
-                if (!isLast && !isChain) {
-                    handMessage.textContent = 'Solo puedes mover la última carta o una cadena de cartas boca arriba.';
-                    return;
-                }
-            } else if (isFoundation) {
-                const f = game.foundations[col];
-                if (f.length === 0 || f[f.length - 1].id !== card.id) {
-                    handMessage.textContent = 'Solo puedes mover la última carta de la fundación.';
-                    return;
-                }
-            } else if (col === 'waste') {
-                // La carta del waste siempre es seleccionable
-            }
-
+            // Verificar que la carta esté boca arriba (ya se hizo en el evento)
+            // Ahora permitimos seleccionar cualquier carta boca arriba,
+            // sin restricciones de "última carta o cadena".
+            // La validación de movimiento se hará al intentar mover.
             game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
             highlightCard(col, idx, true);
             soundClick();
@@ -1034,7 +1036,27 @@
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
             const srcCard = from.card;
             const srcCol = from.col;
+            const srcIdx = from.idx;
             const fromFoundation = from.isFoundation;
+
+            // Validar que el origen sea movible (para columnas)
+            if (!fromFoundation && srcCol !== 'waste') {
+                const colCards = game.columns[srcCol];
+                // Solo se puede mover si es la última carta o parte de una cadena
+                const isLast = (srcIdx === colCards.length - 1);
+                let isChain = false;
+                if (!isLast) {
+                    let allUp = true;
+                    for (let i = srcIdx; i < colCards.length; i++) {
+                        if (!colCards[i].faceUp) { allUp = false; break; }
+                    }
+                    if (allUp) isChain = true;
+                }
+                if (!isLast && !isChain) {
+                    handMessage.textContent = 'Solo puedes mover la última carta o una cadena de cartas boca arriba.';
+                    return false;
+                }
+            }
 
             // Destino: columna normal
             if (toCol !== null && toCol !== 'foundation' && toCol !== 'waste' && !toIsFoundation) {
@@ -1079,6 +1101,12 @@
                 }
             }
 
+            // Si se hace clic en una carta del waste (como destino) no es válido
+            if (toCol === 'waste') {
+                handMessage.textContent = 'No puedes mover cartas al waste.';
+                return false;
+            }
+
             return false;
         }
 
@@ -1094,7 +1122,6 @@
                 cardsToMove = [f.pop()];
                 game.cardsPlaced--;
             } else if (srcCol === 'waste') {
-                // Mover desde el waste
                 cardsToMove = [game.waste.pop()];
             } else {
                 const col = game.columns[srcCol];
@@ -1116,7 +1143,7 @@
                 });
             }
 
-            // Voltear carta superior de la columna de origen (si no es waste)
+            // Voltear carta superior de la columna de origen (si no es waste ni fundación)
             if (srcCol !== 'waste' && !from.isFoundation) {
                 const col = game.columns[srcCol];
                 if (col.length > 0 && !col[col.length - 1].faceUp) {
@@ -1370,4 +1397,4 @@
     })();
 </script>
 </body>
-</html>
+    </html>
