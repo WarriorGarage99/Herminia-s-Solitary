@@ -212,7 +212,7 @@
             letter-spacing: 0.2px;
         }
 
-        /* ===== STOCK Y WASTE (rediseñados) ===== */
+        /* ===== STOCK Y WASTE ===== */
         .stock-pile {
             display: flex;
             gap: 2px;
@@ -327,7 +327,7 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS (nombres legibles en varias líneas) ===== */
+        /* ===== CARTAS ===== */
         .card {
             width: 100%;
             aspect-ratio: 2.5/3.5;
@@ -350,7 +350,6 @@
             text-align: center;
             overflow: hidden;
         }
-        /* Número de la carta (más pequeño) */
         .card .card-rank {
             position: absolute;
             top: 2px;
@@ -376,7 +375,6 @@
             max-width: 95%;
             color: #1a1a1a;
             line-height: 1.2;
-            /* Permitir hasta 2 líneas */
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -628,6 +626,227 @@
         }
         .help-box .btn-close-help:active { transform: scale(0.97); }
 
+        /* ===== BANNER DE INSTALACIÓN ===== */
+        .install-banner {
+            position: relative;
+            background: linear-gradient(135deg, #1e2636, #2a3345);
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(247,216,117,0.25);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,215,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .install-banner.hidden {
+            display: none;
+        }
+        .install-banner .icon {
+            font-size: 24px;
+            line-height: 1;
+            flex-shrink: 0;
+            animation: pulse-icon 2s infinite;
+        }
+        @keyframes pulse-icon {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .install-banner .content {
+            flex: 1;
+        }
+        .install-banner .content .title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f7d875;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .install-banner .content .title .badge {
+            font-size: 8px;
+            background: #f7d875;
+            color: #1a1f28;
+            padding: 0 6px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .install-banner .content .desc {
+            font-size: 9px;
+            color: #b0b8c8;
+            margin-top: 1px;
+            line-height: 1.3;
+        }
+        .install-banner .content .desc span {
+            color: #6fcf97;
+            font-weight: 600;
+        }
+        .install-banner .btn-install {
+            background: linear-gradient(135deg, #f7d875, #d4a342);
+            border: none;
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 11px;
+            color: #1a1f28;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(247,216,117,0.25);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: inherit;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .install-banner .btn-install:active {
+            transform: scale(0.95);
+        }
+        .install-banner .btn-close {
+            background: none;
+            border: none;
+            color: #7a8290;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 2px;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: color 0.2s;
+        }
+        .install-banner .btn-close:active {
+            color: #e0e4ec;
+        }
+
+        /* ===== MODAL DE INSTALACIÓN (para iOS) ===== */
+        .install-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 16px;
+        }
+        .install-modal.active {
+            display: flex;
+        }
+        .install-modal .modal-box {
+            background: #1a1f2e;
+            border-radius: 28px;
+            max-width: 380px;
+            width: 100%;
+            padding: 24px 20px 20px;
+            border: 1px solid rgba(247,216,117,0.15);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            position: relative;
+            color: #e8ecf4;
+            text-align: center;
+        }
+        .install-modal .modal-box .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #7a8290;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .install-modal .modal-box .modal-icon {
+            font-size: 48px;
+            margin-bottom: 6px;
+        }
+        .install-modal .modal-box .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f7d875;
+            margin-bottom: 4px;
+        }
+        .install-modal .modal-box .modal-sub {
+            font-size: 12px;
+            color: #b0b8c8;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .install-modal .modal-box .modal-steps {
+            text-align: left;
+            background: #121720;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #2f3648;
+        }
+        .install-modal .modal-box .modal-steps li {
+            list-style: none;
+            font-size: 11px;
+            color: #c8d0d8;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #222837;
+        }
+        .install-modal .modal-box .modal-steps li:last-child {
+            border-bottom: none;
+        }
+        .install-modal .modal-box .modal-steps li .step-num {
+            background: #f7d875;
+            color: #1a1f28;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 10px;
+        }
+        .install-modal .modal-box .modal-btn-primary {
+            background: linear-gradient(135deg, #f7d875, #d4a342);
+            border: none;
+            border-radius: 60px;
+            padding: 10px 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: #1a1f28;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(247,216,117,0.2);
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .install-modal .modal-box .modal-btn-primary:active {
+            transform: scale(0.97);
+        }
+        .install-modal .modal-box .modal-btn-secondary {
+            background: transparent;
+            border: 1px solid #3f4552;
+            border-radius: 60px;
+            padding: 8px 0;
+            font-weight: 600;
+            font-size: 12px;
+            color: #b0b8c8;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .install-modal .modal-box .modal-btn-secondary:active {
+            background: #2a3345;
+        }
+
         /* ===== HISTORIAL ===== */
         .history {
             background: rgba(18, 23, 32, 0.5);
@@ -721,7 +940,7 @@
         }
         .win-overlay .btn-restart:active { transform: scale(0.95); }
 
-        /* ===== RESPONSIVE EXTRA ===== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 400px) {
             .card .card-rank { font-size: 3.2vw; }
             .card .saint-icon { font-size: 2vw; }
@@ -739,6 +958,9 @@
             .controls button { font-size: 7px; padding: 5px 0; }
             .info-panel { font-size: 8px; padding: 2px 8px; }
             .hand-message { font-size: 8px; padding: 2px 5px; }
+            .install-banner { padding: 8px 10px; }
+            .install-banner .icon { font-size: 20px; }
+            .install-banner .btn-install { font-size: 10px; padding: 4px 10px; }
         }
         @media (max-width: 360px) {
             .card .card-rank { font-size: 2.8vw; }
@@ -752,11 +974,46 @@
             .foundation-slot { min-width: 16px; }
             .stock-container { min-width: 16px; }
             .waste-slot { min-width: 16px; }
+            .install-banner .icon { font-size: 18px; }
+            .install-banner .btn-install { font-size: 9px; padding: 4px 8px; }
+            .install-banner .content .title { font-size: 11px; }
+            .install-banner .content .desc { font-size: 8px; }
         }
     </style>
 </head>
 <body>
 <div id="app">
+    <!-- ===== BANNER DE INSTALACIÓN ===== -->
+    <div class="install-banner hidden" id="installBanner">
+        <div class="icon">📲</div>
+        <div class="content">
+            <div class="title">
+                Solitario de Santos
+                <span class="badge">PRO</span>
+            </div>
+            <div class="desc">
+                <span>Juega sin conexión</span> · acceso rápido
+            </div>
+        </div>
+        <button class="btn-install" id="installBtn">Instalar App</button>
+        <button class="btn-close" id="closeBannerBtn">✕</button>
+    </div>
+
+    <!-- ===== MODAL DE INSTALACIÓN (iOS) ===== -->
+    <div class="install-modal" id="installModal">
+        <div class="modal-box">
+            <button class="close-modal" id="closeModalBtn">✕</button>
+            <div class="modal-icon">📱</div>
+            <div class="modal-title">Instalar Solitario</div>
+            <div class="modal-sub">Disfruta de la app sin conexión y con acceso rápido desde tu pantalla de inicio.</div>
+            <div class="modal-steps" id="modalSteps">
+                <!-- Los pasos se llenan dinámicamente con JS -->
+            </div>
+            <button class="modal-btn-primary" id="modalInstallBtn">Instalar ahora</button>
+            <button class="modal-btn-secondary" id="modalCloseBtn">Cerrar</button>
+        </div>
+    </div>
+
     <!-- Cabecera -->
     <div class="header">
         <div class="logo">
@@ -916,7 +1173,131 @@
 
 <script>
     // ================================================================
-    // CÓDIGO JAVASCRIPT COMPLETO (SIN CAMBIOS EN LA LÓGICA)
+    // INSTALACIÓN (PWA)
+    // ================================================================
+    (function() {
+        const banner = document.getElementById('installBanner');
+        const modal = document.getElementById('installModal');
+        const installBtn = document.getElementById('installBtn');
+        const closeBannerBtn = document.getElementById('closeBannerBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalInstallBtn = document.getElementById('modalInstallBtn');
+        const modalSteps = document.getElementById('modalSteps');
+
+        let deferredPrompt = null;
+
+        // Detectar si la app ya está instalada
+        const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
+        if (isInstalled) {
+            banner.classList.add('hidden');
+        }
+
+        // Evento beforeinstallprompt (Android)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (!isInstalled) {
+                banner.classList.remove('hidden');
+            }
+        });
+
+        // Botón de instalación del banner
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                // Android: mostrar prompt nativo
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((result) => {
+                    if (result.outcome === 'accepted') {
+                        banner.classList.add('hidden');
+                        console.log('App instalada');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // iOS o navegador sin beforeinstallprompt: mostrar modal con instrucciones
+                openInstallModal();
+            }
+        });
+
+        // Función para abrir el modal de instalación
+        function openInstallModal() {
+            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+            let stepsHtml = '';
+            if (isIOS) {
+                stepsHtml = `
+                    <li><span class="step-num">1</span><span class="step-text">Toca el botón <strong>Compartir</strong> (icono cuadrado con flecha).</span></li>
+                    <li><span class="step-num">2</span><span class="step-text">Desliza hacia abajo y elige <strong>Añadir a pantalla de inicio</strong>.</span></li>
+                    <li><span class="step-num">3</span><span class="step-text">Confirma tocando <strong>Añadir</strong> y la app aparecerá en tu escritorio.</span></li>
+                `;
+                modalInstallBtn.textContent = 'Cómo instalar en iOS';
+                modalInstallBtn.onclick = () => {
+                    // En iOS no se puede forzar, solo mostramos instrucciones
+                    closeModal();
+                };
+            } else {
+                // Otros navegadores
+                stepsHtml = `
+                    <li><span class="step-num">1</span><span class="step-text">Abre el menú del navegador (tres puntos o líneas).</span></li>
+                    <li><span class="step-num">2</span><span class="step-text">Busca la opción <strong>Instalar</strong> o <strong>Añadir a pantalla de inicio</strong>.</span></li>
+                    <li><span class="step-num">3</span><span class="step-text">Sigue las instrucciones para completar la instalación.</span></li>
+                `;
+                modalInstallBtn.textContent = 'Cómo instalar';
+                modalInstallBtn.onclick = () => {
+                    closeModal();
+                };
+            }
+            modalSteps.innerHTML = stepsHtml;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Cerrar banner manualmente
+        closeBannerBtn.addEventListener('click', () => {
+            banner.classList.add('hidden');
+            localStorage.setItem('pokerlite-banner-closed', 'true');
+        });
+
+        // Cerrar modal
+        closeModalBtn.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Si el usuario cerró el banner antes, no mostrarlo
+        if (localStorage.getItem('pokerlite-banner-closed') === 'true') {
+            banner.classList.add('hidden');
+        }
+
+        // Si la app se instala, ocultar banner
+        window.addEventListener('appinstalled', () => {
+            banner.classList.add('hidden');
+            modal.classList.remove('active');
+            localStorage.removeItem('pokerlite-banner-closed');
+        });
+
+        // Si el usuario cambia a modo standalone, ocultar banner
+        window.matchMedia('(display-mode: standalone)').addEventListener('change', (ev) => {
+            if (ev.matches) {
+                banner.classList.add('hidden');
+                modal.classList.remove('active');
+            }
+        });
+
+        // Mostrar banner si no está instalado y no se ha cerrado
+        if (!isInstalled && localStorage.getItem('pokerlite-banner-closed') !== 'true') {
+            setTimeout(() => {
+                banner.classList.remove('hidden');
+            }, 500);
+        }
+    })();
+
+    // ================================================================
+    // CÓDIGO DEL JUEGO (sin cambios en la lógica)
     // ================================================================
     (function() {
         'use strict';
@@ -1707,21 +2088,21 @@
         initGame();
 
         // ============================================================
-        // REGISTRO DE SERVICE WORKER (PWA) - con control de caché
+        // REGISTRO DE SERVICE WORKER (PWA)
         // ============================================================
         if ('serviceWorker' in navigator) {
-            // Forzar desregistro de versiones antiguas para evitar estilos mezclados
+            // Forzar desregistro de versiones antiguas
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for (let registration of registrations) {
                     registration.unregister();
                     console.log('Service Worker antiguo desregistrado');
                 }
             });
-            // Registrar el nuevo con un parámetro de versión
-            navigator.serviceWorker.register('sw.js?v=3');
+            // Registrar el nuevo con un parámetro de versión para evitar caché
+            navigator.serviceWorker.register('sw.js?v=4');
         }
 
     })();
 </script>
 </body>
-    </html>
+                    </html>
