@@ -324,7 +324,7 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS ===== */
+        /* ===== CARTAS (mejoradas) ===== */
         .card {
             width: 100%;
             aspect-ratio: 3/4;
@@ -340,7 +340,7 @@
             box-shadow: 0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
             transition: all 0.15s ease;
             cursor: pointer;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 600;
             text-align: center;
             line-height: 1.1;
@@ -349,15 +349,16 @@
             min-height: 50px;
             user-select: none;
         }
+        /* Número de la carta (más grande y visible) */
         .card .card-rank {
             position: absolute;
             top: 3px;
             left: 5px;
-            font-size: 14px;
+            font-size: 22px;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
-            opacity: 0.6;
+            opacity: 1;
             pointer-events: none;
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
@@ -367,14 +368,15 @@
             margin-bottom: 2px;
         }
         .card .saint-name {
-            font-size: 9px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.2px;
             max-width: 90%;
             color: #1a1a1a;
+            line-height: 1.2;
         }
         .card .saint-title {
-            font-size: 6px;
+            font-size: 7px;
             font-weight: 400;
             color: #6a7280;
         }
@@ -718,9 +720,9 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .card .saint-icon { font-size: 20px; }
-            .card .saint-name { font-size: 8px; }
-            .card .saint-title { font-size: 5px; }
-            .card .card-rank { font-size: 12px; }
+            .card .saint-name { font-size: 10px; }
+            .card .saint-title { font-size: 6px; }
+            .card .card-rank { font-size: 18px; }
             .card { min-height: 42px; }
             .foundation-slot { min-width: 32px; }
             .stock-container { min-width: 32px; }
@@ -741,8 +743,8 @@
         }
         @media (max-width: 420px) {
             .card .saint-icon { font-size: 16px; }
-            .card .saint-name { font-size: 7px; }
-            .card .card-rank { font-size: 10px; }
+            .card .saint-name { font-size: 9px; }
+            .card .card-rank { font-size: 16px; }
             .card { min-height: 34px; }
             .foundation-slot { min-width: 26px; }
             .stock-container { min-width: 26px; }
@@ -1723,4 +1725,4 @@
     })();
 </script>
 </body>
-</html>
+                </html>
