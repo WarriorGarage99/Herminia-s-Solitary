@@ -20,15 +20,15 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 4px;
+            padding: 2px;
             margin: 0;
         }
         #app {
             max-width: 460px;
             width: 100%;
             background: radial-gradient(ellipse at 20% 30%, #1a1f2e, #0b0e16);
-            border-radius: 24px;
-            padding: 10px 8px 14px;
+            border-radius: 20px;
+            padding: 8px 6px 12px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             border: 1px solid rgba(212, 163, 66, 0.15);
             position: relative;
@@ -49,45 +49,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             padding: 0 2px;
             flex-wrap: wrap;
-            gap: 4px;
+            gap: 2px;
             position: relative;
             z-index: 2;
         }
         .logo {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: #e8ecf4;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             flex-wrap: wrap;
         }
-        .logo .cross { color: #f7d875; font-size: 18px; }
+        .logo .cross { color: #f7d875; font-size: 16px; }
         .logo .brand { color: #e8ecf4; letter-spacing: 0.3px; }
         .logo .sub {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 400;
             color: #b0b8c8;
             letter-spacing: 0.2px;
         }
         .logo .for-herminia {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 600;
             color: #f7d875;
             background: rgba(247,216,117,0.08);
-            padding: 0 8px;
+            padding: 0 6px;
             border-radius: 30px;
             border: 1px solid rgba(247,216,117,0.15);
             letter-spacing: 0.2px;
         }
         .header-actions {
             color: #7a8290;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         /* ===== PANEL DE INFORMACIÓN ===== */
@@ -96,11 +96,11 @@
             justify-content: space-between;
             background: rgba(18, 23, 32, 0.7);
             border-radius: 30px;
-            padding: 2px 12px;
-            margin-bottom: 6px;
+            padding: 2px 10px;
+            margin-bottom: 4px;
             border: 1px solid rgba(255, 215, 0, 0.06);
             color: #b0b8c8;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 600;
             flex-wrap: wrap;
             gap: 2px;
@@ -115,21 +115,21 @@
         /* ===== MESA ===== */
         .table {
             background: radial-gradient(ellipse at center, #1f6b3c, #0e321e);
-            border-radius: 30px 30px 20px 20px;
-            padding: 8px 4px 6px;
+            border-radius: 26px 26px 18px 18px;
+            padding: 6px 3px 4px;
             border: 4px solid #3d2e1a;
             box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 6px 0 #1e2a1c, 0 0 30px rgba(0,200,100,0.05);
             position: relative;
-            min-height: 340px;
+            min-height: 320px;
         }
         .table::after {
             content: '';
             position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
-            border-radius: 26px 26px 18px 18px;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            border-radius: 24px 24px 16px 16px;
             border: 1px solid rgba(255,255,255,0.03);
             pointer-events: none;
         }
@@ -139,29 +139,29 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            margin-bottom: 8px;
-            gap: 4px;
+            margin-bottom: 6px;
+            gap: 3px;
             position: relative;
             z-index: 2;
         }
         .foundations {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             flex: 1;
         }
 
         /* ===== FUNDACIONES ===== */
         .foundation-slot {
             flex: 1;
-            min-width: 28px;
+            min-width: 24px;
             aspect-ratio: 3/4;
             background: rgba(0,0,0,0.2);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 2px dashed rgba(255,215,0,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8px;
+            font-size: 7px;
             color: #7a8290;
             font-weight: 600;
             text-align: center;
@@ -174,10 +174,10 @@
         }
         .foundation-slot:hover { background: rgba(255,215,0,0.03); }
         .foundation-slot .label {
-            font-size: 6px;
+            font-size: 5px;
             color: #5a6270;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             pointer-events: none;
             position: absolute;
             bottom: 2px;
@@ -191,22 +191,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 6px;
         }
         .foundation-slot .empty-icon {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.1;
             pointer-events: none;
         }
         .foundation-slot .count-badge {
             position: absolute;
-            top: 2px;
-            right: 3px;
-            font-size: 7px;
+            top: 1px;
+            right: 2px;
+            font-size: 6px;
             color: #f7d875;
             background: rgba(0,0,0,0.5);
-            padding: 0 4px;
-            border-radius: 6px;
+            padding: 0 3px;
+            border-radius: 4px;
             pointer-events: none;
             font-weight: 700;
             letter-spacing: 0.2px;
@@ -215,14 +215,14 @@
         /* ===== STOCK Y WASTE (rediseñados) ===== */
         .stock-pile {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             flex: 1;
         }
         .stock-container, .waste-slot {
             flex: 1;
-            min-width: 28px;
+            min-width: 24px;
             aspect-ratio: 3/4;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -239,7 +239,7 @@
         }
         .stock-container:active { transform: scale(0.95); }
         .stock-container .stock-btn {
-            font-size: 20px;
+            font-size: 18px;
             color: #f7d875;
             font-weight: 700;
             line-height: 1;
@@ -250,13 +250,13 @@
         .stock-container .stock-count {
             position: absolute;
             bottom: 2px;
-            right: 3px;
-            font-size: 7px;
+            right: 2px;
+            font-size: 6px;
             color: #b0b8c8;
             font-weight: 600;
             background: rgba(0,0,0,0.4);
-            padding: 0 4px;
-            border-radius: 6px;
+            padding: 0 3px;
+            border-radius: 4px;
         }
 
         .waste-slot {
@@ -269,11 +269,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
         }
         .waste-slot .empty-text {
-            font-size: 7px;
+            font-size: 6px;
             color: #4a5260;
             font-weight: 600;
             letter-spacing: 0.2px;
@@ -284,7 +284,7 @@
         /* ===== COLUMNAS ===== */
         .columns {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             justify-content: center;
             margin-top: 4px;
             position: relative;
@@ -292,10 +292,10 @@
         }
         .column {
             flex: 1;
-            min-width: 18px;
-            min-height: 70px;
+            min-width: 16px;
+            min-height: 60px;
             background: rgba(0,0,0,0.05);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px dashed rgba(255,255,255,0.02);
             padding: 1px 1px 1px 1px;
             display: flex;
@@ -306,41 +306,41 @@
         .column .card {
             position: relative;
             width: 100%;
-            margin-top: -14px;
-            border-radius: 6px;
+            margin-top: -12px;
+            border-radius: 5px;
         }
         .column .card:first-child { margin-top: 0; }
-        .column .card.face-down { margin-top: -10px; }
+        .column .card.face-down { margin-top: -8px; }
         .column .card:first-child.face-down { margin-top: 0; }
         .column .col-count {
             position: absolute;
             top: 2px;
             right: 2px;
-            font-size: 6px;
+            font-size: 5px;
             font-weight: 600;
             color: #5a6270;
             background: rgba(0,0,0,0.3);
-            padding: 0 4px;
-            border-radius: 4px;
+            padding: 0 3px;
+            border-radius: 3px;
             pointer-events: none;
             line-height: 1.2;
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS REDISEÑADAS (exclusivo móvil) ===== */
+        /* ===== CARTAS (ajustadas para nombres legibles) ===== */
         .card {
             width: 100%;
             aspect-ratio: 2.5/3.5;
             max-width: 56px;
             background: linear-gradient(145deg, #f5f7fc, #e8ecf4);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1.5px solid #b8c0cc;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
             transition: all 0.15s ease;
             cursor: pointer;
             color: #1a1a1a;
             position: relative;
-            min-height: 36px;
+            min-height: 34px;
             user-select: none;
             display: flex;
             flex-direction: column;
@@ -350,12 +350,12 @@
             text-align: center;
             overflow: hidden;
         }
-        /* Número de la carta (grande y visible) */
+        /* Número de la carta (más pequeño para dejar espacio al nombre) */
         .card .card-rank {
             position: absolute;
             top: 2px;
             left: 3px;
-            font-size: 5vw;
+            font-size: 4vw;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
@@ -363,17 +363,17 @@
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
-            font-size: 3vw;
+            font-size: 2.5vw;
             line-height: 1;
             margin-bottom: 1px;
             display: block;
             text-align: center;
         }
         .card .saint-name {
-            font-size: 2.2vw;
+            font-size: 3vw;
             font-weight: 700;
             letter-spacing: 0.1px;
-            max-width: 90%;
+            max-width: 95%;
             color: #1a1a1a;
             line-height: 1.1;
             overflow: hidden;
@@ -381,7 +381,7 @@
             white-space: nowrap;
         }
         .card .saint-title {
-            font-size: 1.8vw;
+            font-size: 2vw;
             font-weight: 400;
             color: #6a7280;
             line-height: 1.1;
@@ -404,7 +404,7 @@
         .card.face-down .card-rank { display: none; }
         .card.face-down::after {
             content: '✟';
-            font-size: 18px;
+            font-size: 16px;
             color: rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
@@ -429,15 +429,15 @@
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
             text-align: center;
-            margin-top: 6px;
-            font-size: 10px;
+            margin-top: 4px;
+            font-size: 9px;
             font-weight: 600;
             color: #c8d0d8;
             background: rgba(0,0,0,0.3);
-            padding: 4px 8px;
+            padding: 3px 6px;
             border-radius: 30px;
             border: 1px solid rgba(255,215,0,0.03);
-            min-height: 22px;
+            min-height: 20px;
             letter-spacing: 0.1px;
             backdrop-filter: blur(2px);
             position: relative;
@@ -447,29 +447,29 @@
         /* ===== BOTONES ===== */
         .controls {
             display: flex;
-            gap: 4px;
-            margin: 6px 0 4px;
+            gap: 3px;
+            margin: 4px 0 3px;
             flex-wrap: wrap;
             position: relative;
             z-index: 2;
         }
         .controls button {
             flex: 1;
-            padding: 8px 0;
+            padding: 6px 0;
             border: none;
             border-radius: 40px;
             font-family: inherit;
             font-weight: 700;
-            font-size: 9px;
+            font-size: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
             background: #2f3648;
             color: #d0d8e8;
             box-shadow: 0 3px 0 #1a1f2a, 0 4px 15px rgba(0,0,0,0.2);
             transition: all 0.08s ease;
             cursor: pointer;
             touch-action: manipulation;
-            min-width: 40px;
+            min-width: 36px;
             border: 1px solid rgba(255,255,255,0.02);
         }
         .controls button:active {
@@ -627,13 +627,13 @@
         .history {
             background: rgba(18, 23, 32, 0.5);
             border-radius: 14px;
-            padding: 2px 10px;
-            max-height: 30px;
+            padding: 2px 8px;
+            max-height: 28px;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.02);
-            font-size: 9px;
+            font-size: 8px;
             color: #b0b8c8;
-            margin-top: 4px;
+            margin-top: 3px;
             backdrop-filter: blur(2px);
             position: relative;
             z-index: 2;
@@ -653,11 +653,11 @@
 
         .footer {
             text-align: center;
-            font-size: 8px;
+            font-size: 7px;
             color: #5a6270;
-            margin-top: 6px;
+            margin-top: 4px;
             border-top: 1px solid rgba(255,255,255,0.02);
-            padding-top: 6px;
+            padding-top: 4px;
             letter-spacing: 0.2px;
         }
         .footer .bless { color: #f7d875; font-weight: 600; }
@@ -670,7 +670,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.85);
-            border-radius: 24px;
+            border-radius: 20px;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -680,34 +680,34 @@
             text-align: center;
         }
         .win-overlay.active { display: flex; }
-        .win-overlay .icon { font-size: 56px; margin-bottom: 6px; }
+        .win-overlay .icon { font-size: 48px; margin-bottom: 4px; }
         .win-overlay h2 {
-            font-size: 22px;
+            font-size: 20px;
             color: #f7d875;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-shadow: 0 0 30px rgba(247,216,117,0.2);
         }
         .win-overlay .message {
-            font-size: 15px;
+            font-size: 14px;
             color: #e8ecf4;
-            line-height: 1.5;
-            max-width: 280px;
+            line-height: 1.4;
+            max-width: 260px;
         }
         .win-overlay .message .name { color: #f7d875; font-weight: 700; }
         .win-overlay .blessing {
-            font-size: 18px;
+            font-size: 16px;
             color: #6fcf97;
-            margin-top: 8px;
+            margin-top: 6px;
             font-style: italic;
         }
         .win-overlay .btn-restart {
-            margin-top: 16px;
+            margin-top: 12px;
             background: linear-gradient(135deg, #f7d875, #d4a342);
             border: none;
             border-radius: 60px;
-            padding: 10px 30px;
+            padding: 8px 24px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             color: #1a1f28;
             cursor: pointer;
             box-shadow: 0 4px 25px rgba(247,216,117,0.2);
@@ -718,35 +718,35 @@
 
         /* ===== RESPONSIVE EXTRA ===== */
         @media (max-width: 400px) {
-            .card .card-rank { font-size: 4.5vw; }
-            .card .saint-icon { font-size: 2.8vw; }
-            .card .saint-name { font-size: 2vw; }
-            .card .saint-title { font-size: 1.6vw; }
-            .card { min-height: 30px; }
-            .column { min-height: 60px; }
-            .column .card { margin-top: -12px; }
-            .column .card.face-down { margin-top: -8px; }
-            .foundation-slot { min-width: 24px; }
-            .stock-container { min-width: 24px; }
-            .waste-slot { min-width: 24px; }
-            .logo { font-size: 12px; }
-            .logo .for-herminia { font-size: 9px; padding: 0 6px; }
-            .controls button { font-size: 8px; padding: 6px 0; }
-            .info-panel { font-size: 9px; padding: 2px 10px; }
-            .hand-message { font-size: 9px; padding: 3px 6px; }
-        }
-        @media (max-width: 360px) {
-            .card .card-rank { font-size: 4vw; }
-            .card .saint-icon { font-size: 2.5vw; }
-            .card .saint-name { font-size: 1.8vw; }
-            .card .saint-title { font-size: 1.4vw; }
-            .card { min-height: 26px; }
+            .card .card-rank { font-size: 3.8vw; }
+            .card .saint-icon { font-size: 2.2vw; }
+            .card .saint-name { font-size: 2.8vw; }
+            .card .saint-title { font-size: 1.8vw; }
+            .card { min-height: 28px; }
             .column { min-height: 50px; }
             .column .card { margin-top: -10px; }
             .column .card.face-down { margin-top: -6px; }
             .foundation-slot { min-width: 20px; }
             .stock-container { min-width: 20px; }
             .waste-slot { min-width: 20px; }
+            .logo { font-size: 11px; }
+            .logo .for-herminia { font-size: 8px; padding: 0 5px; }
+            .controls button { font-size: 7px; padding: 5px 0; }
+            .info-panel { font-size: 8px; padding: 2px 8px; }
+            .hand-message { font-size: 8px; padding: 2px 5px; }
+        }
+        @media (max-width: 360px) {
+            .card .card-rank { font-size: 3.2vw; }
+            .card .saint-icon { font-size: 2vw; }
+            .card .saint-name { font-size: 2.4vw; }
+            .card .saint-title { font-size: 1.6vw; }
+            .card { min-height: 24px; }
+            .column { min-height: 42px; }
+            .column .card { margin-top: -8px; }
+            .column .card.face-down { margin-top: -5px; }
+            .foundation-slot { min-width: 16px; }
+            .stock-container { min-width: 16px; }
+            .waste-slot { min-width: 16px; }
         }
     </style>
 </head>
@@ -1172,7 +1172,7 @@
                 colEl.appendChild(countBadge);
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
-                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:16px;padding:6px 0;pointer-events:none;';
+                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:14px;padding:4px 0;pointer-events:none;';
                     empty.textContent = '⬇';
                     colEl.appendChild(empty);
                 }
@@ -1241,7 +1241,7 @@
                 cardEl.style.left = '0';
                 cardEl.style.width = '100%';
                 cardEl.style.height = '100%';
-                cardEl.style.borderRadius = '8px';
+                cardEl.style.borderRadius = '6px';
                 wasteSlot.appendChild(cardEl);
                 cardEl.addEventListener('click', function(e) {
                     e.stopPropagation();
