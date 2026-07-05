@@ -14,23 +14,23 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background: #0a0c10;
+            background: #0f1117;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
             padding: 8px;
             margin: 0;
         }
         #app {
-            max-width: 720px;
+            max-width: 780px;
             width: 100%;
-            background: radial-gradient(ellipse at 20% 30%, #1a1f2e, #0b0e16);
-            border-radius: 28px;
-            padding: 14px 12px 18px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border: 1px solid rgba(212, 163, 66, 0.2);
+            background: linear-gradient(160deg, #1c212b, #11151e);
+            border-radius: 32px;
+            padding: 16px 14px 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            border: 1px solid rgba(212, 163, 66, 0.15);
             position: relative;
         }
 
@@ -45,7 +45,7 @@
             gap: 6px;
         }
         .logo {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             color: #e8ecf4;
             display: flex;
@@ -53,25 +53,25 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-        .logo .cross { color: #f7d875; font-size: 22px; }
+        .logo .cross { color: #f7d875; font-size: 20px; }
         .logo .brand { color: #e8ecf4; }
         .logo .sub {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 400;
-            color: #b0b8c8;
+            color: #8892a0;
             letter-spacing: 0.3px;
         }
         .logo .for-herminia {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #f7d875;
-            background: rgba(247,216,117,0.1);
+            background: rgba(247,216,117,0.08);
             padding: 0 12px;
             border-radius: 30px;
-            border: 1px solid rgba(247,216,117,0.2);
+            border: 1px solid rgba(247,216,117,0.12);
         }
         .header-actions {
-            color: #7a8290;
+            color: #6a7280;
             font-size: 16px;
             display: flex;
             gap: 12px;
@@ -83,9 +83,9 @@
             justify-content: space-between;
             background: #121720;
             border-radius: 30px;
-            padding: 4px 14px;
+            padding: 4px 16px;
             margin-bottom: 10px;
-            border: 1px solid #2f3648;
+            border: 1px solid #2a3240;
             color: #b0b8c8;
             font-size: 11px;
             font-weight: 600;
@@ -98,12 +98,12 @@
 
         /* ===== MESA ===== */
         .table {
-            background: radial-gradient(ellipse at center, #1d6b3c, #0e321e);
+            background: radial-gradient(ellipse at 40% 30%, #2c7a4a, #18422a);
             border-radius: 40px 40px 30px 30px;
-            padding: 12px 8px 10px;
-            border: 4px solid #3d2e1a;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 8px 0 #1e2a1c;
-            min-height: 400px;
+            padding: 14px 10px 12px;
+            border: 5px solid #3d2e1a;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 10px 0 #1e2a1c;
+            min-height: 420px;
             position: relative;
         }
 
@@ -112,7 +112,7 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             gap: 8px;
         }
         .foundations {
@@ -121,32 +121,26 @@
             flex: 1;
         }
 
-        /* ===== FUNDACIONES ===== */
         .foundation-slot {
             flex: 1;
-            min-width: 44px;
+            min-width: 48px;
             aspect-ratio: 3/4;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            border: 2px dashed rgba(255,215,0,0.15);
+            background: rgba(0,0,0,0.25);
+            border-radius: 10px;
+            border: 2px dashed rgba(255,215,0,0.12);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            color: #7a8290;
-            font-weight: 600;
-            text-align: center;
-            line-height: 1.2;
             position: relative;
             transition: border-color 0.2s, background 0.2s;
             flex-shrink: 0;
-            flex-direction: column;
             cursor: pointer;
+            flex-direction: column;
         }
-        .foundation-slot:hover { background: rgba(255,215,0,0.05); }
+        .foundation-slot:hover { background: rgba(255,215,0,0.04); }
         .foundation-slot .label {
             font-size: 8px;
-            color: #5a6270;
+            color: #6a7280;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             pointer-events: none;
@@ -154,6 +148,7 @@
             bottom: 4px;
             width: 100%;
             text-align: center;
+            font-weight: 700;
         }
         .foundation-slot .card {
             position: absolute;
@@ -161,17 +156,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
         }
         .foundation-slot .empty-icon {
-            font-size: 24px;
+            font-size: 20px;
             opacity: 0.15;
             pointer-events: none;
         }
         .foundation-slot .count-badge {
             position: absolute;
-            top: 2px;
-            right: 4px;
+            top: 3px;
+            right: 5px;
             font-size: 9px;
             color: #f7d875;
             background: rgba(0,0,0,0.5);
@@ -181,18 +176,18 @@
             font-weight: 700;
         }
 
-        /* ===== STOCK Y WASTE (rediseñados para que ocupen el mismo espacio) ===== */
+        /* ===== STOCK Y WASTE ===== */
         .stock-pile {
             display: flex;
             gap: 6px;
-            flex: 1; /* Ocupa el mismo espacio que las fundaciones */
-            max-width: calc(50% - 4px); /* Para que no se estiren demasiado */
+            flex: 1;
+            max-width: calc(50% - 4px);
         }
         .stock-container, .waste-slot {
             flex: 1;
-            min-width: 44px;
+            min-width: 48px;
             aspect-ratio: 3/4;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -200,14 +195,14 @@
             transition: all 0.15s;
         }
         .stock-container {
-            background: rgba(0,0,0,0.15);
+            background: rgba(0,0,0,0.25);
             border: 2px solid #3d5068;
             cursor: pointer;
             flex-direction: column;
         }
-        .stock-container:active { transform: scale(0.95); }
+        .stock-container:active { transform: scale(0.94); }
         .stock-container .stock-btn {
-            font-size: 28px;
+            font-size: 26px;
             color: #f7d875;
             font-weight: 700;
             line-height: 1;
@@ -221,13 +216,9 @@
             font-size: 10px;
             color: #b0b8c8;
             font-weight: 600;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             padding: 0 6px;
             border-radius: 10px;
-        }
-        .stock-container .recycle-icon {
-            font-size: 24px;
-            color: #f7d875;
         }
 
         .waste-slot {
@@ -240,7 +231,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
         }
         .waste-slot .empty-text {
@@ -261,10 +252,10 @@
         }
         .column {
             flex: 1;
-            min-width: 36px;
+            min-width: 40px;
             min-height: 120px;
-            background: rgba(0,0,0,0.08);
-            border-radius: 8px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
             border: 1px dashed rgba(255,255,255,0.04);
             padding: 2px 2px 2px 2px;
             display: flex;
@@ -275,23 +266,22 @@
         .column .card {
             position: relative;
             width: 100%;
-            margin-top: -24px;
-            border-radius: 6px;
+            margin-top: -22px;
+            border-radius: 8px;
         }
         .column .card:first-child {
             margin-top: 0;
         }
         .column .card.face-down {
-            margin-top: -18px;
+            margin-top: -16px;
         }
         .column .card:first-child.face-down {
             margin-top: 0;
         }
-        /* Badge con el número de cartas en la columna */
         .column .col-count {
             position: absolute;
-            top: 2px;
-            right: 4px;
+            top: 3px;
+            right: 5px;
             font-size: 9px;
             font-weight: 700;
             color: #7a8290;
@@ -302,46 +292,52 @@
             line-height: 1.4;
             border: 1px solid rgba(255,255,255,0.04);
         }
+        .column .col-empty {
+            color: rgba(255,255,255,0.06);
+            font-size: 22px;
+            padding: 10px 0;
+            pointer-events: none;
+        }
 
         /* ===== CARTAS ===== */
         .card {
             width: 100%;
             aspect-ratio: 3/4;
-            max-width: 72px;
-            background: #f5f7fc;
-            border-radius: 8px;
-            border: 2px solid #b0b8c8;
+            max-width: 80px;
+            background: #f7f9fc;
+            border-radius: 10px;
+            border: 2px solid #c8d0d8;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px 2px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 6px 3px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6);
             transition: all 0.15s ease;
             cursor: pointer;
             font-size: 10px;
             font-weight: 700;
             text-align: center;
-            line-height: 1.1;
+            line-height: 1.15;
             color: #1a1a1a;
             position: relative;
-            min-height: 56px;
+            min-height: 60px;
             user-select: none;
         }
-        /* Número de la carta (rank) en la esquina superior izquierda */
         .card .card-rank {
             position: absolute;
-            top: 2px;
-            left: 4px;
-            font-size: 14px;
+            top: 3px;
+            left: 6px;
+            font-size: 16px;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
-            opacity: 0.7;
+            opacity: 0.6;
             pointer-events: none;
+            font-family: 'Segoe UI', sans-serif;
         }
         .card .saint-icon {
-            font-size: 28px;
+            font-size: 26px;
             line-height: 1;
             margin-bottom: 2px;
         }
@@ -349,7 +345,7 @@
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.2px;
-            max-width: 90%;
+            max-width: 92%;
         }
         .card .saint-title {
             font-size: 7px;
@@ -362,14 +358,14 @@
             color: #b0b8c8;
             margin-top: 1px;
         }
-        .card.red-suit .saint-name { color: #c33; }
-        .card.black-suit .saint-name { color: #111; }
+        .card.red-suit .saint-name { color: #b33; }
+        .card.black-suit .saint-name { color: #1a1a1a; }
         .card.face-down {
-            background: repeating-linear-gradient(45deg, #1e3a5f, #1e3a5f 6px, #2b4b78 6px, #2b4b78 12px);
+            background: repeating-linear-gradient(45deg, #1e3a5f, #1e3a5f 8px, #2b4b78 8px, #2b4b78 16px);
             border-color: #0f1f33;
             color: transparent;
             cursor: default;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
         }
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
@@ -380,8 +376,8 @@
         }
         .card.face-down::after {
             content: '✟';
-            font-size: 28px;
-            color: rgba(255,255,255,0.08);
+            font-size: 30px;
+            color: rgba(255,255,255,0.06);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -389,7 +385,7 @@
         }
         .card.selected {
             border-color: #f7d875;
-            box-shadow: 0 0 20px rgba(247,216,117,0.5);
+            box-shadow: 0 0 25px rgba(247,216,117,0.5);
             transform: scale(1.02);
             z-index: 10;
         }
@@ -401,10 +397,6 @@
             border-color: #eb5757;
             box-shadow: 0 0 20px rgba(235,87,87,0.3);
         }
-        .card.dragging {
-            opacity: 0.4;
-            transform: scale(0.95);
-        }
 
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
@@ -413,10 +405,10 @@
             font-size: 13px;
             font-weight: 600;
             color: #e8ecf4;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 12px;
+            background: rgba(0,0,0,0.35);
+            padding: 6px 14px;
             border-radius: 30px;
-            border: 1px solid rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.04);
             min-height: 28px;
             letter-spacing: 0.2px;
         }
@@ -435,20 +427,20 @@
             border-radius: 40px;
             font-family: inherit;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: #3f4552;
-            color: #e0e4ec;
-            box-shadow: 0 3px 0 #1e2129;
+            background: #2a3345;
+            color: #d0d8e8;
+            box-shadow: 0 3px 0 #141a24;
             transition: all 0.08s;
             cursor: pointer;
             touch-action: manipulation;
-            min-width: 60px;
+            min-width: 56px;
         }
         .controls button:active {
             transform: translateY(3px);
-            box-shadow: 0 0px 0 #1e2129;
+            box-shadow: 0 0px 0 #141a24;
         }
         .controls .new-game {
             background: #4a7a3a;
@@ -473,7 +465,7 @@
         .controls button:disabled {
             opacity: 0.3;
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #1e2129;
+            box-shadow: 0 1px 0 #141a24;
             pointer-events: none;
         }
 
@@ -605,17 +597,17 @@
         .history {
             background: #121720;
             border-radius: 16px;
-            padding: 4px 12px;
-            max-height: 40px;
+            padding: 4px 14px;
+            max-height: 42px;
             overflow-y: auto;
-            border: 1px solid #2f3648;
+            border: 1px solid #2a3240;
             font-size: 10px;
             color: #b0b8c8;
             margin-top: 6px;
         }
         .history p {
             padding: 2px 0;
-            border-bottom: 1px solid #222837;
+            border-bottom: 1px solid #1e2633;
             margin: 0;
             line-height: 1.3;
         }
@@ -631,7 +623,7 @@
             font-size: 10px;
             color: #5a6270;
             margin-top: 8px;
-            border-top: 1px solid #222837;
+            border-top: 1px solid #1e2633;
             padding-top: 8px;
             letter-spacing: 0.3px;
         }
@@ -698,23 +690,23 @@
         .win-overlay .btn-restart:active { transform: scale(0.95); }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
             .card .saint-icon { font-size: 22px; }
-            .card .saint-name { font-size: 8px; }
+            .card .saint-name { font-size: 9px; }
             .card .saint-title { font-size: 6px; }
-            .card .card-rank { font-size: 12px; }
-            .card { min-height: 44px; }
-            .foundation-slot { min-width: 34px; }
-            .stock-container { min-width: 34px; }
-            .waste-slot { min-width: 34px; }
-            .column { min-width: 28px; min-height: 80px; }
+            .card .card-rank { font-size: 13px; }
+            .card { min-height: 48px; }
+            .foundation-slot { min-width: 40px; }
+            .stock-container { min-width: 40px; }
+            .waste-slot { min-width: 40px; }
+            .column { min-width: 30px; min-height: 100px; }
             .column .card { margin-top: -18px; }
             .column .card.face-down { margin-top: -14px; }
             .top-row { gap: 4px; }
             .foundations { gap: 4px; }
             .stock-pile { gap: 4px; }
             .logo { font-size: 14px; }
-            .logo .for-herminia { font-size: 11px; padding: 0 8px; }
+            .logo .for-herminia { font-size: 10px; padding: 0 8px; }
             .controls button { font-size: 10px; padding: 8px 0; }
             .help-box { padding: 20px 16px; }
             .help-box .help-title { font-size: 20px; }
@@ -723,13 +715,13 @@
         }
         @media (max-width: 420px) {
             .card .saint-icon { font-size: 18px; }
-            .card .saint-name { font-size: 7px; }
-            .card .card-rank { font-size: 10px; }
-            .card { min-height: 36px; }
-            .foundation-slot { min-width: 28px; }
-            .stock-container { min-width: 28px; }
-            .waste-slot { min-width: 28px; }
-            .column { min-width: 22px; min-height: 60px; }
+            .card .saint-name { font-size: 8px; }
+            .card .card-rank { font-size: 11px; }
+            .card { min-height: 40px; }
+            .foundation-slot { min-width: 32px; }
+            .stock-container { min-width: 32px; }
+            .waste-slot { min-width: 32px; }
+            .column { min-width: 24px; min-height: 70px; }
             .column .card { margin-top: -14px; }
             .column .card.face-down { margin-top: -10px; }
             .hand-message { font-size: 11px; }
@@ -744,8 +736,8 @@
         <div class="logo">
             <span class="cross">✟</span>
             <span class="brand">Solitario de Santos</span>
-            <span class="sub">By TU NIETO FAV</span>
-            <span class="for-herminia">para mi abuelita Herminia Claret Ochoa Torres</span>
+            <span class="sub">by tu nieto fav</span>
+            <span class="for-herminia">para Herminia</span>
         </div>
         <div class="header-actions"><span>⚙</span><span>✕</span></div>
     </div>
@@ -789,7 +781,7 @@
             <div class="column" data-col="6"></div>
         </div>
 
-        <div class="hand-message" id="handMessage">Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino. Usa el botón ❓ Ayuda si tienes dudas.</div>
+        <div class="hand-message" id="handMessage">Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino.</div>
 
         <!-- Overlay de victoria -->
         <div class="win-overlay" id="winOverlay">
@@ -822,7 +814,7 @@
         <div class="help-box">
             <button class="close-help" id="closeHelpBtn">✕</button>
             <div class="help-title">🕊️ ¿Cómo jugar?</div>
-            <div class="help-sub">¡Hola Herminia! Aquí te explico paso a paso cómo jugar al Solitario de Santos. Es más fácil de lo que parece.</div>
+            <div class="help-sub">¡Hola Herminia! Aquí te explico paso a paso cómo jugar al Solitario de Santos.</div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">1</span> El objetivo</div>
@@ -833,7 +825,7 @@
                     <span class="highlight">Vírgenes</span> (negro),
                     <span class="highlight">Doctores</span> (rojo).
                     Cada fundación debe tener sus cartas <strong>en orden</strong>: del 1 al 13.
-                    <div class="example">(El número de la carta aparece en la esquina superior izquierda de cada carta).</div>
+                    <div class="example">(El número aparece en la esquina superior izquierda de cada carta).</div>
                 </div>
             </div>
 
@@ -841,26 +833,24 @@
                 <div class="step-header"><span class="num">2</span> Seleccionar una carta</div>
                 <div class="step-text">
                     Toca una carta que esté <strong>boca arriba</strong> (que se vea el santo). Se <strong>resaltará en dorado</strong>.
-                    Solo puedes mover la última carta de una columna o una cadena de cartas que estén boca arriba.
+                    Puedes mover la última carta de una columna o una cadena de cartas boca arriba.
                 </div>
             </div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">3</span> Mover a una columna</div>
                 <div class="step-text">
-                    Las cartas se colocan en las 7 columnas de abajo. Deben ir <strong>alternando colores</strong> (rojo-negro-rojo-negro…)
+                    Las cartas se colocan en las 7 columnas de abajo. Deben ir <strong>alternando colores</strong> (rojo-negro)
                     y en <strong>orden descendente</strong> (13, 12, 11…).
-                    <div class="example">Ejemplo: puedes poner un 5 rojo sobre un 6 negro.</div>
-                    <strong>Recuerda:</strong> solo los <strong>Reyes</strong> (número 13) pueden ir en una columna vacía.
+                    <div class="example">Ejemplo: 5 rojo sobre 6 negro.</div>
+                    <strong>Recuerda:</strong> solo los <strong>Reyes</strong> (13) pueden ir en una columna vacía.
                 </div>
             </div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">4</span> Mover a una fundación</div>
                 <div class="step-text">
-                    Para ganar, debes llevar las cartas a las fundaciones de arriba. Cada fundación solo acepta <strong>cartas de su mismo palo</strong>
-                    y en <strong>orden ascendente</strong> (1, 2, 3… hasta 13).
-                    <div class="example">Ejemplo: en la fundación de <strong>Apóstoles</strong> solo van santos de Apóstoles (rojo) en orden.</div>
+                    Cada fundación solo acepta <strong>cartas de su mismo palo</strong> y en <strong>orden ascendente</strong> (1, 2, 3…).
                 </div>
             </div>
 
@@ -868,7 +858,6 @@
                 <div class="step-header"><span class="num">5</span> La baraja (el mazo)</div>
                 <div class="step-text">
                     Toca el mazo <strong>♠</strong> para <strong>robar</strong> una carta. Aparecerá en el espacio de la derecha.
-                    Si no te sirve, puedes robarla y luego moverla a una columna o fundación si es posible.
                     Cuando el mazo se vacíe, tócalo de nuevo para <strong>reciclar</strong> las cartas robadas.
                 </div>
             </div>
@@ -876,8 +865,8 @@
             <div class="help-step">
                 <div class="step-header"><span class="num">6</span> Botones útiles</div>
                 <div class="step-text">
-                    <strong>💡 Pista:</strong> te da una sugerencia de movimiento.<br>
-                    <strong>↩️ Deshacer:</strong> deshace el último movimiento (hasta 40 pasos).<br>
+                    <strong>💡 Pista:</strong> te da una sugerencia.<br>
+                    <strong>↩️ Deshacer:</strong> deshace el último movimiento.<br>
                     <strong>🔄 Nueva:</strong> comienza una nueva partida.
                 </div>
             </div>
@@ -901,7 +890,7 @@
         'use strict';
 
         // ============================================================
-        // DATOS DE SANTOS (4 palos × 13 cartas) - CON ICONOS MEJORADOS
+        // DATOS DE SANTOS (4 palos × 13 cartas)
         // ============================================================
         const SUITS = [
             { id: 0, name: 'Apóstoles', icon: '✝️', color: 'red' },
@@ -911,7 +900,6 @@
         ];
 
         const SAINTS = [
-            // Apóstoles (rank 1-13)
             { rank: 1, name: 'San Pedro', title: 'Apóstol', icon: '✝️' },
             { rank: 2, name: 'San Andrés', title: 'Apóstol', icon: '✝️' },
             { rank: 3, name: 'Santiago el Mayor', title: 'Apóstol', icon: '✝️' },
@@ -925,7 +913,6 @@
             { rank: 11, name: 'San Simón', title: 'Apóstol', icon: '✝️' },
             { rank: 12, name: 'San Matías', title: 'Apóstol', icon: '✝️' },
             { rank: 13, name: 'San Pablo', title: 'Apóstol', icon: '✝️' },
-            // Mártires (rank 14-26)
             { rank: 14, name: 'San Esteban', title: 'Protomártir', icon: '🕊️' },
             { rank: 15, name: 'San Lorenzo', title: 'Mártir', icon: '🕊️' },
             { rank: 16, name: 'San Sebastián', title: 'Mártir', icon: '🕊️' },
@@ -939,7 +926,6 @@
             { rank: 24, name: 'San Blas', title: 'Mártir', icon: '🕊️' },
             { rank: 25, name: 'San Vito', title: 'Mártir', icon: '🕊️' },
             { rank: 26, name: 'Santa Águeda', title: 'Mártir', icon: '🕊️' },
-            // Vírgenes (rank 27-39)
             { rank: 27, name: 'Santa María', title: 'Virgen', icon: '🌹' },
             { rank: 28, name: 'Santa Isabel', title: 'Virgen', icon: '🌹' },
             { rank: 29, name: 'Santa Ana', title: 'Virgen', icon: '🌹' },
@@ -953,7 +939,6 @@
             { rank: 37, name: 'Santa Mónica', title: 'Virgen', icon: '🌹' },
             { rank: 38, name: 'Santa Filomena', title: 'Virgen', icon: '🌹' },
             { rank: 39, name: 'Santa Verónica', title: 'Virgen', icon: '🌹' },
-            // Doctores (rank 40-52)
             { rank: 40, name: 'San Agustín', title: 'Doctor', icon: '📖' },
             { rank: 41, name: 'San Jerónimo', title: 'Doctor', icon: '📖' },
             { rank: 42, name: 'San Gregorio', title: 'Doctor', icon: '📖' },
@@ -1014,7 +999,7 @@
         // SONIDOS
         // ============================================================
         let audioCtx = null;
-        function playTone(freq, dur, type='sine', vol=0.05) {
+        function playTone(freq, dur, type='sine', vol=0.04) {
             try {
                 if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
@@ -1029,7 +1014,7 @@
                 osc.stop(audioCtx.currentTime + dur);
             } catch(e) {}
         }
-        function soundMove() { playTone(500, 0.06, 'sine', 0.06); }
+        function soundMove() { playTone(500, 0.06, 'sine', 0.05); }
         function soundWin() {
             playTone(800, 0.06); setTimeout(()=>playTone(1000,0.06),80);
             setTimeout(()=>playTone(1200,0.08),160);
@@ -1126,7 +1111,7 @@
             renderAll();
             updateInfo();
             updateTimer();
-            handMessage.textContent = 'Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino. Usa el botón ❓ Ayuda si tienes dudas.';
+            handMessage.textContent = 'Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino.';
             addHistory('✟ Nueva partida. ¡Ánimo, Herminia!');
 
             game.isRunning = true;
@@ -1154,14 +1139,14 @@
                     const cardEl = createCardElement(card, colIdx, idx, false);
                     colEl.appendChild(cardEl);
                 });
-                // Badge con el número de cartas en la columna
+                // Badge con el número de cartas
                 const countBadge = document.createElement('div');
                 countBadge.className = 'col-count';
                 countBadge.textContent = cards.length;
                 colEl.appendChild(countBadge);
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
-                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:24px;padding:10px 0;pointer-events:none;';
+                    empty.className = 'col-empty';
                     empty.textContent = '⬇';
                     colEl.appendChild(empty);
                 }
@@ -1174,7 +1159,6 @@
                 slot.innerHTML = '';
                 if (label) slot.appendChild(label);
                 const cards = game.foundations[suitId];
-                // Contador
                 const countBadge = document.createElement('span');
                 countBadge.className = 'count-badge';
                 countBadge.textContent = `${cards.length}/13`;
@@ -1196,7 +1180,6 @@
                     slot.appendChild(span);
                 }
 
-                // Evento para recibir cartas (destino)
                 slot.addEventListener('click', function(e) {
                     if (e.target.closest('.card')) return;
                     if (game.gameOver) return;
@@ -1204,8 +1187,7 @@
                         handMessage.textContent = 'Primero selecciona una carta.';
                         return;
                     }
-                    const from = game.selected;
-                    const moved = tryMove(from, null, suitId, null, true);
+                    const moved = tryMove(game.selected, null, suitId, null, true);
                     if (moved) {
                         clearSelection();
                         renderAll();
@@ -1215,9 +1197,7 @@
         }
 
         function renderStockAndWaste() {
-            // Stock
             stockCount.textContent = game.stock.length;
-            // Cambiar el icono si el mazo está vacío
             const stockBtnEl = stockBtn.querySelector('.stock-btn');
             if (game.stock.length === 0 && game.waste.length === 0) {
                 stockBtnEl.textContent = '🔄';
@@ -1225,7 +1205,6 @@
                 stockBtnEl.textContent = '♠';
             }
 
-            // Waste
             wasteSlot.innerHTML = '';
             if (game.waste.length > 0) {
                 const last = game.waste[game.waste.length - 1];
@@ -1235,7 +1214,7 @@
                 cardEl.style.left = '0';
                 cardEl.style.width = '100%';
                 cardEl.style.height = '100%';
-                cardEl.style.borderRadius = '8px';
+                cardEl.style.borderRadius = '10px';
                 wasteSlot.appendChild(cardEl);
                 cardEl.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -1299,10 +1278,9 @@
         }
 
         // ============================================================
-        // LÓGICA DE SELECCIÓN Y MOVIMIENTO (mejorada)
+        // LÓGICA DE SELECCIÓN Y MOVIMIENTO
         // ============================================================
         function handleCardClick(card, col, idx, isFoundation) {
-            // Si ya hay selección
             if (game.selected) {
                 const sel = game.selected;
                 if (sel.card.id === card.id && sel.col === col && sel.idx === idx) {
@@ -1324,7 +1302,6 @@
                     return;
                 }
             }
-
             selectCard(card, col, idx, isFoundation);
         }
 
@@ -1332,7 +1309,7 @@
             game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
             highlightCard(col, idx, true);
             soundClick();
-            handMessage.textContent = `Seleccionaste ${card.saint.name} (${card.rank}). Ahora elige un destino.`;
+            handMessage.textContent = `Seleccionaste ${card.saint.name} (${card.rank}). Elige un destino.`;
         }
 
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
@@ -1341,7 +1318,6 @@
             const srcIdx = from.idx;
             const fromFoundation = from.isFoundation;
 
-            // Validar origen
             if (!fromFoundation && srcCol !== 'waste') {
                 const colCards = game.columns[srcCol];
                 const isLast = (srcIdx === colCards.length - 1);
@@ -1359,7 +1335,6 @@
                 }
             }
 
-            // Destino: columna normal
             if (toCol !== null && toCol !== 'foundation' && toCol !== 'waste' && !toIsFoundation) {
                 const destCol = game.columns[toCol];
                 if (destCol.length === 0) {
@@ -1384,7 +1359,6 @@
                 }
             }
 
-            // Destino: fundación
             if (toIsFoundation) {
                 const suitId = toCol;
                 const f = game.foundations[suitId];
@@ -1443,7 +1417,6 @@
                 });
             }
 
-            // Voltear carta superior de la columna de origen (si no es waste ni fundación)
             if (srcCol !== 'waste' && !from.isFoundation) {
                 const col = game.columns[srcCol];
                 if (col.length > 0 && !col[col.length - 1].faceUp) {
@@ -1466,7 +1439,7 @@
                 el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
             foundationsEl.forEach(el => {
-                el.style.borderColor = 'rgba(255,215,0,0.15)';
+                el.style.borderColor = 'rgba(255,215,0,0.12)';
             });
             wasteSlot.style.borderColor = 'rgba(255,255,255,0.06)';
             handMessage.textContent = 'Selecciona una carta para mover.';
@@ -1479,7 +1452,7 @@
             if (!active) return;
             if (col === 'foundation') {
                 foundationsEl.forEach((el, i) => {
-                    el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.15)';
+                    el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.12)';
                 });
                 return;
             }
@@ -1546,7 +1519,6 @@
                 return;
             }
             if (game.stock.length === 0) {
-                // Reciclar
                 game.stock = game.waste.reverse();
                 game.waste = [];
                 game.stock.forEach(c => c.faceUp = false);
@@ -1556,7 +1528,6 @@
                 handMessage.textContent = 'Baraja reciclada.';
                 return;
             }
-            // Robar
             const card = game.stock.pop();
             card.faceUp = true;
             game.waste.push(card);
@@ -1565,7 +1536,7 @@
             renderAll();
             updateInfo();
             addHistory(`♠ Robaste ${card.saint.name} (${card.rank})`);
-            handMessage.textContent = `Robaste ${card.saint.name} (${card.rank}). Puedes moverla si es posible.`;
+            handMessage.textContent = `Robaste ${card.saint.name} (${card.rank}). Puedes moverla.`;
         });
 
         // ============================================================
@@ -1573,7 +1544,6 @@
         // ============================================================
         function getHint() {
             if (game.gameOver) return;
-            // 1. A fundación
             for (let suitId = 0; suitId < 4; suitId++) {
                 const f = game.foundations[suitId];
                 const nextRank = f.length + 1;
@@ -1596,7 +1566,6 @@
                 }
             }
 
-            // 2. Mover entre columnas
             for (let col = 0; col < 7; col++) {
                 const colCards = game.columns[col];
                 if (colCards.length === 0) {
@@ -1667,11 +1636,9 @@
         function openHelp() {
             helpOverlay.classList.add('active');
         }
-
         function closeHelp() {
             helpOverlay.classList.remove('active');
         }
-
         helpBtn.addEventListener('click', openHelp);
         closeHelpBtn.addEventListener('click', closeHelp);
         closeHelpBtn2.addEventListener('click', closeHelp);
@@ -1687,14 +1654,11 @@
                 initGame();
             }
         });
-
         undoBtn.addEventListener('click', undo);
-
         hintBtn.addEventListener('click', function() {
             if (game.gameOver) return;
             getHint();
         });
-
         restartWinBtn.addEventListener('click', function() {
             winOverlay.classList.remove('active');
             initGame();
@@ -1706,33 +1670,17 @@
         initGame();
 
         // ============================================================
-        // REGISTRO DE SERVICE WORKER (PWA) - CON CONTROL DE CACHÉ
+        // SERVICE WORKER (con control de caché)
         // ============================================================
         if ('serviceWorker' in navigator) {
-            // Forzar la desactivación de la caché antigua
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for (let registration of registrations) {
                     registration.unregister();
-                    console.log('Service Worker antiguo desregistrado');
                 }
             });
-            // Registrar el nuevo Service Worker con un nombre de caché único
             navigator.serviceWorker.register('sw.js?v=2');
         }
-
-        // Añadir un botón oculto para forzar recarga (opcional)
-        // Para uso en desarrollo: presiona Ctrl+Shift+R en el navegador
-
-        // Forzar recarga de la página si se detecta una nueva versión
-        // (esto es útil para los usuarios finales)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Si la URL tiene un parámetro de versión, forzar recarga
-            if (location.search.indexOf('v=') === -1) {
-                // No hacer nada
-            }
-        });
-
     })();
 </script>
 </body>
-    </html>
+</html>
