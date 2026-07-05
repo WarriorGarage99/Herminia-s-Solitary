@@ -1199,7 +1199,6 @@
             e.preventDefault();
             deferredPrompt = e;
             console.log('✅ beforeinstallprompt capturado');
-            // Asegurar que el banner esté visible si no está instalado
             if (!isInstalled) {
                 banner.classList.remove('hidden');
             }
@@ -1211,6 +1210,7 @@
             banner.classList.add('hidden');
             modal.classList.remove('active');
             isInstalled = true;
+            deferredPrompt = null;
         });
 
         // Botón "Instalar App"
@@ -1303,6 +1303,32 @@
             userAgent: navigator.userAgent
         });
     })();
+
+    // ================================================================
+    // REGISTRO DE SERVICE WORKER (PWA) - MEJORADO
+    // ================================================================
+    if ('serviceWorker' in navigator) {
+        // Forzar desregistro de versiones antiguas
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+                console.log('🗑️ Service Worker antiguo desregistrado');
+            }
+        }).then(() => {
+            // Registrar el nuevo con parámetro de versión para evitar caché
+            navigator.serviceWorker.register('sw.js?v=7')
+                .then(reg => {
+                    console.log('✅ Service Worker registrado correctamente:', reg);
+                })
+                .catch(err => {
+                    console.error('❌ Error al registrar Service Worker:', err);
+                });
+        }).catch(err => {
+            console.warn('⚠️ No se pudo desregistrar SW antiguo:', err);
+        });
+    } else {
+        console.warn('⚠️ Service Worker no soportado en este navegador');
+    }
 
     // ================================================================
     // CÓDIGO DEL JUEGO (SIN CAMBIOS)
@@ -2094,23 +2120,7 @@
         // INICIAR
         // ============================================================
         initGame();
-
-        // ============================================================
-        // REGISTRO DE SERVICE WORKER (PWA)
-        // ============================================================
-        if ('serviceWorker' in navigator) {
-            // Forzar desregistro de versiones antiguas
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for (let registration of registrations) {
-                    registration.unregister();
-                    console.log('Service Worker antiguo desregistrado');
-                }
-            });
-            // Registrar el nuevo con un parámetro de versión para evitar caché
-            navigator.serviceWorker.register('sw.js?v=6');
-        }
-
     })();
 </script>
 </body>
-    </html>
+                    </html>
