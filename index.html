@@ -20,15 +20,15 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 8px;
+            padding: 4px;
             margin: 0;
         }
         #app {
-            max-width: 720px;
+            max-width: 460px;
             width: 100%;
             background: radial-gradient(ellipse at 20% 30%, #1a1f2e, #0b0e16);
-            border-radius: 32px;
-            padding: 14px 12px 18px;
+            border-radius: 24px;
+            padding: 10px 8px 14px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             border: 1px solid rgba(212, 163, 66, 0.15);
             position: relative;
@@ -49,45 +49,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 0 4px;
+            margin-bottom: 6px;
+            padding: 0 2px;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
             position: relative;
             z-index: 2;
         }
         .logo {
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 700;
             color: #e8ecf4;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
         }
-        .logo .cross { color: #f7d875; font-size: 22px; }
-        .logo .brand { color: #e8ecf4; letter-spacing: 0.5px; }
+        .logo .cross { color: #f7d875; font-size: 18px; }
+        .logo .brand { color: #e8ecf4; letter-spacing: 0.3px; }
         .logo .sub {
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 400;
             color: #b0b8c8;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
         .logo .for-herminia {
-            font-size: 13px;
+            font-size: 10px;
             font-weight: 600;
             color: #f7d875;
             background: rgba(247,216,117,0.08);
-            padding: 0 12px;
+            padding: 0 8px;
             border-radius: 30px;
             border: 1px solid rgba(247,216,117,0.15);
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
         .header-actions {
             color: #7a8290;
-            font-size: 16px;
+            font-size: 14px;
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         /* ===== PANEL DE INFORMACIÓN ===== */
@@ -96,14 +96,14 @@
             justify-content: space-between;
             background: rgba(18, 23, 32, 0.7);
             border-radius: 30px;
-            padding: 4px 16px;
-            margin-bottom: 10px;
+            padding: 2px 12px;
+            margin-bottom: 6px;
             border: 1px solid rgba(255, 215, 0, 0.06);
             color: #b0b8c8;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             flex-wrap: wrap;
-            gap: 4px;
+            gap: 2px;
             backdrop-filter: blur(4px);
             position: relative;
             z-index: 2;
@@ -115,21 +115,21 @@
         /* ===== MESA ===== */
         .table {
             background: radial-gradient(ellipse at center, #1f6b3c, #0e321e);
-            border-radius: 40px 40px 30px 30px;
-            padding: 12px 8px 10px;
-            border: 5px solid #3d2e1a;
-            box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 8px 0 #1e2a1c, 0 0 40px rgba(0,200,100,0.05);
+            border-radius: 30px 30px 20px 20px;
+            padding: 8px 4px 6px;
+            border: 4px solid #3d2e1a;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 6px 0 #1e2a1c, 0 0 30px rgba(0,200,100,0.05);
             position: relative;
-            min-height: 400px;
+            min-height: 340px;
         }
         .table::after {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
-            border-radius: 34px 34px 26px 26px;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border-radius: 26px 26px 18px 18px;
             border: 1px solid rgba(255,255,255,0.03);
             pointer-events: none;
         }
@@ -139,29 +139,29 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            margin-bottom: 12px;
-            gap: 6px;
+            margin-bottom: 8px;
+            gap: 4px;
             position: relative;
             z-index: 2;
         }
         .foundations {
             display: flex;
-            gap: 5px;
+            gap: 3px;
             flex: 1;
         }
 
         /* ===== FUNDACIONES ===== */
         .foundation-slot {
             flex: 1;
-            min-width: 40px;
+            min-width: 28px;
             aspect-ratio: 3/4;
             background: rgba(0,0,0,0.2);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px dashed rgba(255,215,0,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 8px;
             color: #7a8290;
             font-weight: 600;
             text-align: center;
@@ -174,13 +174,13 @@
         }
         .foundation-slot:hover { background: rgba(255,215,0,0.03); }
         .foundation-slot .label {
-            font-size: 7px;
+            font-size: 6px;
             color: #5a6270;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             pointer-events: none;
             position: absolute;
-            bottom: 4px;
+            bottom: 2px;
             width: 100%;
             text-align: center;
             font-weight: 600;
@@ -191,38 +191,38 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
         }
         .foundation-slot .empty-icon {
-            font-size: 22px;
+            font-size: 16px;
             opacity: 0.1;
             pointer-events: none;
         }
         .foundation-slot .count-badge {
             position: absolute;
-            top: 3px;
-            right: 5px;
-            font-size: 8px;
+            top: 2px;
+            right: 3px;
+            font-size: 7px;
             color: #f7d875;
             background: rgba(0,0,0,0.5);
-            padding: 0 5px;
-            border-radius: 8px;
+            padding: 0 4px;
+            border-radius: 6px;
             pointer-events: none;
             font-weight: 700;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
 
         /* ===== STOCK Y WASTE (rediseñados) ===== */
         .stock-pile {
             display: flex;
-            gap: 5px;
+            gap: 3px;
             flex: 1;
         }
         .stock-container, .waste-slot {
             flex: 1;
-            min-width: 40px;
+            min-width: 28px;
             aspect-ratio: 3/4;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -239,7 +239,7 @@
         }
         .stock-container:active { transform: scale(0.95); }
         .stock-container .stock-btn {
-            font-size: 26px;
+            font-size: 20px;
             color: #f7d875;
             font-weight: 700;
             line-height: 1;
@@ -249,14 +249,14 @@
         }
         .stock-container .stock-count {
             position: absolute;
-            bottom: 4px;
-            right: 5px;
-            font-size: 9px;
+            bottom: 2px;
+            right: 3px;
+            font-size: 7px;
             color: #b0b8c8;
             font-weight: 600;
             background: rgba(0,0,0,0.4);
-            padding: 0 5px;
-            border-radius: 8px;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
         .waste-slot {
@@ -269,14 +269,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
         }
         .waste-slot .empty-text {
-            font-size: 9px;
+            font-size: 7px;
             color: #4a5260;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
             pointer-events: none;
         }
         .waste-slot:hover { background: rgba(255,255,255,0.03); }
@@ -284,20 +284,20 @@
         /* ===== COLUMNAS ===== */
         .columns {
             display: flex;
-            gap: 5px;
+            gap: 3px;
             justify-content: center;
-            margin-top: 6px;
+            margin-top: 4px;
             position: relative;
             z-index: 2;
         }
         .column {
             flex: 1;
-            min-width: 32px;
-            min-height: 110px;
+            min-width: 18px;
+            min-height: 70px;
             background: rgba(0,0,0,0.05);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px dashed rgba(255,255,255,0.02);
-            padding: 2px 2px 2px 2px;
+            padding: 1px 1px 1px 1px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -306,56 +306,56 @@
         .column .card {
             position: relative;
             width: 100%;
-            margin-top: -20px;
-            border-radius: 8px;
+            margin-top: -14px;
+            border-radius: 6px;
         }
         .column .card:first-child { margin-top: 0; }
-        .column .card.face-down { margin-top: -14px; }
+        .column .card.face-down { margin-top: -10px; }
         .column .card:first-child.face-down { margin-top: 0; }
         .column .col-count {
             position: absolute;
-            top: 3px;
-            right: 4px;
-            font-size: 8px;
+            top: 2px;
+            right: 2px;
+            font-size: 6px;
             font-weight: 600;
             color: #5a6270;
             background: rgba(0,0,0,0.3);
-            padding: 0 5px;
-            border-radius: 6px;
+            padding: 0 4px;
+            border-radius: 4px;
             pointer-events: none;
-            line-height: 1.3;
+            line-height: 1.2;
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS REDISEÑADAS (profesionales) ===== */
+        /* ===== CARTAS REDISEÑADAS (exclusivo móvil) ===== */
         .card {
             width: 100%;
-            aspect-ratio: 3/4;
-            max-width: 72px;
+            aspect-ratio: 2.5/3.5;
+            max-width: 56px;
             background: linear-gradient(145deg, #f5f7fc, #e8ecf4);
-            border-radius: 10px;
-            border: 2px solid #b8c0cc;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+            border-radius: 8px;
+            border: 1.5px solid #b8c0cc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
             transition: all 0.15s ease;
             cursor: pointer;
             color: #1a1a1a;
             position: relative;
-            min-height: 50px;
+            min-height: 36px;
             user-select: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px 2px;
+            padding: 2px 1px;
             text-align: center;
             overflow: hidden;
         }
         /* Número de la carta (grande y visible) */
         .card .card-rank {
             position: absolute;
-            top: 3px;
-            left: 5px;
-            font-size: 22px;
+            top: 2px;
+            left: 3px;
+            font-size: 5vw;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
@@ -363,25 +363,25 @@
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
-            font-size: 14px;
+            font-size: 3vw;
             line-height: 1;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             display: block;
             text-align: center;
         }
         .card .saint-name {
-            font-size: 8px;
+            font-size: 2.2vw;
             font-weight: 700;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.1px;
             max-width: 90%;
             color: #1a1a1a;
-            line-height: 1.2;
+            line-height: 1.1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
         .card .saint-title {
-            font-size: 6px;
+            font-size: 1.8vw;
             font-weight: 400;
             color: #6a7280;
             line-height: 1.1;
@@ -396,7 +396,7 @@
             border-color: #0f1f33;
             color: transparent;
             cursor: default;
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.6);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
@@ -404,7 +404,7 @@
         .card.face-down .card-rank { display: none; }
         .card.face-down::after {
             content: '✟';
-            font-size: 24px;
+            font-size: 18px;
             color: rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
@@ -413,32 +413,32 @@
         }
         .card.selected {
             border-color: #f7d875;
-            box-shadow: 0 0 25px rgba(247,216,117,0.4), 0 3px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 0 20px rgba(247,216,117,0.4), 0 2px 10px rgba(0,0,0,0.3);
             transform: scale(1.03);
             z-index: 10;
         }
         .card.valid-drop {
             border-color: #6fcf97;
-            box-shadow: 0 0 20px rgba(111,207,151,0.2);
+            box-shadow: 0 0 15px rgba(111,207,151,0.2);
         }
         .card.invalid-drop {
             border-color: #eb5757;
-            box-shadow: 0 0 20px rgba(235,87,87,0.2);
+            box-shadow: 0 0 15px rgba(235,87,87,0.2);
         }
 
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
             text-align: center;
-            margin-top: 10px;
-            font-size: 12px;
+            margin-top: 6px;
+            font-size: 10px;
             font-weight: 600;
             color: #c8d0d8;
-            background: rgba(0,0,0,0.35);
-            padding: 6px 12px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
             border-radius: 30px;
             border: 1px solid rgba(255,215,0,0.03);
-            min-height: 26px;
-            letter-spacing: 0.2px;
+            min-height: 22px;
+            letter-spacing: 0.1px;
             backdrop-filter: blur(2px);
             position: relative;
             z-index: 2;
@@ -447,58 +447,58 @@
         /* ===== BOTONES ===== */
         .controls {
             display: flex;
-            gap: 6px;
-            margin: 10px 0 6px;
+            gap: 4px;
+            margin: 6px 0 4px;
             flex-wrap: wrap;
             position: relative;
             z-index: 2;
         }
         .controls button {
             flex: 1;
-            padding: 10px 0;
+            padding: 8px 0;
             border: none;
             border-radius: 40px;
             font-family: inherit;
             font-weight: 700;
-            font-size: 11px;
+            font-size: 9px;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.4px;
             background: #2f3648;
             color: #d0d8e8;
-            box-shadow: 0 4px 0 #1a1f2a, 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 0 #1a1f2a, 0 4px 15px rgba(0,0,0,0.2);
             transition: all 0.08s ease;
             cursor: pointer;
             touch-action: manipulation;
-            min-width: 54px;
+            min-width: 40px;
             border: 1px solid rgba(255,255,255,0.02);
         }
         .controls button:active {
-            transform: translateY(4px);
+            transform: translateY(3px);
             box-shadow: 0 1px 0 #1a1f2a;
         }
         .controls .new-game {
             background: linear-gradient(145deg, #4a7a3a, #3a602a);
             color: #f0ffe0;
-            box-shadow: 0 4px 0 #1e3316;
+            box-shadow: 0 3px 0 #1e3316;
         }
         .controls .undo {
             background: linear-gradient(145deg, #3a6a8a, #2a5070);
             color: #e0f0ff;
-            box-shadow: 0 4px 0 #1a3345;
+            box-shadow: 0 3px 0 #1a3345;
         }
         .controls .hint {
             background: linear-gradient(145deg, #8a7a3a, #6a5a2a);
             color: #fff0d0;
-            box-shadow: 0 4px 0 #4a3a1a;
+            box-shadow: 0 3px 0 #4a3a1a;
         }
         .controls .help {
             background: linear-gradient(145deg, #6a5a8a, #4a3a6a);
             color: #f0e0ff;
-            box-shadow: 0 4px 0 #3a2a4a;
+            box-shadow: 0 3px 0 #3a2a4a;
         }
         .controls button:disabled {
             opacity: 0.3;
-            transform: translateY(3px);
+            transform: translateY(2px);
             box-shadow: 0 1px 0 #1a1f2a;
             pointer-events: none;
         }
@@ -516,17 +516,17 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            padding: 20px;
+            padding: 16px;
         }
         .help-overlay.active { display: flex; }
         .help-box {
             background: #1a1f2e;
-            border-radius: 32px;
-            max-width: 520px;
+            border-radius: 28px;
+            max-width: 400px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 28px 24px 24px;
+            padding: 20px 18px 20px;
             border: 1px solid rgba(247,216,117,0.15);
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             position: relative;
@@ -538,86 +538,86 @@
 
         .help-box .close-help {
             position: absolute;
-            top: 12px;
-            right: 16px;
+            top: 10px;
+            right: 12px;
             background: none;
             border: none;
             color: #7a8290;
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             line-height: 1;
         }
         .help-box .close-help:active { color: #e0e4ec; }
         .help-box .help-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: #f7d875;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .help-box .help-sub {
-            font-size: 14px;
+            font-size: 12px;
             color: #b0b8c8;
-            margin-bottom: 16px;
-            line-height: 1.5;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
         .help-box .help-step {
             background: #121720;
-            border-radius: 16px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
+            border-radius: 14px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
             border: 1px solid #2f3648;
         }
         .help-box .help-step .step-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 12px;
             color: #f7d875;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .help-box .help-step .step-header .num {
             background: #f7d875;
             color: #1a1f28;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 11px;
         }
         .help-box .help-step .step-text {
-            font-size: 13px;
+            font-size: 11px;
             color: #c8d0d8;
-            line-height: 1.5;
-            padding-left: 34px;
+            line-height: 1.4;
+            padding-left: 28px;
         }
         .help-box .help-step .step-text strong { color: #f7d875; }
         .help-box .help-step .step-text .highlight { color: #6fcf97; }
         .help-box .help-step .step-text .example {
             display: inline-block;
             background: rgba(255,255,255,0.05);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
             color: #b0b8c8;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .help-box .btn-close-help {
             background: linear-gradient(135deg, #f7d875, #d4a342);
             border: none;
             border-radius: 60px;
-            padding: 12px 0;
+            padding: 10px 0;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             color: #1a1f28;
             cursor: pointer;
             width: 100%;
-            margin-top: 8px;
+            margin-top: 6px;
             font-family: inherit;
             transition: 0.2s;
         }
@@ -626,23 +626,23 @@
         /* ===== HISTORIAL ===== */
         .history {
             background: rgba(18, 23, 32, 0.5);
-            border-radius: 16px;
-            padding: 4px 12px;
-            max-height: 36px;
+            border-radius: 14px;
+            padding: 2px 10px;
+            max-height: 30px;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.02);
-            font-size: 10px;
+            font-size: 9px;
             color: #b0b8c8;
-            margin-top: 6px;
+            margin-top: 4px;
             backdrop-filter: blur(2px);
             position: relative;
             z-index: 2;
         }
         .history p {
-            padding: 2px 0;
+            padding: 1px 0;
             border-bottom: 1px solid rgba(255,255,255,0.03);
             margin: 0;
-            line-height: 1.3;
+            line-height: 1.2;
         }
         .history p:last-child { border-bottom: none; }
         .history .highlight { color: #f7d875; font-weight: 600; }
@@ -653,12 +653,12 @@
 
         .footer {
             text-align: center;
-            font-size: 10px;
+            font-size: 8px;
             color: #5a6270;
-            margin-top: 8px;
+            margin-top: 6px;
             border-top: 1px solid rgba(255,255,255,0.02);
-            padding-top: 8px;
-            letter-spacing: 0.3px;
+            padding-top: 6px;
+            letter-spacing: 0.2px;
         }
         .footer .bless { color: #f7d875; font-weight: 600; }
 
@@ -670,44 +670,44 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.85);
-            border-radius: 32px;
+            border-radius: 24px;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
         }
         .win-overlay.active { display: flex; }
-        .win-overlay .icon { font-size: 72px; margin-bottom: 10px; }
+        .win-overlay .icon { font-size: 56px; margin-bottom: 6px; }
         .win-overlay h2 {
-            font-size: 28px;
+            font-size: 22px;
             color: #f7d875;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 0 30px rgba(247,216,117,0.2);
         }
         .win-overlay .message {
-            font-size: 18px;
+            font-size: 15px;
             color: #e8ecf4;
-            line-height: 1.6;
-            max-width: 320px;
+            line-height: 1.5;
+            max-width: 280px;
         }
         .win-overlay .message .name { color: #f7d875; font-weight: 700; }
         .win-overlay .blessing {
-            font-size: 22px;
+            font-size: 18px;
             color: #6fcf97;
-            margin-top: 12px;
+            margin-top: 8px;
             font-style: italic;
         }
         .win-overlay .btn-restart {
-            margin-top: 24px;
+            margin-top: 16px;
             background: linear-gradient(135deg, #f7d875, #d4a342);
             border: none;
             border-radius: 60px;
-            padding: 14px 40px;
+            padding: 10px 30px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             color: #1a1f28;
             cursor: pointer;
             box-shadow: 0 4px 25px rgba(247,216,117,0.2);
@@ -716,43 +716,37 @@
         }
         .win-overlay .btn-restart:active { transform: scale(0.95); }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 600px) {
-            .card .saint-icon { font-size: 12px; }
-            .card .saint-name { font-size: 7px; }
-            .card .saint-title { font-size: 5px; }
-            .card .card-rank { font-size: 18px; }
-            .card { min-height: 42px; }
-            .foundation-slot { min-width: 32px; }
-            .stock-container { min-width: 32px; }
-            .waste-slot { min-width: 32px; }
-            .column { min-width: 26px; min-height: 80px; }
-            .column .card { margin-top: -18px; }
-            .column .card.face-down { margin-top: -12px; }
-            .top-row { gap: 4px; }
-            .foundations { gap: 4px; }
-            .stock-pile { gap: 4px; }
-            .logo { font-size: 14px; }
-            .logo .for-herminia { font-size: 11px; padding: 0 8px; }
-            .controls button { font-size: 10px; padding: 8px 0; }
-            .help-box { padding: 20px 16px; }
-            .help-box .help-title { font-size: 20px; }
-            .help-box .help-step .step-text { font-size: 12px; padding-left: 0; }
-            .help-box .help-step .step-header { font-size: 13px; }
+        /* ===== RESPONSIVE EXTRA ===== */
+        @media (max-width: 400px) {
+            .card .card-rank { font-size: 4.5vw; }
+            .card .saint-icon { font-size: 2.8vw; }
+            .card .saint-name { font-size: 2vw; }
+            .card .saint-title { font-size: 1.6vw; }
+            .card { min-height: 30px; }
+            .column { min-height: 60px; }
+            .column .card { margin-top: -12px; }
+            .column .card.face-down { margin-top: -8px; }
+            .foundation-slot { min-width: 24px; }
+            .stock-container { min-width: 24px; }
+            .waste-slot { min-width: 24px; }
+            .logo { font-size: 12px; }
+            .logo .for-herminia { font-size: 9px; padding: 0 6px; }
+            .controls button { font-size: 8px; padding: 6px 0; }
+            .info-panel { font-size: 9px; padding: 2px 10px; }
+            .hand-message { font-size: 9px; padding: 3px 6px; }
         }
-        @media (max-width: 420px) {
-            .card .saint-icon { font-size: 10px; }
-            .card .saint-name { font-size: 6px; }
-            .card .card-rank { font-size: 16px; }
-            .card { min-height: 34px; }
-            .foundation-slot { min-width: 26px; }
-            .stock-container { min-width: 26px; }
-            .waste-slot { min-width: 26px; }
-            .column { min-width: 20px; min-height: 60px; }
-            .column .card { margin-top: -14px; }
-            .column .card.face-down { margin-top: -10px; }
-            .hand-message { font-size: 11px; }
-            .column .col-count { font-size: 7px; }
+        @media (max-width: 360px) {
+            .card .card-rank { font-size: 4vw; }
+            .card .saint-icon { font-size: 2.5vw; }
+            .card .saint-name { font-size: 1.8vw; }
+            .card .saint-title { font-size: 1.4vw; }
+            .card { min-height: 26px; }
+            .column { min-height: 50px; }
+            .column .card { margin-top: -10px; }
+            .column .card.face-down { margin-top: -6px; }
+            .foundation-slot { min-width: 20px; }
+            .stock-container { min-width: 20px; }
+            .waste-slot { min-width: 20px; }
         }
     </style>
 </head>
@@ -1178,7 +1172,7 @@
                 colEl.appendChild(countBadge);
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
-                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:24px;padding:10px 0;pointer-events:none;';
+                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:16px;padding:6px 0;pointer-events:none;';
                     empty.textContent = '⬇';
                     colEl.appendChild(empty);
                 }
@@ -1247,7 +1241,7 @@
                 cardEl.style.left = '0';
                 cardEl.style.width = '100%';
                 cardEl.style.height = '100%';
-                cardEl.style.borderRadius = '10px';
+                cardEl.style.borderRadius = '8px';
                 wasteSlot.appendChild(cardEl);
                 cardEl.addEventListener('click', function(e) {
                     e.stopPropagation();
