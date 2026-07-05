@@ -120,6 +120,8 @@
             gap: 6px;
             flex: 1;
         }
+
+        /* ===== FUNDACIONES ===== */
         .foundation-slot {
             flex: 1;
             min-width: 44px;
@@ -179,45 +181,52 @@
             font-weight: 700;
         }
 
-        /* ===== STOCK Y WASTE ===== */
+        /* ===== STOCK Y WASTE (rediseñados) ===== */
         .stock-pile {
             display: flex;
             gap: 6px;
             align-items: stretch;
             flex-shrink: 0;
         }
-        .stock-btn {
+        .stock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             min-width: 44px;
             aspect-ratio: 3/4;
-            background: #1a2535;
+            background: rgba(0,0,0,0.15);
             border-radius: 8px;
             border: 2px solid #3d5068;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: #f7d875;
+            position: relative;
             cursor: pointer;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
             transition: all 0.15s;
-            font-weight: 700;
         }
-        .stock-btn:active { transform: scale(0.95); }
-        .stock-btn:disabled {
-            opacity: 0.3;
+        .stock-container:active { transform: scale(0.95); }
+        .stock-container .stock-btn {
+            font-size: 28px;
+            color: #f7d875;
+            font-weight: 700;
+            line-height: 1;
+            user-select: none;
             pointer-events: none;
         }
-        .stock-count {
-            font-size: 11px;
+        .stock-container .stock-count {
+            position: absolute;
+            bottom: 4px;
+            right: 6px;
+            font-size: 10px;
             color: #b0b8c8;
             font-weight: 600;
-            min-width: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            padding: 0 6px;
+            border-radius: 10px;
+        }
+        .stock-container .recycle-icon {
+            font-size: 24px;
+            color: #f7d875;
         }
 
-        /* ===== SLOT DE WASTE (carta robada) ===== */
         .waste-slot {
             min-width: 44px;
             aspect-ratio: 3/4;
@@ -228,7 +237,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background 0.2s;
         }
         .waste-slot .card {
             position: absolute;
@@ -246,6 +255,7 @@
             letter-spacing: 0.3px;
             pointer-events: none;
         }
+        .waste-slot:hover { background: rgba(255,255,255,0.03); }
 
         /* ===== COLUMNAS ===== */
         .columns {
@@ -261,7 +271,7 @@
             background: rgba(0,0,0,0.08);
             border-radius: 8px;
             border: 1px dashed rgba(255,255,255,0.04);
-            padding: 2px 2px 16px 2px;
+            padding: 2px 2px 2px 2px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -282,19 +292,20 @@
         .column .card:first-child.face-down {
             margin-top: 0;
         }
-        .column .col-label {
+        /* Badge con el número de cartas en la columna */
+        .column .col-count {
             position: absolute;
-            bottom: 0px;
+            top: 2px;
+            right: 4px;
             font-size: 9px;
-            color: #5a6270;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            text-align: center;
-            width: 100%;
+            font-weight: 700;
+            color: #7a8290;
+            background: rgba(0,0,0,0.3);
+            padding: 0 5px;
+            border-radius: 8px;
             pointer-events: none;
-        }
-        .column .col-label .num {
-            color: #f7d875;
+            line-height: 1.4;
+            border: 1px solid rgba(255,255,255,0.04);
         }
 
         /* ===== CARTAS ===== */
@@ -685,7 +696,7 @@
             .card .saint-title { font-size: 6px; }
             .card { min-height: 44px; }
             .foundation-slot { min-width: 34px; }
-            .stock-btn { min-width: 34px; font-size: 18px; }
+            .stock-container { min-width: 34px; }
             .waste-slot { min-width: 34px; }
             .column { min-width: 28px; min-height: 80px; }
             .column .card { margin-top: -18px; }
@@ -706,13 +717,13 @@
             .card .saint-name { font-size: 7px; }
             .card { min-height: 36px; }
             .foundation-slot { min-width: 28px; }
-            .stock-btn { min-width: 28px; font-size: 14px; }
+            .stock-container { min-width: 28px; }
             .waste-slot { min-width: 28px; }
             .column { min-width: 22px; min-height: 60px; }
             .column .card { margin-top: -14px; }
             .column .card.face-down { margin-top: -10px; }
             .hand-message { font-size: 11px; }
-            .column .col-label { font-size: 7px; }
+            .column .col-count { font-size: 7px; }
         }
     </style>
 </head>
@@ -747,8 +758,10 @@
                 <div class="foundation-slot" data-suit="3"><span class="label">Doctores</span></div>
             </div>
             <div class="stock-pile">
-                <div class="stock-btn" id="stockBtn">♠</div>
-                <span class="stock-count" id="stockCount">24</span>
+                <div class="stock-container" id="stockBtn">
+                    <span class="stock-btn">♠</span>
+                    <span class="stock-count" id="stockCount">24</span>
+                </div>
                 <div class="waste-slot" id="wasteSlot">
                     <span class="empty-text">Robar</span>
                 </div>
@@ -810,6 +823,7 @@
                     <span class="highlight">Vírgenes</span> (negro),
                     <span class="highlight">Doctores</span> (rojo).
                     Cada fundación debe tener sus cartas <strong>en orden</strong>: del 1 al 13.
+                    <div class="example">(El número de la carta aparece en su nombre, por ejemplo "San Pedro" es el 1, "San Pablo" es el 13).</div>
                 </div>
             </div>
 
@@ -886,11 +900,8 @@
             { id: 3, name: 'Doctores', icon: '📖', color: 'red' }
         ];
 
-        // Iconos para cada santo (todos usan un símbolo religioso genérico)
-        const SAINT_ICON = '✨'; // o podríamos usar una cruz ✝️
-
         const SAINTS = [
-            // Apóstoles (rank 1-13) - todos con el mismo icono ✨
+            // Apóstoles (rank 1-13)
             { rank: 1, name: 'San Pedro', title: 'Apóstol', icon: '✝️' },
             { rank: 2, name: 'San Andrés', title: 'Apóstol', icon: '✝️' },
             { rank: 3, name: 'Santiago el Mayor', title: 'Apóstol', icon: '✝️' },
@@ -1133,11 +1144,11 @@
                     const cardEl = createCardElement(card, colIdx, idx, false);
                     colEl.appendChild(cardEl);
                 });
-                // Label con número de columna y total de cartas
-                const label = document.createElement('div');
-                label.className = 'col-label';
-                label.innerHTML = `<span class="num">${colIdx + 1}</span> · ${cards.length}`;
-                colEl.appendChild(label);
+                // Badge con el número de cartas en la columna
+                const countBadge = document.createElement('div');
+                countBadge.className = 'col-count';
+                countBadge.textContent = cards.length;
+                colEl.appendChild(countBadge);
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
                     empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:24px;padding:10px 0;pointer-events:none;';
@@ -1177,22 +1188,17 @@
 
                 // Evento para recibir cartas (destino)
                 slot.addEventListener('click', function(e) {
-                    // Si el clic fue en la carta dentro del slot, no lo manejamos aquí (se maneja en el evento de la carta)
                     if (e.target.closest('.card')) return;
                     if (game.gameOver) return;
                     if (!game.selected) {
                         handMessage.textContent = 'Primero selecciona una carta.';
                         return;
                     }
-                    // Intentar mover la carta seleccionada a esta fundación
                     const from = game.selected;
-                    // Usamos la función tryMove con destino fundación
                     const moved = tryMove(from, null, suitId, null, true);
                     if (moved) {
                         clearSelection();
                         renderAll();
-                    } else {
-                        // Si no se pudo, mostrar el mensaje que ya puso tryMove
                     }
                 });
             });
@@ -1201,10 +1207,12 @@
         function renderStockAndWaste() {
             // Stock
             stockCount.textContent = game.stock.length;
+            // Cambiar el icono si el mazo está vacío
+            const stockBtnEl = stockBtn.querySelector('.stock-btn');
             if (game.stock.length === 0 && game.waste.length === 0) {
-                stockBtn.textContent = '🔄';
+                stockBtnEl.textContent = '🔄';
             } else {
-                stockBtn.textContent = '♠';
+                stockBtnEl.textContent = '♠';
             }
 
             // Waste
@@ -1219,7 +1227,6 @@
                 cardEl.style.height = '100%';
                 cardEl.style.borderRadius = '8px';
                 wasteSlot.appendChild(cardEl);
-                // Añadir evento directamente
                 cardEl.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (game.gameOver) return;
@@ -1254,7 +1261,6 @@
             div.dataset.suit = card.suitId;
             div.dataset.isFoundation = isFoundation;
 
-            // Evento click solo para cartas que no están en el waste (porque el waste ya tiene su propio evento)
             if (col !== 'waste') {
                 div.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -1292,7 +1298,6 @@
                     clearSelection();
                     return;
                 }
-                // Intentar mover la carta seleccionada al destino
                 let moved = false;
                 if (col === 'foundation') {
                     moved = tryMove(game.selected, null, idx, null, true);
@@ -1304,13 +1309,11 @@
                     renderAll();
                     return;
                 } else {
-                    // Si no se pudo mover, seleccionar la nueva carta
                     selectCard(card, col, idx, isFoundation);
                     return;
                 }
             }
 
-            // Si no hay selección, seleccionar
             selectCard(card, col, idx, isFoundation);
         }
 
@@ -1327,7 +1330,7 @@
             const srcIdx = from.idx;
             const fromFoundation = from.isFoundation;
 
-            // Validar que el origen sea movible (para columnas)
+            // Validar origen
             if (!fromFoundation && srcCol !== 'waste') {
                 const colCards = game.columns[srcCol];
                 const isLast = (srcIdx === colCards.length - 1);
@@ -1701,4 +1704,4 @@
     })();
 </script>
 </body>
-</html>
+    </html>
