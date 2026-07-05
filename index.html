@@ -984,7 +984,7 @@
 <body>
 <div id="app">
     <!-- ===== BANNER DE INSTALACIÓN ===== -->
-    <div class="install-banner hidden" id="installBanner">
+    <div class="install-banner" id="installBanner">
         <div class="icon">📲</div>
         <div class="content">
             <div class="title">
@@ -1173,7 +1173,7 @@
 
 <script>
     // ================================================================
-    // INSTALACIÓN (PWA)
+    // INSTALACIÓN (PWA) - CORREGIDA Y MEJORADA
     // ================================================================
     (function() {
         const banner = document.getElementById('installBanner');
@@ -1193,6 +1193,12 @@
             banner.classList.add('hidden');
         }
 
+        // Limpiar localStorage para que el banner no se oculte injustamente
+        // (solo si no está instalado)
+        if (!isInstalled) {
+            localStorage.removeItem('pokerlite-banner-closed');
+        }
+
         // Evento beforeinstallprompt (Android)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -1210,7 +1216,9 @@
                 deferredPrompt.userChoice.then((result) => {
                     if (result.outcome === 'accepted') {
                         banner.classList.add('hidden');
-                        console.log('App instalada');
+                        console.log('App instalada correctamente');
+                    } else {
+                        console.log('Instalación cancelada');
                     }
                     deferredPrompt = null;
                 });
@@ -1292,12 +1300,20 @@
         if (!isInstalled && localStorage.getItem('pokerlite-banner-closed') !== 'true') {
             setTimeout(() => {
                 banner.classList.remove('hidden');
-            }, 500);
+            }, 300);
         }
+
+        // Si la app no está instalada y no hay beforeinstallprompt, mostrar el banner
+        // (esto cubre navegadores que no disparan el evento)
+        setTimeout(() => {
+            if (!isInstalled && localStorage.getItem('pokerlite-banner-closed') !== 'true') {
+                banner.classList.remove('hidden');
+            }
+        }, 1000);
     })();
 
     // ================================================================
-    // CÓDIGO DEL JUEGO (sin cambios en la lógica)
+    // CÓDIGO DEL JUEGO (SIN CAMBIOS)
     // ================================================================
     (function() {
         'use strict';
@@ -2099,10 +2115,10 @@
                 }
             });
             // Registrar el nuevo con un parámetro de versión para evitar caché
-            navigator.serviceWorker.register('sw.js?v=4');
+            navigator.serviceWorker.register('sw.js?v=5');
         }
 
     })();
 </script>
 </body>
-                    </html>
+                                             </html>
