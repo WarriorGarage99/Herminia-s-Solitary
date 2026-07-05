@@ -327,7 +327,7 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* ===== CARTAS (ajustadas para nombres legibles) ===== */
+        /* ===== CARTAS (nombres legibles en varias líneas) ===== */
         .card {
             width: 100%;
             aspect-ratio: 2.5/3.5;
@@ -346,16 +346,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2px 1px;
+            padding: 3px 2px;
             text-align: center;
             overflow: hidden;
         }
-        /* Número de la carta (más pequeño para dejar espacio al nombre) */
+        /* Número de la carta (más pequeño) */
         .card .card-rank {
             position: absolute;
             top: 2px;
             left: 3px;
-            font-size: 4vw;
+            font-size: 3.5vw;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
@@ -363,25 +363,30 @@
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
-            font-size: 2.5vw;
+            font-size: 2.2vw;
             line-height: 1;
             margin-bottom: 1px;
             display: block;
             text-align: center;
         }
         .card .saint-name {
-            font-size: 3vw;
+            font-size: 2.5vw;
             font-weight: 700;
             letter-spacing: 0.1px;
             max-width: 95%;
             color: #1a1a1a;
-            line-height: 1.1;
+            line-height: 1.2;
+            /* Permitir hasta 2 líneas */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
+            word-wrap: break-word;
             text-overflow: ellipsis;
-            white-space: nowrap;
+            max-height: 3em;
         }
         .card .saint-title {
-            font-size: 2vw;
+            font-size: 1.8vw;
             font-weight: 400;
             color: #6a7280;
             line-height: 1.1;
@@ -718,11 +723,11 @@
 
         /* ===== RESPONSIVE EXTRA ===== */
         @media (max-width: 400px) {
-            .card .card-rank { font-size: 3.8vw; }
-            .card .saint-icon { font-size: 2.2vw; }
-            .card .saint-name { font-size: 2.8vw; }
-            .card .saint-title { font-size: 1.8vw; }
-            .card { min-height: 28px; }
+            .card .card-rank { font-size: 3.2vw; }
+            .card .saint-icon { font-size: 2vw; }
+            .card .saint-name { font-size: 2.2vw; }
+            .card .saint-title { font-size: 1.6vw; }
+            .card { min-height: 28px; padding: 2px 1px; }
             .column { min-height: 50px; }
             .column .card { margin-top: -10px; }
             .column .card.face-down { margin-top: -6px; }
@@ -736,11 +741,11 @@
             .hand-message { font-size: 8px; padding: 2px 5px; }
         }
         @media (max-width: 360px) {
-            .card .card-rank { font-size: 3.2vw; }
-            .card .saint-icon { font-size: 2vw; }
-            .card .saint-name { font-size: 2.4vw; }
-            .card .saint-title { font-size: 1.6vw; }
-            .card { min-height: 24px; }
+            .card .card-rank { font-size: 2.8vw; }
+            .card .saint-icon { font-size: 1.8vw; }
+            .card .saint-name { font-size: 2vw; }
+            .card .saint-title { font-size: 1.4vw; }
+            .card { min-height: 24px; padding: 2px 1px; }
             .column { min-height: 42px; }
             .column .card { margin-top: -8px; }
             .column .card.face-down { margin-top: -5px; }
@@ -1702,16 +1707,18 @@
         initGame();
 
         // ============================================================
-        // REGISTRO DE SERVICE WORKER (PWA)
+        // REGISTRO DE SERVICE WORKER (PWA) - con control de caché
         // ============================================================
         if ('serviceWorker' in navigator) {
+            // Forzar desregistro de versiones antiguas para evitar estilos mezclados
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for (let registration of registrations) {
                     registration.unregister();
                     console.log('Service Worker antiguo desregistrado');
                 }
             });
-            navigator.serviceWorker.register('sw.js?v=2');
+            // Registrar el nuevo con un parámetro de versión
+            navigator.serviceWorker.register('sw.js?v=3');
         }
 
     })();
