@@ -1225,6 +1225,8 @@
                         banner.classList.add('hidden');
                     } else {
                         console.log('❌ Instalación cancelada');
+                        // Si el usuario cancela, mostramos el modal como alternativa
+                        openInstallModal();
                     }
                     deferredPrompt = null;
                 });
@@ -1255,7 +1257,7 @@
                     <li><span class="step-num">2</span><span class="step-text">Busca la opción <strong>Instalar</strong> o <strong>Añadir a pantalla de inicio</strong>.</span></li>
                     <li><span class="step-num">3</span><span class="step-text">Sigue las instrucciones para completar la instalación.</span></li>
                 `;
-                modalInstallBtn.textContent = 'Cómo instalar';
+                modalInstallBtn.textContent = 'Instalar manualmente';
                 modalInstallBtn.onclick = () => {
                     closeModal();
                 };
@@ -1305,27 +1307,17 @@
     })();
 
     // ================================================================
-    // REGISTRO DE SERVICE WORKER (PWA) - MEJORADO
+    // REGISTRO DE SERVICE WORKER (PWA) - VERSIÓN SIMPLE Y CONFIABLE
     // ================================================================
     if ('serviceWorker' in navigator) {
-        // Forzar desregistro de versiones antiguas
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                registration.unregister();
-                console.log('🗑️ Service Worker antiguo desregistrado');
-            }
-        }).then(() => {
-            // Registrar el nuevo con parámetro de versión para evitar caché
-            navigator.serviceWorker.register('sw.js?v=7')
-                .then(reg => {
-                    console.log('✅ Service Worker registrado correctamente:', reg);
-                })
-                .catch(err => {
-                    console.error('❌ Error al registrar Service Worker:', err);
-                });
-        }).catch(err => {
-            console.warn('⚠️ No se pudo desregistrar SW antiguo:', err);
-        });
+        // Registrar el SW sin desregistro forzado para evitar conflictos
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => {
+                console.log('✅ Service Worker registrado correctamente', reg);
+            })
+            .catch(err => {
+                console.warn('⚠️ No se pudo registrar el SW:', err);
+            });
     } else {
         console.warn('⚠️ Service Worker no soportado en este navegador');
     }
@@ -2123,4 +2115,4 @@
     })();
 </script>
 </body>
-                    </html>
+    </html>
