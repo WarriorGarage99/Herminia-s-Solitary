@@ -1,5 +1,4 @@
-// sw.js - Service Worker ligero y funcional
-const CACHE_NAME = 'herminia-solitaire-v1';
+const CACHE_NAME = 'herminia-solitaire-v2';
 const urlsToCache = [
   'index.html',
   'manifest.json',
@@ -8,33 +7,21 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
-  console.log('✅ SW instalado');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('📦 Archivos cacheados');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.error('❌ Error al cachear:', err))
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
-  console.log('✅ SW activado');
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('🗑️ Eliminando caché antigua:', cache);
-            return caches.delete(cache);
-          }
-        })
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  return self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
