@@ -1,35 +1,34 @@
-// sw.js - Service Worker con gestión de caché avanzada
-const CACHE_NAME = 'HerminiaSolitaire-v1';
+// sw.js - Service Worker ligero y funcional
+const CACHE_NAME = 'herminia-solitaire-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  'index.html',
+  'manifest.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 self.addEventListener('install', event => {
-  console.log('⚙️ Service Worker instalando...');
+  console.log('✅ SW instalado');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('📦 Cacheando archivos...');
+        console.log('📦 Archivos cacheados');
         return cache.addAll(urlsToCache);
       })
       .catch(err => console.error('❌ Error al cachear:', err))
   );
-  self.skipWaiting(); // Activa el nuevo SW inmediatamente
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
-  console.log('✅ Service Worker activado');
+  console.log('✅ SW activado');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('🗑️ Eliminando caché antigua:', cacheName);
-            return caches.delete(cacheName);
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            console.log('🗑️ Eliminando caché antigua:', cache);
+            return caches.delete(cache);
           }
         })
       );
@@ -41,14 +40,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).catch(() => {
-          // Si falla la red y no hay caché, devuelve un error controlado
-          return new Response('Error de conexión', { status: 503 });
-        });
-      })
+      .then(response => response || fetch(event.request))
+      .catch(() => new Response('Error de red', { status: 503 }))
   );
 });
