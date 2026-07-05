@@ -19,7 +19,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
             padding: 8px;
             margin: 0;
         }
@@ -212,7 +212,7 @@
             letter-spacing: 0.3px;
         }
 
-        /* ===== STOCK Y WASTE ===== */
+        /* ===== STOCK Y WASTE (rediseñados) ===== */
         .stock-pile {
             display: flex;
             gap: 5px;
@@ -228,12 +228,14 @@
             justify-content: center;
             position: relative;
             transition: all 0.15s;
+            background: rgba(0,0,0,0.15);
+            border: 2px solid #2f3a4e;
         }
         .stock-container {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid #2f3a4e;
             cursor: pointer;
             flex-direction: column;
+            background: rgba(0,0,0,0.2);
+            border: 2px solid #2f3a4e;
         }
         .stock-container:active { transform: scale(0.95); }
         .stock-container .stock-btn {
@@ -259,7 +261,7 @@
 
         .waste-slot {
             background: rgba(0,0,0,0.12);
-            border: 2px dashed rgba(255,255,255,0.04);
+            border: 2px dashed rgba(255,255,255,0.06);
         }
         .waste-slot .card {
             position: absolute;
@@ -277,6 +279,7 @@
             letter-spacing: 0.3px;
             pointer-events: none;
         }
+        .waste-slot:hover { background: rgba(255,255,255,0.03); }
 
         /* ===== COLUMNAS ===== */
         .columns {
@@ -303,11 +306,11 @@
         .column .card {
             position: relative;
             width: 100%;
-            margin-top: -22px;
+            margin-top: -20px;
             border-radius: 8px;
         }
         .column .card:first-child { margin-top: 0; }
-        .column .card.face-down { margin-top: -16px; }
+        .column .card.face-down { margin-top: -14px; }
         .column .card:first-child.face-down { margin-top: 0; }
         .column .col-count {
             position: absolute;
@@ -345,13 +348,14 @@
             justify-content: center;
             padding: 4px 2px;
             text-align: center;
+            overflow: hidden;
         }
-        /* Número de la carta (esquina superior izquierda) */
+        /* Número de la carta (grande y visible) */
         .card .card-rank {
             position: absolute;
             top: 3px;
             left: 5px;
-            font-size: 16px;
+            font-size: 22px;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
@@ -359,14 +363,14 @@
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
-            font-size: 22px;
+            font-size: 14px;
             line-height: 1;
             margin-bottom: 2px;
             display: block;
             text-align: center;
         }
         .card .saint-name {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 700;
             letter-spacing: 0.2px;
             max-width: 90%;
@@ -377,16 +381,10 @@
             white-space: nowrap;
         }
         .card .saint-title {
-            font-size: 7px;
+            font-size: 6px;
             font-weight: 400;
             color: #6a7280;
             line-height: 1.1;
-        }
-        .card .saint-suit {
-            font-size: 7px;
-            font-weight: 600;
-            color: #9aa0b0;
-            margin-top: 1px;
         }
         .card.red-suit .saint-name { color: #c33; }
         .card.black-suit .saint-name { color: #111; }
@@ -403,7 +401,6 @@
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
         .card.face-down .saint-title,
-        .card.face-down .saint-suit,
         .card.face-down .card-rank { display: none; }
         .card.face-down::after {
             content: '✟';
@@ -721,17 +718,17 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
-            .card .saint-icon { font-size: 18px; }
-            .card .saint-name { font-size: 8px; }
-            .card .saint-title { font-size: 6px; }
-            .card .card-rank { font-size: 14px; }
+            .card .saint-icon { font-size: 12px; }
+            .card .saint-name { font-size: 7px; }
+            .card .saint-title { font-size: 5px; }
+            .card .card-rank { font-size: 18px; }
             .card { min-height: 42px; }
             .foundation-slot { min-width: 32px; }
             .stock-container { min-width: 32px; }
             .waste-slot { min-width: 32px; }
             .column { min-width: 26px; min-height: 80px; }
             .column .card { margin-top: -18px; }
-            .column .card.face-down { margin-top: -14px; }
+            .column .card.face-down { margin-top: -12px; }
             .top-row { gap: 4px; }
             .foundations { gap: 4px; }
             .stock-pile { gap: 4px; }
@@ -744,9 +741,9 @@
             .help-box .help-step .step-header { font-size: 13px; }
         }
         @media (max-width: 420px) {
-            .card .saint-icon { font-size: 16px; }
-            .card .saint-name { font-size: 7px; }
-            .card .card-rank { font-size: 12px; }
+            .card .saint-icon { font-size: 10px; }
+            .card .saint-name { font-size: 6px; }
+            .card .card-rank { font-size: 16px; }
             .card { min-height: 34px; }
             .foundation-slot { min-width: 26px; }
             .stock-container { min-width: 26px; }
@@ -1278,7 +1275,6 @@
                     <div class="saint-icon">${card.saint.icon}</div>
                     <div class="saint-name">${card.saint.name}</div>
                     <div class="saint-title">${card.saint.title}</div>
-                    <div class="saint-suit">${SUITS[card.suitId].icon} ${SUITS[card.suitId].name}</div>
                 `;
             }
             div.dataset.cardId = card.id;
