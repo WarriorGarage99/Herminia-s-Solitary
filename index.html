@@ -984,7 +984,7 @@
 <body>
 <div id="app">
     <!-- ===== BANNER DE INSTALACIÓN ===== -->
-    <div class="install-banner" id="installBanner">
+    <div class="install-banner hidden" id="installBanner">
         <div class="icon">📲</div>
         <div class="content">
             <div class="title">
@@ -1173,7 +1173,7 @@
 
 <script>
     // ================================================================
-    // INSTALACIÓN (PWA) - CORREGIDA Y MEJORADA
+    // INSTALACIÓN (PWA) - MEJORADA CON LOGS Y MANEJO ROBUSTO
     // ================================================================
     (function() {
         const banner = document.getElementById('installBanner');
@@ -1186,43 +1186,52 @@
         const modalSteps = document.getElementById('modalSteps');
 
         let deferredPrompt = null;
+        let isInstalled = false;
 
         // Detectar si la app ya está instalada
-        const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
+        isInstalled = window.matchMedia('(display-mode: standalone)').matches;
         if (isInstalled) {
             banner.classList.add('hidden');
-        }
-
-        // Limpiar localStorage para que el banner no se oculte injustamente
-        // (solo si no está instalado)
-        if (!isInstalled) {
-            localStorage.removeItem('pokerlite-banner-closed');
+            console.log('📱 App ya instalada (modo standalone)');
         }
 
         // Evento beforeinstallprompt (Android)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            console.log('✅ Evento beforeinstallprompt capturado');
             if (!isInstalled) {
                 banner.classList.remove('hidden');
+                console.log('📲 Banner de instalación mostrado');
             }
+        });
+
+        // También escuchar el evento 'appinstalled'
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App instalada correctamente');
+            banner.classList.add('hidden');
+            modal.classList.remove('active');
+            isInstalled = true;
         });
 
         // Botón de instalación del banner
         installBtn.addEventListener('click', () => {
+            console.log('👆 Clic en "Instalar App"');
             if (deferredPrompt) {
                 // Android: mostrar prompt nativo
+                console.log('📲 Mostrando prompt nativo de instalación');
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((result) => {
                     if (result.outcome === 'accepted') {
+                        console.log('✅ Usuario aceptó la instalación');
                         banner.classList.add('hidden');
-                        console.log('App instalada correctamente');
                     } else {
-                        console.log('Instalación cancelada');
+                        console.log('❌ Usuario canceló la instalación');
                     }
                     deferredPrompt = null;
                 });
             } else {
+                console.log('⚠️ No hay deferredPrompt, mostrando modal de instrucciones');
                 // iOS o navegador sin beforeinstallprompt: mostrar modal con instrucciones
                 openInstallModal();
             }
@@ -1240,7 +1249,6 @@
                 `;
                 modalInstallBtn.textContent = 'Cómo instalar en iOS';
                 modalInstallBtn.onclick = () => {
-                    // En iOS no se puede forzar, solo mostramos instrucciones
                     closeModal();
                 };
             } else {
@@ -1266,7 +1274,7 @@
         // Cerrar banner manualmente
         closeBannerBtn.addEventListener('click', () => {
             banner.classList.add('hidden');
-            localStorage.setItem('pokerlite-banner-closed', 'true');
+            console.log('👆 Banner cerrado manualmente');
         });
 
         // Cerrar modal
@@ -1276,16 +1284,11 @@
             if (e.target === modal) closeModal();
         });
 
-        // Si el usuario cerró el banner antes, no mostrarlo
-        if (localStorage.getItem('pokerlite-banner-closed') === 'true') {
-            banner.classList.add('hidden');
-        }
-
         // Si la app se instala, ocultar banner
         window.addEventListener('appinstalled', () => {
             banner.classList.add('hidden');
             modal.classList.remove('active');
-            localStorage.removeItem('pokerlite-banner-closed');
+            isInstalled = true;
         });
 
         // Si el usuario cambia a modo standalone, ocultar banner
@@ -1293,23 +1296,50 @@
             if (ev.matches) {
                 banner.classList.add('hidden');
                 modal.classList.remove('active');
+                isInstalled = true;
+                console.log('📱 Cambio a modo standalone');
             }
         });
 
         // Mostrar banner si no está instalado y no se ha cerrado
-        if (!isInstalled && localStorage.getItem('pokerlite-banner-closed') !== 'true') {
-            setTimeout(() => {
-                banner.classList.remove('hidden');
-            }, 300);
-        }
-
-        // Si la app no está instalada y no hay beforeinstallprompt, mostrar el banner
-        // (esto cubre navegadores que no disparan el evento)
+        // (el banner se muestra solo si el evento beforeinstallprompt se dispara, pero también podemos
+        // mostrarlo si vemos que la app no está instalada y el navegador es compatible)
+        // Para saber si es compatible, podemos verificar si existe window.navigator.standalone (iOS) o
+        // si el evento beforeinstallprompt se ha disparado (deferredPrompt no es null).
+        // Pero si antes funcionaba, probablemente el evento no se dispara por algún error en manifest/icons.
+        // Mostramos el banner solo si deferredPrompt existe o si es iOS.
         setTimeout(() => {
-            if (!isInstalled && localStorage.getItem('pokerlite-banner-closed') !== 'true') {
-                banner.classList.remove('hidden');
+            if (!isInstalled) {
+                // Si deferredPrompt existe, mostrar banner
+                if (deferredPrompt) {
+                    banner.classList.remove('hidden');
+                    console.log('📲 Banner mostrado (deferredPrompt disponible)');
+                } else {
+                    // Si no hay deferredPrompt, verificar si es iOS
+                    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+                    if (isIOS) {
+                        // En iOS, mostramos un banner con instrucciones (pero no el de instalación nativa)
+                        // Para simplificar, no mostramos el banner, solo el modal al hacer clic.
+                        console.log('🍎 iOS detectado, mostrando banner con instrucciones');
+                        banner.classList.remove('hidden');
+                        // Cambiamos el texto del botón para que indique que es para iOS
+                        const installBtnText = document.querySelector('.install-banner .btn-install');
+                        if (installBtnText) installBtnText.textContent = 'Instalar App';
+                    } else {
+                        // En Android sin beforeinstallprompt, mostramos el banner con el modal
+                        console.log('⚠️ No se detectó beforeinstallprompt, mostrando banner con modal');
+                        banner.classList.remove('hidden');
+                    }
+                }
             }
         }, 1000);
+
+        // Log final para depuración
+        console.log('🔍 Estado de instalación:', {
+            isInstalled,
+            hasDeferredPrompt: !!deferredPrompt,
+            userAgent: navigator.userAgent
+        });
     })();
 
     // ================================================================
@@ -2121,4 +2151,4 @@
     })();
 </script>
 </body>
-                                             </html>
+    </html>
