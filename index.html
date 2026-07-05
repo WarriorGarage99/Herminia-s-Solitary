@@ -181,26 +181,29 @@
             font-weight: 700;
         }
 
-        /* ===== STOCK Y WASTE (rediseñados) ===== */
+        /* ===== STOCK Y WASTE (rediseñados para que ocupen el mismo espacio) ===== */
         .stock-pile {
             display: flex;
             gap: 6px;
-            align-items: stretch;
-            flex-shrink: 0;
+            flex: 1; /* Ocupa el mismo espacio que las fundaciones */
+            max-width: calc(50% - 4px); /* Para que no se estiren demasiado */
         }
-        .stock-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .stock-container, .waste-slot {
+            flex: 1;
             min-width: 44px;
             aspect-ratio: 3/4;
-            background: rgba(0,0,0,0.15);
             border-radius: 8px;
-            border: 2px solid #3d5068;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            cursor: pointer;
             transition: all 0.15s;
+        }
+        .stock-container {
+            background: rgba(0,0,0,0.15);
+            border: 2px solid #3d5068;
+            cursor: pointer;
+            flex-direction: column;
         }
         .stock-container:active { transform: scale(0.95); }
         .stock-container .stock-btn {
@@ -228,16 +231,8 @@
         }
 
         .waste-slot {
-            min-width: 44px;
-            aspect-ratio: 3/4;
             background: rgba(0,0,0,0.15);
-            border-radius: 8px;
             border: 2px dashed rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: border-color 0.2s, background 0.2s;
         }
         .waste-slot .card {
             position: absolute;
@@ -333,6 +328,18 @@
             min-height: 56px;
             user-select: none;
         }
+        /* Número de la carta (rank) en la esquina superior izquierda */
+        .card .card-rank {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 14px;
+            font-weight: 900;
+            color: #1a1a1a;
+            line-height: 1;
+            opacity: 0.7;
+            pointer-events: none;
+        }
         .card .saint-icon {
             font-size: 28px;
             line-height: 1;
@@ -367,7 +374,8 @@
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
         .card.face-down .saint-title,
-        .card.face-down .saint-suit {
+        .card.face-down .saint-suit,
+        .card.face-down .card-rank {
             display: none;
         }
         .card.face-down::after {
@@ -694,6 +702,7 @@
             .card .saint-icon { font-size: 22px; }
             .card .saint-name { font-size: 8px; }
             .card .saint-title { font-size: 6px; }
+            .card .card-rank { font-size: 12px; }
             .card { min-height: 44px; }
             .foundation-slot { min-width: 34px; }
             .stock-container { min-width: 34px; }
@@ -703,10 +712,10 @@
             .column .card.face-down { margin-top: -14px; }
             .top-row { gap: 4px; }
             .foundations { gap: 4px; }
+            .stock-pile { gap: 4px; }
             .logo { font-size: 14px; }
             .logo .for-herminia { font-size: 11px; padding: 0 8px; }
             .controls button { font-size: 10px; padding: 8px 0; }
-            .stock-pile { gap: 4px; }
             .help-box { padding: 20px 16px; }
             .help-box .help-title { font-size: 20px; }
             .help-box .help-step .step-text { font-size: 12px; padding-left: 0; }
@@ -715,6 +724,7 @@
         @media (max-width: 420px) {
             .card .saint-icon { font-size: 18px; }
             .card .saint-name { font-size: 7px; }
+            .card .card-rank { font-size: 10px; }
             .card { min-height: 36px; }
             .foundation-slot { min-width: 28px; }
             .stock-container { min-width: 28px; }
@@ -823,7 +833,7 @@
                     <span class="highlight">Vírgenes</span> (negro),
                     <span class="highlight">Doctores</span> (rojo).
                     Cada fundación debe tener sus cartas <strong>en orden</strong>: del 1 al 13.
-                    <div class="example">(El número de la carta aparece en su nombre, por ejemplo "San Pedro" es el 1, "San Pablo" es el 13).</div>
+                    <div class="example">(El número de la carta aparece en la esquina superior izquierda de cada carta).</div>
                 </div>
             </div>
 
@@ -1249,6 +1259,7 @@
             } else {
                 div.classList.add(card.isRed ? 'red-suit' : 'black-suit');
                 div.innerHTML = `
+                    <div class="card-rank">${card.rank}</div>
                     <div class="saint-icon">${card.saint.icon}</div>
                     <div class="saint-name">${card.saint.name}</div>
                     <div class="saint-title">${card.saint.title}</div>
@@ -1321,7 +1332,7 @@
             game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
             highlightCard(col, idx, true);
             soundClick();
-            handMessage.textContent = `Seleccionaste ${card.saint.name}. Ahora elige un destino.`;
+            handMessage.textContent = `Seleccionaste ${card.saint.name} (${card.rank}). Ahora elige un destino.`;
         }
 
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
@@ -1553,8 +1564,8 @@
             game.moves++;
             renderAll();
             updateInfo();
-            addHistory(`♠ Robaste ${card.saint.name}`);
-            handMessage.textContent = `Robaste ${card.saint.name}. Puedes moverla si es posible.`;
+            addHistory(`♠ Robaste ${card.saint.name} (${card.rank})`);
+            handMessage.textContent = `Robaste ${card.saint.name} (${card.rank}). Puedes moverla si es posible.`;
         });
 
         // ============================================================
@@ -1571,7 +1582,7 @@
                     for (let i = colCards.length - 1; i >= 0; i--) {
                         const card = colCards[i];
                         if (card.faceUp && card.suitId === suitId && card.rank === nextRank) {
-                            handMessage.textContent = `💡 Mueve ${card.saint.name} a ${SUITS[suitId].name}.`;
+                            handMessage.textContent = `💡 Mueve ${card.saint.name} (${card.rank}) a ${SUITS[suitId].name}.`;
                             return;
                         }
                     }
@@ -1579,7 +1590,7 @@
                 if (game.waste.length > 0) {
                     const card = game.waste[game.waste.length - 1];
                     if (card.faceUp && card.suitId === suitId && card.rank === nextRank) {
-                        handMessage.textContent = `💡 Mueve ${card.saint.name} desde la baraja a ${SUITS[suitId].name}.`;
+                        handMessage.textContent = `💡 Mueve ${card.saint.name} (${card.rank}) desde la baraja a ${SUITS[suitId].name}.`;
                         return;
                     }
                 }
@@ -1594,13 +1605,13 @@
                         const other = game.columns[c];
                         for (let i = other.length - 1; i >= 0; i--) {
                             if (other[i].faceUp && other[i].rank === 13) {
-                                handMessage.textContent = `💡 Mueve ${other[i].saint.name} a la columna ${col + 1}.`;
+                                handMessage.textContent = `💡 Mueve ${other[i].saint.name} (Rey) a la columna ${col + 1}.`;
                                 return;
                             }
                         }
                     }
                     if (game.waste.length > 0 && game.waste[game.waste.length - 1].rank === 13) {
-                        handMessage.textContent = `💡 Mueve ${game.waste[game.waste.length - 1].saint.name} desde la baraja a la columna ${col + 1}.`;
+                        handMessage.textContent = `💡 Mueve ${game.waste[game.waste.length - 1].saint.name} (Rey) desde la baraja a la columna ${col + 1}.`;
                         return;
                     }
                     continue;
@@ -1613,7 +1624,7 @@
                     for (let i = other.length - 1; i >= 0; i--) {
                         const card = other[i];
                         if (card.faceUp && card.isRed !== last.isRed && card.rank === last.rank - 1) {
-                            handMessage.textContent = `💡 Mueve ${card.saint.name} sobre ${last.saint.name}.`;
+                            handMessage.textContent = `💡 Mueve ${card.saint.name} (${card.rank}) sobre ${last.saint.name} (${last.rank}).`;
                             return;
                         }
                     }
@@ -1621,7 +1632,7 @@
                 if (game.waste.length > 0) {
                     const card = game.waste[game.waste.length - 1];
                     if (card.faceUp && card.isRed !== last.isRed && card.rank === last.rank - 1) {
-                        handMessage.textContent = `💡 Mueve ${card.saint.name} desde la baraja sobre ${last.saint.name}.`;
+                        handMessage.textContent = `💡 Mueve ${card.saint.name} (${card.rank}) desde la baraja sobre ${last.saint.name} (${last.rank}).`;
                         return;
                     }
                 }
@@ -1695,11 +1706,31 @@
         initGame();
 
         // ============================================================
-        // REGISTRO DE SERVICE WORKER (PWA)
+        // REGISTRO DE SERVICE WORKER (PWA) - CON CONTROL DE CACHÉ
         // ============================================================
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            // Forzar la desactivación de la caché antigua
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister();
+                    console.log('Service Worker antiguo desregistrado');
+                }
+            });
+            // Registrar el nuevo Service Worker con un nombre de caché único
+            navigator.serviceWorker.register('sw.js?v=2');
         }
+
+        // Añadir un botón oculto para forzar recarga (opcional)
+        // Para uso en desarrollo: presiona Ctrl+Shift+R en el navegador
+
+        // Forzar recarga de la página si se detecta una nueva versión
+        // (esto es útil para los usuarios finales)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Si la URL tiene un parámetro de versión, forzar recarga
+            if (location.search.indexOf('v=') === -1) {
+                // No hacer nada
+            }
+        });
 
     })();
 </script>
