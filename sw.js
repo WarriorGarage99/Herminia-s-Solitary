@@ -1,22 +1,28 @@
 // sw.js - Service Worker con gestión de caché avanzada
 const CACHE_NAME = 'HerminiaSolitaire-v1';
 const urlsToCache = [
-  'index.html',
-  'manifest.json',
-  'icon-192.png',
-  'icon-512.png'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
-// Instalar el Service Worker y cachear los archivos
 self.addEventListener('install', event => {
+  console.log('⚙️ Service Worker instalando...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        console.log('📦 Cacheando archivos...');
+        return cache.addAll(urlsToCache);
+      })
+      .catch(err => console.error('❌ Error al cachear:', err))
   );
+  self.skipWaiting(); // Activa el nuevo SW inmediatamente
 });
 
-// Activar: eliminar cachés antiguas para mantener solo la versión actual
 self.addEventListener('activate', event => {
+  console.log('✅ Service Worker activado');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -29,15 +35,20 @@ self.addEventListener('activate', event => {
       );
     })
   );
+  return self.clients.claim();
 });
 
-// Interceptar peticiones y servir desde la caché si es posible
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Si está en caché, devolverlo; si no, obtener de la red
-        return response || fetch(event.request);
+        if (response) {
+          return response;
+        }
+        return fetch(event.request).catch(() => {
+          // Si falla la red y no hay caché, devuelve un error controlado
+          return new Response('Error de conexión', { status: 503 });
+        });
       })
   );
 });
