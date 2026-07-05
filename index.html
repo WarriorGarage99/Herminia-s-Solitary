@@ -14,24 +14,34 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background: #0f1117;
+            background: #0a0c10;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
             padding: 8px;
             margin: 0;
         }
         #app {
-            max-width: 780px;
+            max-width: 720px;
             width: 100%;
-            background: linear-gradient(160deg, #1c212b, #11151e);
+            background: radial-gradient(ellipse at 20% 30%, #1a1f2e, #0b0e16);
             border-radius: 32px;
-            padding: 16px 14px 20px;
+            padding: 14px 12px 18px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             border: 1px solid rgba(212, 163, 66, 0.15);
             position: relative;
+        }
+        #app::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 40% 60%, rgba(212, 163, 66, 0.02), transparent 60%);
+            pointer-events: none;
         }
 
         /* ===== CABECERA ===== */
@@ -43,9 +53,11 @@
             padding: 0 4px;
             flex-wrap: wrap;
             gap: 6px;
+            position: relative;
+            z-index: 2;
         }
         .logo {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 700;
             color: #e8ecf4;
             display: flex;
@@ -53,25 +65,26 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-        .logo .cross { color: #f7d875; font-size: 20px; }
-        .logo .brand { color: #e8ecf4; }
+        .logo .cross { color: #f7d875; font-size: 22px; }
+        .logo .brand { color: #e8ecf4; letter-spacing: 0.5px; }
         .logo .sub {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 400;
-            color: #8892a0;
+            color: #b0b8c8;
             letter-spacing: 0.3px;
         }
         .logo .for-herminia {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             color: #f7d875;
             background: rgba(247,216,117,0.08);
             padding: 0 12px;
             border-radius: 30px;
-            border: 1px solid rgba(247,216,117,0.12);
+            border: 1px solid rgba(247,216,117,0.15);
+            letter-spacing: 0.3px;
         }
         .header-actions {
-            color: #6a7280;
+            color: #7a8290;
             font-size: 16px;
             display: flex;
             gap: 12px;
@@ -81,16 +94,19 @@
         .info-panel {
             display: flex;
             justify-content: space-between;
-            background: #121720;
+            background: rgba(18, 23, 32, 0.7);
             border-radius: 30px;
             padding: 4px 16px;
             margin-bottom: 10px;
-            border: 1px solid #2a3240;
+            border: 1px solid rgba(255, 215, 0, 0.06);
             color: #b0b8c8;
             font-size: 11px;
             font-weight: 600;
             flex-wrap: wrap;
             gap: 4px;
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 2;
         }
         .info-panel .moves { color: #f7d875; }
         .info-panel .score span { color: #6fcf97; }
@@ -98,13 +114,24 @@
 
         /* ===== MESA ===== */
         .table {
-            background: radial-gradient(ellipse at 40% 30%, #2c7a4a, #18422a);
+            background: radial-gradient(ellipse at center, #1f6b3c, #0e321e);
             border-radius: 40px 40px 30px 30px;
-            padding: 14px 10px 12px;
+            padding: 12px 8px 10px;
             border: 5px solid #3d2e1a;
-            box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 10px 0 #1e2a1c;
-            min-height: 420px;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 8px 0 #1e2a1c, 0 0 40px rgba(0,200,100,0.05);
             position: relative;
+            min-height: 400px;
+        }
+        .table::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border-radius: 34px 34px 26px 26px;
+            border: 1px solid rgba(255,255,255,0.03);
+            pointer-events: none;
         }
 
         /* ===== FILA SUPERIOR: FUNDACIONES + BARAJA ===== */
@@ -112,43 +139,51 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            margin-bottom: 14px;
-            gap: 8px;
+            margin-bottom: 12px;
+            gap: 6px;
+            position: relative;
+            z-index: 2;
         }
         .foundations {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex: 1;
         }
 
+        /* ===== FUNDACIONES ===== */
         .foundation-slot {
             flex: 1;
-            min-width: 48px;
+            min-width: 40px;
             aspect-ratio: 3/4;
-            background: rgba(0,0,0,0.25);
+            background: rgba(0,0,0,0.2);
             border-radius: 10px;
-            border: 2px dashed rgba(255,215,0,0.12);
+            border: 2px dashed rgba(255,215,0,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 10px;
+            color: #7a8290;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
             position: relative;
             transition: border-color 0.2s, background 0.2s;
             flex-shrink: 0;
-            cursor: pointer;
             flex-direction: column;
+            cursor: pointer;
         }
-        .foundation-slot:hover { background: rgba(255,215,0,0.04); }
+        .foundation-slot:hover { background: rgba(255,215,0,0.03); }
         .foundation-slot .label {
-            font-size: 8px;
-            color: #6a7280;
+            font-size: 7px;
+            color: #5a6270;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             pointer-events: none;
             position: absolute;
             bottom: 4px;
             width: 100%;
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
         }
         .foundation-slot .card {
             position: absolute;
@@ -159,33 +194,33 @@
             border-radius: 10px;
         }
         .foundation-slot .empty-icon {
-            font-size: 20px;
-            opacity: 0.15;
+            font-size: 22px;
+            opacity: 0.1;
             pointer-events: none;
         }
         .foundation-slot .count-badge {
             position: absolute;
             top: 3px;
             right: 5px;
-            font-size: 9px;
+            font-size: 8px;
             color: #f7d875;
             background: rgba(0,0,0,0.5);
-            padding: 0 6px;
-            border-radius: 10px;
+            padding: 0 5px;
+            border-radius: 8px;
             pointer-events: none;
             font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* ===== STOCK Y WASTE ===== */
         .stock-pile {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex: 1;
-            max-width: calc(50% - 4px);
         }
         .stock-container, .waste-slot {
             flex: 1;
-            min-width: 48px;
+            min-width: 40px;
             aspect-ratio: 3/4;
             border-radius: 10px;
             display: flex;
@@ -195,12 +230,12 @@
             transition: all 0.15s;
         }
         .stock-container {
-            background: rgba(0,0,0,0.25);
-            border: 2px solid #3d5068;
+            background: rgba(0,0,0,0.2);
+            border: 2px solid #2f3a4e;
             cursor: pointer;
             flex-direction: column;
         }
-        .stock-container:active { transform: scale(0.94); }
+        .stock-container:active { transform: scale(0.95); }
         .stock-container .stock-btn {
             font-size: 26px;
             color: #f7d875;
@@ -208,22 +243,23 @@
             line-height: 1;
             user-select: none;
             pointer-events: none;
+            text-shadow: 0 0 20px rgba(247,216,117,0.1);
         }
         .stock-container .stock-count {
             position: absolute;
             bottom: 4px;
-            right: 6px;
-            font-size: 10px;
+            right: 5px;
+            font-size: 9px;
             color: #b0b8c8;
             font-weight: 600;
-            background: rgba(0,0,0,0.5);
-            padding: 0 6px;
-            border-radius: 10px;
+            background: rgba(0,0,0,0.4);
+            padding: 0 5px;
+            border-radius: 8px;
         }
 
         .waste-slot {
-            background: rgba(0,0,0,0.15);
-            border: 2px dashed rgba(255,255,255,0.06);
+            background: rgba(0,0,0,0.12);
+            border: 2px dashed rgba(255,255,255,0.04);
         }
         .waste-slot .card {
             position: absolute;
@@ -235,28 +271,29 @@
             cursor: pointer;
         }
         .waste-slot .empty-text {
-            font-size: 10px;
+            font-size: 9px;
             color: #4a5260;
             font-weight: 600;
             letter-spacing: 0.3px;
             pointer-events: none;
         }
-        .waste-slot:hover { background: rgba(255,255,255,0.03); }
 
         /* ===== COLUMNAS ===== */
         .columns {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             justify-content: center;
             margin-top: 6px;
+            position: relative;
+            z-index: 2;
         }
         .column {
             flex: 1;
-            min-width: 40px;
-            min-height: 120px;
-            background: rgba(0,0,0,0.06);
+            min-width: 32px;
+            min-height: 110px;
+            background: rgba(0,0,0,0.05);
             border-radius: 10px;
-            border: 1px dashed rgba(255,255,255,0.04);
+            border: 1px dashed rgba(255,255,255,0.02);
             padding: 2px 2px 2px 2px;
             display: flex;
             flex-direction: column;
@@ -269,72 +306,60 @@
             margin-top: -22px;
             border-radius: 8px;
         }
-        .column .card:first-child {
-            margin-top: 0;
-        }
-        .column .card.face-down {
-            margin-top: -16px;
-        }
-        .column .card:first-child.face-down {
-            margin-top: 0;
-        }
+        .column .card:first-child { margin-top: 0; }
+        .column .card.face-down { margin-top: -16px; }
+        .column .card:first-child.face-down { margin-top: 0; }
         .column .col-count {
             position: absolute;
             top: 3px;
-            right: 5px;
-            font-size: 9px;
-            font-weight: 700;
-            color: #7a8290;
+            right: 4px;
+            font-size: 8px;
+            font-weight: 600;
+            color: #5a6270;
             background: rgba(0,0,0,0.3);
             padding: 0 5px;
-            border-radius: 8px;
+            border-radius: 6px;
             pointer-events: none;
-            line-height: 1.4;
-            border: 1px solid rgba(255,255,255,0.04);
-        }
-        .column .col-empty {
-            color: rgba(255,255,255,0.06);
-            font-size: 22px;
-            padding: 10px 0;
-            pointer-events: none;
+            line-height: 1.3;
+            border: 1px solid rgba(255,255,255,0.02);
         }
 
         /* ===== CARTAS ===== */
         .card {
             width: 100%;
             aspect-ratio: 3/4;
-            max-width: 80px;
-            background: #f7f9fc;
+            max-width: 72px;
+            background: linear-gradient(145deg, #f5f7fc, #e8ecf4);
             border-radius: 10px;
-            border: 2px solid #c8d0d8;
+            border: 2px solid #b8c0cc;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 6px 3px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6);
+            padding: 4px 2px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
             transition: all 0.15s ease;
             cursor: pointer;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 600;
             text-align: center;
-            line-height: 1.15;
+            line-height: 1.1;
             color: #1a1a1a;
             position: relative;
-            min-height: 60px;
+            min-height: 50px;
             user-select: none;
         }
         .card .card-rank {
             position: absolute;
             top: 3px;
-            left: 6px;
-            font-size: 16px;
+            left: 5px;
+            font-size: 14px;
             font-weight: 900;
             color: #1a1a1a;
             line-height: 1;
             opacity: 0.6;
             pointer-events: none;
-            font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
         .card .saint-icon {
             font-size: 26px;
@@ -342,42 +367,44 @@
             margin-bottom: 2px;
         }
         .card .saint-name {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: 0.2px;
-            max-width: 92%;
+            max-width: 90%;
+            color: #1a1a1a;
         }
         .card .saint-title {
-            font-size: 7px;
+            font-size: 6px;
             font-weight: 400;
             color: #6a7280;
         }
         .card .saint-suit {
-            font-size: 8px;
+            font-size: 7px;
             font-weight: 600;
-            color: #b0b8c8;
+            color: #9aa0b0;
             margin-top: 1px;
         }
-        .card.red-suit .saint-name { color: #b33; }
-        .card.black-suit .saint-name { color: #1a1a1a; }
+        .card.red-suit .saint-name { color: #c33; }
+        .card.black-suit .saint-name { color: #111; }
+        .card.red-suit .card-rank { color: #c33; }
+        .card.black-suit .card-rank { color: #111; }
+
         .card.face-down {
-            background: repeating-linear-gradient(45deg, #1e3a5f, #1e3a5f 8px, #2b4b78 8px, #2b4b78 16px);
+            background: repeating-linear-gradient(45deg, #1e3a5f, #1e3a5f 6px, #2b4b78 6px, #2b4b78 12px);
             border-color: #0f1f33;
             color: transparent;
             cursor: default;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.6);
         }
         .card.face-down .saint-icon,
         .card.face-down .saint-name,
         .card.face-down .saint-title,
         .card.face-down .saint-suit,
-        .card.face-down .card-rank {
-            display: none;
-        }
+        .card.face-down .card-rank { display: none; }
         .card.face-down::after {
             content: '✟';
-            font-size: 30px;
-            color: rgba(255,255,255,0.06);
+            font-size: 24px;
+            color: rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -385,40 +412,45 @@
         }
         .card.selected {
             border-color: #f7d875;
-            box-shadow: 0 0 25px rgba(247,216,117,0.5);
-            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(247,216,117,0.4), 0 3px 15px rgba(0,0,0,0.3);
+            transform: scale(1.03);
             z-index: 10;
         }
         .card.valid-drop {
             border-color: #6fcf97;
-            box-shadow: 0 0 20px rgba(111,207,151,0.3);
+            box-shadow: 0 0 20px rgba(111,207,151,0.2);
         }
         .card.invalid-drop {
             border-color: #eb5757;
-            box-shadow: 0 0 20px rgba(235,87,87,0.3);
+            box-shadow: 0 0 20px rgba(235,87,87,0.2);
         }
 
         /* ===== MENSAJE DE ESTADO ===== */
         .hand-message {
             text-align: center;
             margin-top: 10px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: #e8ecf4;
+            color: #c8d0d8;
             background: rgba(0,0,0,0.35);
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 30px;
-            border: 1px solid rgba(255,215,0,0.04);
-            min-height: 28px;
+            border: 1px solid rgba(255,215,0,0.03);
+            min-height: 26px;
             letter-spacing: 0.2px;
+            backdrop-filter: blur(2px);
+            position: relative;
+            z-index: 2;
         }
 
         /* ===== BOTONES ===== */
         .controls {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin: 10px 0 6px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
         .controls button {
             flex: 1;
@@ -429,43 +461,44 @@
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background: #2a3345;
+            letter-spacing: 0.6px;
+            background: #2f3648;
             color: #d0d8e8;
-            box-shadow: 0 3px 0 #141a24;
-            transition: all 0.08s;
+            box-shadow: 0 4px 0 #1a1f2a, 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.08s ease;
             cursor: pointer;
             touch-action: manipulation;
-            min-width: 56px;
+            min-width: 54px;
+            border: 1px solid rgba(255,255,255,0.02);
         }
         .controls button:active {
-            transform: translateY(3px);
-            box-shadow: 0 0px 0 #141a24;
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #1a1f2a;
         }
         .controls .new-game {
-            background: #4a7a3a;
+            background: linear-gradient(145deg, #4a7a3a, #3a602a);
             color: #f0ffe0;
-            box-shadow: 0 3px 0 #1e3316;
+            box-shadow: 0 4px 0 #1e3316;
         }
         .controls .undo {
-            background: #3a6a8a;
+            background: linear-gradient(145deg, #3a6a8a, #2a5070);
             color: #e0f0ff;
-            box-shadow: 0 3px 0 #1a3345;
+            box-shadow: 0 4px 0 #1a3345;
         }
         .controls .hint {
-            background: #8a7a3a;
+            background: linear-gradient(145deg, #8a7a3a, #6a5a2a);
             color: #fff0d0;
-            box-shadow: 0 3px 0 #4a3a1a;
+            box-shadow: 0 4px 0 #4a3a1a;
         }
         .controls .help {
-            background: #6a5a8a;
+            background: linear-gradient(145deg, #6a5a8a, #4a3a6a);
             color: #f0e0ff;
-            box-shadow: 0 3px 0 #3a2a4a;
+            box-shadow: 0 4px 0 #3a2a4a;
         }
         .controls button:disabled {
             opacity: 0.3;
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #141a24;
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #1a1f2a;
             pointer-events: none;
         }
 
@@ -476,8 +509,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -487,13 +520,13 @@
         .help-overlay.active { display: flex; }
         .help-box {
             background: #1a1f2e;
-            border-radius: 28px;
+            border-radius: 32px;
             max-width: 520px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             padding: 28px 24px 24px;
-            border: 1px solid rgba(247,216,117,0.2);
+            border: 1px solid rgba(247,216,117,0.15);
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             position: relative;
             color: #e8ecf4;
@@ -524,7 +557,7 @@
             gap: 10px;
         }
         .help-box .help-sub {
-            font-size: 15px;
+            font-size: 14px;
             color: #b0b8c8;
             margin-bottom: 16px;
             line-height: 1.5;
@@ -533,7 +566,7 @@
             background: #121720;
             border-radius: 16px;
             padding: 14px 16px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border: 1px solid #2f3648;
         }
         .help-box .help-step .step-header {
@@ -562,18 +595,14 @@
             line-height: 1.5;
             padding-left: 34px;
         }
-        .help-box .help-step .step-text strong {
-            color: #f7d875;
-        }
-        .help-box .help-step .step-text .highlight {
-            color: #6fcf97;
-        }
+        .help-box .help-step .step-text strong { color: #f7d875; }
+        .help-box .help-step .step-text .highlight { color: #6fcf97; }
         .help-box .help-step .step-text .example {
             display: inline-block;
             background: rgba(255,255,255,0.05);
             padding: 2px 8px;
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             color: #b0b8c8;
             margin-top: 4px;
         }
@@ -595,19 +624,22 @@
 
         /* ===== HISTORIAL ===== */
         .history {
-            background: #121720;
+            background: rgba(18, 23, 32, 0.5);
             border-radius: 16px;
-            padding: 4px 14px;
-            max-height: 42px;
+            padding: 4px 12px;
+            max-height: 36px;
             overflow-y: auto;
-            border: 1px solid #2a3240;
+            border: 1px solid rgba(255, 255, 255, 0.02);
             font-size: 10px;
             color: #b0b8c8;
             margin-top: 6px;
+            backdrop-filter: blur(2px);
+            position: relative;
+            z-index: 2;
         }
         .history p {
             padding: 2px 0;
-            border-bottom: 1px solid #1e2633;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
             margin: 0;
             line-height: 1.3;
         }
@@ -615,7 +647,7 @@
         .history .highlight { color: #f7d875; font-weight: 600; }
         .history .win { color: #6fcf97; font-weight: 600; }
         .history::-webkit-scrollbar { width: 2px; }
-        .history::-webkit-scrollbar-track { background: #121720; }
+        .history::-webkit-scrollbar-track { background: transparent; }
         .history::-webkit-scrollbar-thumb { background: #3f4552; border-radius: 10px; }
 
         .footer {
@@ -623,14 +655,11 @@
             font-size: 10px;
             color: #5a6270;
             margin-top: 8px;
-            border-top: 1px solid #1e2633;
+            border-top: 1px solid rgba(255,255,255,0.02);
             padding-top: 8px;
             letter-spacing: 0.3px;
         }
-        .footer .bless {
-            color: #f7d875;
-            font-weight: 600;
-        }
+        .footer .bless { color: #f7d875; font-weight: 600; }
 
         /* ===== OVERLAY DE VICTORIA ===== */
         .win-overlay {
@@ -639,8 +668,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.88);
-            border-radius: 28px;
+            background: rgba(0,0,0,0.85);
+            border-radius: 32px;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -655,7 +684,7 @@
             font-size: 28px;
             color: #f7d875;
             margin-bottom: 8px;
-            text-shadow: 0 0 30px rgba(247,216,117,0.3);
+            text-shadow: 0 0 30px rgba(247,216,117,0.2);
         }
         .win-overlay .message {
             font-size: 18px;
@@ -663,10 +692,7 @@
             line-height: 1.6;
             max-width: 320px;
         }
-        .win-overlay .message .name {
-            color: #f7d875;
-            font-weight: 700;
-        }
+        .win-overlay .message .name { color: #f7d875; font-weight: 700; }
         .win-overlay .blessing {
             font-size: 22px;
             color: #6fcf97;
@@ -683,30 +709,30 @@
             font-size: 16px;
             color: #1a1f28;
             cursor: pointer;
-            box-shadow: 0 4px 25px rgba(247,216,117,0.3);
+            box-shadow: 0 4px 25px rgba(247,216,117,0.2);
             font-family: inherit;
             transition: 0.2s;
         }
         .win-overlay .btn-restart:active { transform: scale(0.95); }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 640px) {
-            .card .saint-icon { font-size: 22px; }
-            .card .saint-name { font-size: 9px; }
-            .card .saint-title { font-size: 6px; }
-            .card .card-rank { font-size: 13px; }
-            .card { min-height: 48px; }
-            .foundation-slot { min-width: 40px; }
-            .stock-container { min-width: 40px; }
-            .waste-slot { min-width: 40px; }
-            .column { min-width: 30px; min-height: 100px; }
+        @media (max-width: 600px) {
+            .card .saint-icon { font-size: 20px; }
+            .card .saint-name { font-size: 8px; }
+            .card .saint-title { font-size: 5px; }
+            .card .card-rank { font-size: 12px; }
+            .card { min-height: 42px; }
+            .foundation-slot { min-width: 32px; }
+            .stock-container { min-width: 32px; }
+            .waste-slot { min-width: 32px; }
+            .column { min-width: 26px; min-height: 80px; }
             .column .card { margin-top: -18px; }
             .column .card.face-down { margin-top: -14px; }
             .top-row { gap: 4px; }
             .foundations { gap: 4px; }
             .stock-pile { gap: 4px; }
             .logo { font-size: 14px; }
-            .logo .for-herminia { font-size: 10px; padding: 0 8px; }
+            .logo .for-herminia { font-size: 11px; padding: 0 8px; }
             .controls button { font-size: 10px; padding: 8px 0; }
             .help-box { padding: 20px 16px; }
             .help-box .help-title { font-size: 20px; }
@@ -714,14 +740,14 @@
             .help-box .help-step .step-header { font-size: 13px; }
         }
         @media (max-width: 420px) {
-            .card .saint-icon { font-size: 18px; }
-            .card .saint-name { font-size: 8px; }
-            .card .card-rank { font-size: 11px; }
-            .card { min-height: 40px; }
-            .foundation-slot { min-width: 32px; }
-            .stock-container { min-width: 32px; }
-            .waste-slot { min-width: 32px; }
-            .column { min-width: 24px; min-height: 70px; }
+            .card .saint-icon { font-size: 16px; }
+            .card .saint-name { font-size: 7px; }
+            .card .card-rank { font-size: 10px; }
+            .card { min-height: 34px; }
+            .foundation-slot { min-width: 26px; }
+            .stock-container { min-width: 26px; }
+            .waste-slot { min-width: 26px; }
+            .column { min-width: 20px; min-height: 60px; }
             .column .card { margin-top: -14px; }
             .column .card.face-down { margin-top: -10px; }
             .hand-message { font-size: 11px; }
@@ -736,8 +762,8 @@
         <div class="logo">
             <span class="cross">✟</span>
             <span class="brand">Solitario de Santos</span>
-            <span class="sub">by tu nieto fav</span>
-            <span class="for-herminia">para Herminia</span>
+            <span class="sub">By TU NIETO FAV</span>
+            <span class="for-herminia">para mi abuelita Herminia Claret Ochoa Torres</span>
         </div>
         <div class="header-actions"><span>⚙</span><span>✕</span></div>
     </div>
@@ -781,7 +807,7 @@
             <div class="column" data-col="6"></div>
         </div>
 
-        <div class="hand-message" id="handMessage">Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino.</div>
+        <div class="hand-message" id="handMessage">Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino. Usa el botón ❓ Ayuda si tienes dudas.</div>
 
         <!-- Overlay de victoria -->
         <div class="win-overlay" id="winOverlay">
@@ -814,7 +840,7 @@
         <div class="help-box">
             <button class="close-help" id="closeHelpBtn">✕</button>
             <div class="help-title">🕊️ ¿Cómo jugar?</div>
-            <div class="help-sub">¡Hola Herminia! Aquí te explico paso a paso cómo jugar al Solitario de Santos.</div>
+            <div class="help-sub">¡Hola Herminia! Aquí te explico paso a paso cómo jugar al Solitario de Santos. Es más fácil de lo que parece.</div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">1</span> El objetivo</div>
@@ -825,7 +851,7 @@
                     <span class="highlight">Vírgenes</span> (negro),
                     <span class="highlight">Doctores</span> (rojo).
                     Cada fundación debe tener sus cartas <strong>en orden</strong>: del 1 al 13.
-                    <div class="example">(El número aparece en la esquina superior izquierda de cada carta).</div>
+                    <div class="example">(El número de la carta aparece en la esquina superior izquierda de cada carta).</div>
                 </div>
             </div>
 
@@ -833,24 +859,26 @@
                 <div class="step-header"><span class="num">2</span> Seleccionar una carta</div>
                 <div class="step-text">
                     Toca una carta que esté <strong>boca arriba</strong> (que se vea el santo). Se <strong>resaltará en dorado</strong>.
-                    Puedes mover la última carta de una columna o una cadena de cartas boca arriba.
+                    Solo puedes mover la última carta de una columna o una cadena de cartas que estén boca arriba.
                 </div>
             </div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">3</span> Mover a una columna</div>
                 <div class="step-text">
-                    Las cartas se colocan en las 7 columnas de abajo. Deben ir <strong>alternando colores</strong> (rojo-negro)
+                    Las cartas se colocan en las 7 columnas de abajo. Deben ir <strong>alternando colores</strong> (rojo-negro-rojo-negro…)
                     y en <strong>orden descendente</strong> (13, 12, 11…).
-                    <div class="example">Ejemplo: 5 rojo sobre 6 negro.</div>
-                    <strong>Recuerda:</strong> solo los <strong>Reyes</strong> (13) pueden ir en una columna vacía.
+                    <div class="example">Ejemplo: puedes poner un 5 rojo sobre un 6 negro.</div>
+                    <strong>Recuerda:</strong> solo los <strong>Reyes</strong> (número 13) pueden ir en una columna vacía.
                 </div>
             </div>
 
             <div class="help-step">
                 <div class="step-header"><span class="num">4</span> Mover a una fundación</div>
                 <div class="step-text">
-                    Cada fundación solo acepta <strong>cartas de su mismo palo</strong> y en <strong>orden ascendente</strong> (1, 2, 3…).
+                    Para ganar, debes llevar las cartas a las fundaciones de arriba. Cada fundación solo acepta <strong>cartas de su mismo palo</strong>
+                    y en <strong>orden ascendente</strong> (1, 2, 3… hasta 13).
+                    <div class="example">Ejemplo: en la fundación de <strong>Apóstoles</strong> solo van santos de Apóstoles (rojo) en orden.</div>
                 </div>
             </div>
 
@@ -858,6 +886,7 @@
                 <div class="step-header"><span class="num">5</span> La baraja (el mazo)</div>
                 <div class="step-text">
                     Toca el mazo <strong>♠</strong> para <strong>robar</strong> una carta. Aparecerá en el espacio de la derecha.
+                    Si no te sirve, puedes robarla y luego moverla a una columna o fundación si es posible.
                     Cuando el mazo se vacíe, tócalo de nuevo para <strong>reciclar</strong> las cartas robadas.
                 </div>
             </div>
@@ -865,13 +894,13 @@
             <div class="help-step">
                 <div class="step-header"><span class="num">6</span> Botones útiles</div>
                 <div class="step-text">
-                    <strong>💡 Pista:</strong> te da una sugerencia.<br>
-                    <strong>↩️ Deshacer:</strong> deshace el último movimiento.<br>
+                    <strong>💡 Pista:</strong> te da una sugerencia de movimiento.<br>
+                    <strong>↩️ Deshacer:</strong> deshace el último movimiento (hasta 40 pasos).<br>
                     <strong>🔄 Nueva:</strong> comienza una nueva partida.
                 </div>
             </div>
 
-            <div class="help-step" style="border-color: rgba(247,216,117,0.3);">
+            <div class="help-step" style="border-color: rgba(247,216,117,0.2);">
                 <div class="step-header"><span class="num">✨</span> ¡Consejo!</div>
                 <div class="step-text">
                     No te preocupes si al principio no sabes qué hacer. <strong>Prueba a mover cartas</strong> y verás cómo poco a poco
@@ -886,6 +915,9 @@
 </div>
 
 <script>
+    // ================================================================
+    // CÓDIGO JAVASCRIPT COMPLETO (SIN CAMBIOS, SOLO ESTÉTICA CSS)
+    // ================================================================
     (function() {
         'use strict';
 
@@ -999,7 +1031,7 @@
         // SONIDOS
         // ============================================================
         let audioCtx = null;
-        function playTone(freq, dur, type='sine', vol=0.04) {
+        function playTone(freq, dur, type='sine', vol=0.05) {
             try {
                 if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
@@ -1014,7 +1046,7 @@
                 osc.stop(audioCtx.currentTime + dur);
             } catch(e) {}
         }
-        function soundMove() { playTone(500, 0.06, 'sine', 0.05); }
+        function soundMove() { playTone(500, 0.06, 'sine', 0.06); }
         function soundWin() {
             playTone(800, 0.06); setTimeout(()=>playTone(1000,0.06),80);
             setTimeout(()=>playTone(1200,0.08),160);
@@ -1111,7 +1143,7 @@
             renderAll();
             updateInfo();
             updateTimer();
-            handMessage.textContent = 'Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino.';
+            handMessage.textContent = 'Bienvenida, Herminia. Toca una carta boca arriba para seleccionarla, luego toca el destino. Usa el botón ❓ Ayuda si tienes dudas.';
             addHistory('✟ Nueva partida. ¡Ánimo, Herminia!');
 
             game.isRunning = true;
@@ -1139,14 +1171,13 @@
                     const cardEl = createCardElement(card, colIdx, idx, false);
                     colEl.appendChild(cardEl);
                 });
-                // Badge con el número de cartas
                 const countBadge = document.createElement('div');
                 countBadge.className = 'col-count';
                 countBadge.textContent = cards.length;
                 colEl.appendChild(countBadge);
                 if (cards.length === 0) {
                     const empty = document.createElement('div');
-                    empty.className = 'col-empty';
+                    empty.style.cssText = 'color:rgba(255,255,255,0.05);font-size:24px;padding:10px 0;pointer-events:none;';
                     empty.textContent = '⬇';
                     colEl.appendChild(empty);
                 }
@@ -1187,7 +1218,8 @@
                         handMessage.textContent = 'Primero selecciona una carta.';
                         return;
                     }
-                    const moved = tryMove(game.selected, null, suitId, null, true);
+                    const from = game.selected;
+                    const moved = tryMove(from, null, suitId, null, true);
                     if (moved) {
                         clearSelection();
                         renderAll();
@@ -1302,6 +1334,7 @@
                     return;
                 }
             }
+
             selectCard(card, col, idx, isFoundation);
         }
 
@@ -1309,7 +1342,7 @@
             game.selected = { card, col, idx, isFoundation, suitId: card.suitId };
             highlightCard(col, idx, true);
             soundClick();
-            handMessage.textContent = `Seleccionaste ${card.saint.name} (${card.rank}). Elige un destino.`;
+            handMessage.textContent = `Seleccionaste ${card.saint.name} (${card.rank}). Ahora elige un destino.`;
         }
 
         function tryMove(from, toCard, toCol, toIdx, toIsFoundation) {
@@ -1439,9 +1472,9 @@
                 el.classList.remove('selected', 'valid-drop', 'invalid-drop');
             });
             foundationsEl.forEach(el => {
-                el.style.borderColor = 'rgba(255,215,0,0.12)';
+                el.style.borderColor = 'rgba(255,215,0,0.08)';
             });
-            wasteSlot.style.borderColor = 'rgba(255,255,255,0.06)';
+            wasteSlot.style.borderColor = 'rgba(255,255,255,0.04)';
             handMessage.textContent = 'Selecciona una carta para mover.';
         }
 
@@ -1452,7 +1485,7 @@
             if (!active) return;
             if (col === 'foundation') {
                 foundationsEl.forEach((el, i) => {
-                    el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.12)';
+                    el.style.borderColor = (i === idx) ? '#f7d875' : 'rgba(255,215,0,0.08)';
                 });
                 return;
             }
@@ -1536,7 +1569,7 @@
             renderAll();
             updateInfo();
             addHistory(`♠ Robaste ${card.saint.name} (${card.rank})`);
-            handMessage.textContent = `Robaste ${card.saint.name} (${card.rank}). Puedes moverla.`;
+            handMessage.textContent = `Robaste ${card.saint.name} (${card.rank}). Puedes moverla si es posible.`;
         });
 
         // ============================================================
@@ -1636,9 +1669,11 @@
         function openHelp() {
             helpOverlay.classList.add('active');
         }
+
         function closeHelp() {
             helpOverlay.classList.remove('active');
         }
+
         helpBtn.addEventListener('click', openHelp);
         closeHelpBtn.addEventListener('click', closeHelp);
         closeHelpBtn2.addEventListener('click', closeHelp);
@@ -1654,11 +1689,14 @@
                 initGame();
             }
         });
+
         undoBtn.addEventListener('click', undo);
+
         hintBtn.addEventListener('click', function() {
             if (game.gameOver) return;
             getHint();
         });
+
         restartWinBtn.addEventListener('click', function() {
             winOverlay.classList.remove('active');
             initGame();
@@ -1670,16 +1708,18 @@
         initGame();
 
         // ============================================================
-        // SERVICE WORKER (con control de caché)
+        // REGISTRO DE SERVICE WORKER (PWA)
         // ============================================================
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for (let registration of registrations) {
                     registration.unregister();
+                    console.log('Service Worker antiguo desregistrado');
                 }
             });
             navigator.serviceWorker.register('sw.js?v=2');
         }
+
     })();
 </script>
 </body>
