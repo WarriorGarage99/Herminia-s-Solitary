@@ -1,8 +1,8 @@
 {
-  "name": "Herminia's Solitaire by SU NIETO FAV",
-  "short_name": "Herminia's Solitaire",
+  "name": "Solitario de Santos - Herminia",
+  "short_name": "Solitario",
   "description": "Solitario de Santos para mi abuelita Herminia Claret Ochoa Torres",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0a0c10",
   "theme_color": "#1a1f28",
